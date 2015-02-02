@@ -20,10 +20,10 @@ public class Scraper {
 
             while (settings.next()) {
                 switch (settings.getString("property")) {
-                    case "do_url":
+                    case "ka_ep":
                         doUrl = settings.getString("value");
                         break;
-                    case "sh_url":
+                    case "ka_base":
                         shUrl = settings.getString("value");
                         break;
                 }
