@@ -9,9 +9,8 @@ import java.text.SimpleDateFormat;
 
 public class KAShow extends Show {
 
-    public KAShow(String t, String u) {
-        title = t;
-        url = u;
+    public KAShow(String t, String u, String eu) {
+        super(t, u, eu);
         parse();
     }
 
@@ -31,8 +30,7 @@ public class KAShow extends Show {
                     long timestamp = new SimpleDateFormat("EEEE, MMM dd yyyy").parse(span.get(2).text()).getTime();
 
                     if (!stringID.equals("") && timestamp < System.currentTimeMillis()) {
-                        System.out.println(title + " " + Scraper.doUrl + stringID);
-                        KAEpisode ep = new KAEpisode(Scraper.doUrl + stringID);
+                        KAEpisode ep = new KAEpisode(episodeUrl + stringID);
 
                         if (ep.getOptions().size() > 0) {
                             ep.setSeason(season);
