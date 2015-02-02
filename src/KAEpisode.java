@@ -3,15 +3,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 
-public class KAEpisode {
-
-    private String url;
-    private int season;
-    private int episode;
-    private List<DownloadOption> options = new LinkedList<>();
+public class KAEpisode extends Episode {
 
     public KAEpisode(String u) {
         url = u;
@@ -34,26 +27,6 @@ public class KAEpisode {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public List<DownloadOption> getOptions() {
-        return options;
-    }
-
-    public int getSeason() {
-        return season;
-    }
-
-    public void setSeason(int s) {
-        season = s;
-    }
-
-    public int getEpisode() {
-        return episode;
-    }
-
-    public void setEpisode(int e) {
-        episode = e;
     }
 
 }
