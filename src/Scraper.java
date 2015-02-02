@@ -7,7 +7,8 @@ import java.sql.*;
  */
 public class Scraper {
 
-    public static String url;
+    public static String doUrl;
+    public static String shUrl;
 
     public static void main(String[] args) {
         Connection c = null;
@@ -21,8 +22,13 @@ public class Scraper {
             ResultSet settings = s.executeQuery("SELECT * FROM settings");
 
             while (settings.next()) {
-                if (settings.getString("property").equals("do_url")) {
-                    url = settings.getString("value");
+                switch (settings.getString("property")) {
+                    case "do_url":
+                        doUrl = settings.getString("value");
+                        break;
+                    case "sh_url":
+                        shUrl = settings.getString("value");
+                        break;
                 }
             }
 

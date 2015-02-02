@@ -37,7 +37,7 @@ public class Show {
                     long timestamp = new SimpleDateFormat("EEEE, MMM dd yyyy").parse(span.get(2).text()).getTime();
 
                     if (!stringID.equals("") && timestamp < System.currentTimeMillis()) {
-                        Episode ep = new Episode(Scraper.url + stringID);
+                        Episode ep = new Episode(Scraper.doUrl + stringID);
 
                         if (ep.getOptions().size() > 0) {
                             ep.setSeason(season);
