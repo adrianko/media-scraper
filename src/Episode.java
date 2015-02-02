@@ -8,6 +8,10 @@ public abstract class Episode {
     protected int episode;
     protected List<DownloadOption> options = new LinkedList<>();
 
+    public Episode(String u) {
+        url = u;
+    }
+
     public abstract void parse();
 
     public List<DownloadOption> getOptions() {

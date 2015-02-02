@@ -7,7 +7,7 @@ import java.io.IOException;
 public class KAEpisode extends Episode {
 
     public KAEpisode(String u) {
-        url = u;
+        super(u);
         parse();
     }
 
