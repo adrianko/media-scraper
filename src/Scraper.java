@@ -11,13 +11,10 @@ public class Scraper {
     public static String shUrl;
 
     public static void main(String[] args) {
-        Connection c = null;
         Statement s = null;
-        try {
-            Class.forName("org.sqlite.JDBC");
 
-            c = DriverManager.getConnection("jdbc:sqlite:db/shows.db");
-            s = c.createStatement();
+        try {
+            s = Base.get().createStatement();
 
             ResultSet settings = s.executeQuery("SELECT * FROM settings");
 
@@ -32,7 +29,7 @@ public class Scraper {
                 }
             }
 
-            PreparedStatement update = c.prepareStatement("UPDATE shows SET episode = ? WHERE title = ?");
+            PreparedStatement update = Base.get().prepareStatement("UPDATE shows SET episode = ? WHERE title = ?");
             ResultSet rs = s.executeQuery("SELECT * FROM shows");
 
             while (rs.next()) {
@@ -62,12 +59,6 @@ public class Scraper {
         } finally {
             try {
                 if (s != null) s.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                if (c != null) c.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
