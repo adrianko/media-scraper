@@ -1,4 +1,6 @@
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @todo File size checking
@@ -7,8 +9,7 @@ import java.sql.*;
  */
 public class Scraper {
 
-    public static String doUrl;
-    public static String shUrl;
+    public static Map<String, String> gSettings = new HashMap<>();
 
     public static void main(String[] args) {
         Statement s = null;
@@ -19,14 +20,7 @@ public class Scraper {
             ResultSet settings = s.executeQuery("SELECT * FROM settings");
 
             while (settings.next()) {
-                switch (settings.getString("property")) {
-                    case "ka_ep":
-                        doUrl = settings.getString("value");
-                        break;
-                    case "ka_base":
-                        shUrl = settings.getString("value");
-                        break;
-                }
+                gSettings.put(settings.getString("property"), settings.getString("value"));
             }
 
             PreparedStatement update = Base.get().prepareStatement("UPDATE shows SET episode = ? WHERE title = ?");
