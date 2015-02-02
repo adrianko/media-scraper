@@ -9,13 +9,13 @@ import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Show {
+public class KAShow {
 
     private String title;
     private List<KAEpisode> episodes = new LinkedList<>();
     private String url;
 
-    public Show(String t, String u) {
+    public KAShow(String t, String u) {
         title = t;
         url = u;
         parse();

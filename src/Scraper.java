@@ -36,7 +36,7 @@ public class Scraper {
             ResultSet rs = s.executeQuery("SELECT * FROM shows");
 
             while (rs.next()) {
-                Show show = new Show(rs.getString("title"), shUrl + rs.getString("url"));
+                KAShow show = new KAShow(rs.getString("title"), shUrl + rs.getString("url"));
 
                 for (KAEpisode e : show.getEpisodes()) {
                     for (DownloadOption t : e.getOptions()) {
