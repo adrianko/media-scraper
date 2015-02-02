@@ -16,7 +16,7 @@ public class KAShow extends Show {
 
     public void parse() {
         try {
-            Document doc = Jsoup.connect(url).timeout(30000).get();
+            Document doc = Jsoup.connect(url).timeout(Integer.parseInt(Scraper.gSettings.get("timeout"))).get();
             Element main = doc.select(".mainpart").first().select("table").first().select("tr").first();
             int season = Integer.parseInt(main.select("h3").get(0).text().split(" ")[1].replace(",", ""));
 
