@@ -6,14 +6,8 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.LinkedList;
-import java.util.List;
 
-public class KAShow {
-
-    private String title;
-    private List<KAEpisode> episodes = new LinkedList<>();
-    private String url;
+public class KAShow extends Show {
 
     public KAShow(String t, String u) {
         title = t;
@@ -53,14 +47,6 @@ public class KAShow {
         } catch (IOException |ParseException e) {
             e.printStackTrace();
         }
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public List<KAEpisode> getEpisodes() {
-        return episodes;
     }
 
 }
