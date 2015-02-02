@@ -42,7 +42,7 @@ public class KAShow extends Show {
                 }
             }
 
-        } catch (IOException |ParseException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
     }

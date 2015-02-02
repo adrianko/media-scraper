@@ -48,7 +48,6 @@ public class Scraper {
 
             rs.close();
             update.close();
-            Base.close();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -57,6 +56,8 @@ public class Scraper {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+
+            Base.close();
         }
     }
 
