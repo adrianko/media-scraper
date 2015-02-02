@@ -3,6 +3,7 @@ import java.sql.*;
 /**
  * @todo File size checking
  * @todo Double quality download
+ * @todo add secondary source
  */
 public class Scraper {
 
