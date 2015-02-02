@@ -20,7 +20,7 @@ public class KAEpisode {
 
     public void parse() {
         try {
-            Document doc = Jsoup.connect(url).get();
+            Document doc = Jsoup.connect(url).timeout(30000).get();
 
             for (Element e : doc.select("tr.odd, tr.even")) {
                 String name = e.select("td").first().select(".torrentname").first().select("a.cellMainLink")

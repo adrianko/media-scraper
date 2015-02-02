@@ -23,7 +23,7 @@ public class KAShow {
 
     public void parse() {
         try {
-            Document doc = Jsoup.connect(url).get();
+            Document doc = Jsoup.connect(url).timeout(30000).get();
             Element main = doc.select(".mainpart").first().select("table").first().select("tr").first();
             int season = Integer.parseInt(main.select("h3").get(0).text().split(" ")[1].replace(",", ""));
 
@@ -37,6 +37,7 @@ public class KAShow {
                     long timestamp = new SimpleDateFormat("EEEE, MMM dd yyyy").parse(span.get(2).text()).getTime();
 
                     if (!stringID.equals("") && timestamp < System.currentTimeMillis()) {
+                        System.out.println(title + " " + Scraper.doUrl + stringID);
                         KAEpisode ep = new KAEpisode(Scraper.doUrl + stringID);
 
                         if (ep.getOptions().size() > 0) {
