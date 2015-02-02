@@ -38,7 +38,7 @@ public class Scraper {
             while (rs.next()) {
                 Show show = new Show(rs.getString("title"), shUrl + rs.getString("url"));
 
-                for (Episode e : show.getEpisodes()) {
+                for (KAEpisode e : show.getEpisodes()) {
                     for (DownloadOption t : e.getOptions()) {
                         String quality = (rs.getInt("hd") == 1 ? "1080p" : "HDTV");
 

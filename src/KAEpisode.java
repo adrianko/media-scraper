@@ -6,14 +6,14 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Episode {
+public class KAEpisode {
 
     private String url;
     private int season;
     private int episode;
     private List<DownloadOption> options = new LinkedList<>();
 
-    public Episode(String u) {
+    public KAEpisode(String u) {
         url = u;
         parse();
     }

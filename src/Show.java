@@ -12,7 +12,7 @@ import java.util.List;
 public class Show {
 
     private String title;
-    private List<Episode> episodes = new LinkedList<>();
+    private List<KAEpisode> episodes = new LinkedList<>();
     private String url;
 
     public Show(String t, String u) {
@@ -37,7 +37,7 @@ public class Show {
                     long timestamp = new SimpleDateFormat("EEEE, MMM dd yyyy").parse(span.get(2).text()).getTime();
 
                     if (!stringID.equals("") && timestamp < System.currentTimeMillis()) {
-                        Episode ep = new Episode(Scraper.doUrl + stringID);
+                        KAEpisode ep = new KAEpisode(Scraper.doUrl + stringID);
 
                         if (ep.getOptions().size() > 0) {
                             ep.setSeason(season);
@@ -58,7 +58,7 @@ public class Show {
         return title;
     }
 
-    public List<Episode> getEpisodes() {
+    public List<KAEpisode> getEpisodes() {
         return episodes;
     }
 
