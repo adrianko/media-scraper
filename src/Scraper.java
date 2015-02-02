@@ -1,5 +1,9 @@
 import java.sql.*;
 
+/**
+ * @todo File size checking
+ * @todo Double quality download
+ */
 public class Scraper {
 
     public static String url;
