@@ -25,6 +25,11 @@ public class Scraper {
                 gSettings.put(settings.getString("property"), settings.getString("value"));
             }
 
+            if (gSettings.get("ip").equals(Helper.getCurrentIP())) {
+                System.out.println("Wrong IP, exiting...");
+                System.exit(0);
+            }
+
             PreparedStatement update = Base.get().prepareStatement("UPDATE shows SET episode = ? WHERE title = ?");
             ResultSet rs = s.executeQuery("SELECT * FROM shows");
 
