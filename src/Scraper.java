@@ -7,7 +7,6 @@ import java.util.Map;
  * @todo Double quality download
  * @todo add secondary source
  * @todo add connection check
- * @todo integrate ip check
  */
 public class Scraper {
 
