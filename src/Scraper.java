@@ -6,6 +6,7 @@ import java.util.Map;
  * @todo File size checking
  * @todo Double quality download
  * @todo add secondary source
+ * @todo add connection check
  */
 public class Scraper {
 
