@@ -8,8 +8,11 @@ public class Helper {
 
     public static String getCurrentIP() {
         try {
-            URLConnection conn = new URL("http://wtfismyip.com/text").openConnection();
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            BufferedReader br = new BufferedReader(
+                new InputStreamReader(
+                    new URL("http://wtfismyip.com/text").openConnection().getInputStream()
+                )
+            );
 
             String contents = "";
             String line;
