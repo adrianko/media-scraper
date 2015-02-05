@@ -10,6 +10,7 @@ import java.util.Map;
  * @todo SD precedence HD
  * @todo Use API for action
  * @todo Separate action from main
+ * @todo Move GET methods into helper
  */
 public class Scraper {
 
