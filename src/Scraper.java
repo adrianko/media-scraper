@@ -3,14 +3,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @todo File size checking
- * @todo Double quality download
- * @todo add secondary source
- * @todo add connection check
- * @todo SD precedence HD
- * @todo Use API for action
- * @todo Separate action from main
- * @todo Move GET methods into helper
+ * TODO File size checking
+ * TODO Double quality download
+ * TODO add secondary source
+ * TODO add connection check
+ * TODO SD precedence HD
+ * TODO Use API for action
+ * TODO Separate action from main
+ * TODO Move GET methods into helper
  */
 public class Scraper {
 
