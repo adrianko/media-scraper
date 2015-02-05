@@ -20,7 +20,7 @@ public class Scraper {
         Statement s = null;
 
         try {
-            s = Base.get().createStatement();
+            s = DB.get().createStatement();
 
             ResultSet settings = s.executeQuery("SELECT * FROM settings");
 
@@ -33,7 +33,7 @@ public class Scraper {
                 System.exit(0);
             }
 
-            PreparedStatement update = Base.get().prepareStatement("UPDATE shows SET episode = ? WHERE title = ?");
+            PreparedStatement update = DB.get().prepareStatement("UPDATE shows SET episode = ? WHERE title = ?");
             ResultSet rs = s.executeQuery("SELECT * FROM shows");
 
             while (rs.next()) {
@@ -67,7 +67,7 @@ public class Scraper {
                 e.printStackTrace();
             }
 
-            Base.close();
+            DB.close();
         }
     }
 
