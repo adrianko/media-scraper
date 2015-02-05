@@ -8,6 +8,7 @@ import java.util.Map;
  * @todo add secondary source
  * @todo add connection check
  * @todo SD precedence HD
+ * @todo Use API for action
  */
 public class Scraper {
 
