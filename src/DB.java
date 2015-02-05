@@ -10,7 +10,7 @@ public class DB {
         if (c == null) {
             try {
                 Class.forName("org.sqlite.JDBC");
-                c = DriverManager.getConnection("jdbc:sqlite:db/shows.db");
+                c = DriverManager.getConnection("jdbc:sqlite:" + DB.class.getResource(".").getPath() + "../../../db/shows.db");
             } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
