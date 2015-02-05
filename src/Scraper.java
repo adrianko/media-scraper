@@ -7,6 +7,7 @@ import java.util.Map;
  * @todo Double quality download
  * @todo add secondary source
  * @todo add connection check
+ * @todo SD precedence HD
  */
 public class Scraper {
 
