@@ -9,6 +9,7 @@ import java.util.Map;
  * @todo add connection check
  * @todo SD precedence HD
  * @todo Use API for action
+ * @todo Separate action from main
  */
 public class Scraper {
 
