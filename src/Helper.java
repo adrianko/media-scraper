@@ -11,16 +11,16 @@ public class Helper {
                 new URL("http://wtfismyip.com/text").openConnection().getInputStream()
             ));
 
-            String contents = "";
+            StringBuilder contents = new StringBuilder();
             String line;
 
             while ((line = br.readLine()) != null) {
-                contents += line;
+                contents.append(line);
             }
 
             br.close();
 
-            return contents.trim();
+            return contents.toString().trim();
         } catch (IOException e) {
             e.printStackTrace();
         }
