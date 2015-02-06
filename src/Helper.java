@@ -7,11 +7,9 @@ public class Helper {
 
     public static String getCurrentIP() {
         try {
-            BufferedReader br = new BufferedReader(
-                new InputStreamReader(
-                    new URL("http://wtfismyip.com/text").openConnection().getInputStream()
-                )
-            );
+            BufferedReader br = new BufferedReader(new InputStreamReader(
+                new URL("http://wtfismyip.com/text").openConnection().getInputStream()
+            ));
 
             String contents = "";
             String line;
