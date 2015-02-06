@@ -45,7 +45,7 @@ public class Scraper {
 
                         if (t.getName().contains(quality) && !t.getName().contains("ReEnc") && e.getEpisode() == rs.getInt("episode")) {
                             System.out.println(t.getName() + " " + t.getMagnet());
-                            Runtime.getRuntime().exec("cmd /c start " + t.getMagnet());
+                            Downloader.enqueue(t.getMagnet());
 
                             update.setInt(1, rs.getInt("episode") + 1);
                             update.setString(2, rs.getString("title"));
