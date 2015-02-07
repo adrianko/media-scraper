@@ -12,9 +12,9 @@ public class KAEpisode extends Episode {
     }
 
     public void parse() {
-        try {
-            Document doc = Jsoup.connect(url).timeout(Integer.parseInt(Scraper.gSettings.get("timeout"))).get();
+        Document doc = Helper.retrievePage(url);
 
+        if (doc != null) {
             for (Element e : doc.select("tr.odd, tr.even")) {
                 String name = e.select("td").first().select(".torrentname").first().select("a.cellMainLink")
                     .first().text();
@@ -24,8 +24,6 @@ public class KAEpisode extends Episode {
 
                 options.add(new DownloadOption(name, magnet, size));
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

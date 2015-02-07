@@ -15,6 +15,7 @@ public class KAShow extends Show {
     public void parse() {
         try {
             Document doc = Helper.retrievePage(url);
+
             if (doc != null) {
                 Element main = doc.select(".mainpart").first().select("table").first().select("tr").first();
                 int season = Integer.parseInt(main.select("h3").get(0).text().split(" ")[1].replace(",", ""));
