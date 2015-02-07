@@ -1,3 +1,6 @@
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -28,4 +31,13 @@ public class Helper {
         return "";
     }
 
+    public static Document retrievePage(String url) {
+        try {
+            return Jsoup.connect(url).timeout(Integer.parseInt(Scraper.gSettings.get("timeout"))).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }
