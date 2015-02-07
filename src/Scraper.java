@@ -16,12 +16,7 @@ public class Scraper {
 
     public static void main(String[] args) {
         try (Statement s = DB.get().createStatement()) {
-
-            ResultSet dbSettings = s.executeQuery("SELECT * FROM settings");
-
-            while (dbSettings.next()) {
-                settings.put(dbSettings.getString("property"), dbSettings.getString("value"));
-            }
+            Helper.loadSettings();
 
             if (settings.get("ip").equals(Helper.getCurrentIP())) {
                 System.out.println("Wrong IP, exiting...");
