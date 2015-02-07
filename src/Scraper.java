@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class Scraper {
 
-    public static Map<String, String> gSettings = new HashMap<>();
+    public static Map<String, String> settings = new HashMap<>();
 
     public static void main(String[] args) {
         Statement s = null;
@@ -20,13 +20,13 @@ public class Scraper {
         try {
             s = DB.get().createStatement();
 
-            ResultSet settings = s.executeQuery("SELECT * FROM settings");
+            ResultSet dbSettings = s.executeQuery("SELECT * FROM settings");
 
-            while (settings.next()) {
-                gSettings.put(settings.getString("property"), settings.getString("value"));
+            while (dbSettings.next()) {
+                settings.put(dbSettings.getString("property"), dbSettings.getString("value"));
             }
 
-            if (gSettings.get("ip").equals(Helper.getCurrentIP())) {
+            if (settings.get("ip").equals(Helper.getCurrentIP())) {
                 System.out.println("Wrong IP, exiting...");
                 System.exit(0);
             }
@@ -35,7 +35,7 @@ public class Scraper {
             ResultSet rs = s.executeQuery("SELECT * FROM shows");
 
             while (rs.next()) {
-                KAShow show = new KAShow(rs.getString("title"), gSettings.get("ka_base") + rs.getString("ka_url"), gSettings.get("ka_ep"));
+                KAShow show = new KAShow(rs.getString("title"), settings.get("ka_base") + rs.getString("ka_url"), settings.get("ka_ep"));
 
                 for (KAEpisode e : show.getEpisodes()) {
                     for (DownloadOption t : e.getOptions()) {

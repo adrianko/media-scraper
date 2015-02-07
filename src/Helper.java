@@ -33,7 +33,7 @@ public class Helper {
 
     public static Document retrievePage(String url) {
         try {
-            return Jsoup.connect(url).timeout(Integer.parseInt(Scraper.gSettings.get("timeout"))).get();
+            return Jsoup.connect(url).timeout(Integer.parseInt(Scraper.settings.get("timeout"))).get();
         } catch (IOException e) {
             e.printStackTrace();
         }
