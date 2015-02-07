@@ -15,10 +15,7 @@ public class Scraper {
     public static Map<String, String> settings = new HashMap<>();
 
     public static void main(String[] args) {
-        Statement s = null;
-
-        try {
-            s = DB.get().createStatement();
+        try (Statement s = DB.get().createStatement()) {
 
             ResultSet dbSettings = s.executeQuery("SELECT * FROM settings");
 
@@ -59,12 +56,6 @@ public class Scraper {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (s != null) s.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
             DB.close();
         }
     }
