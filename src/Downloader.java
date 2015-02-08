@@ -1,11 +1,20 @@
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLEncoder;
 
 public class Downloader {
     
     public static void enqueue(String magnet) {
-
+        try {
+            URL url = new URL(getAddURL(magnet));
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            con.getResponseCode();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static String getAddURL(String magnet) {
