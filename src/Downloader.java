@@ -5,14 +5,10 @@ import java.net.URLEncoder;
 public class Downloader {
     
     public static void enqueue(String magnet) {
-        try {
-            Runtime.getRuntime().exec("cmd /c start " + magnet);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
-    private String getAddURL(String magnet) {
+    private static String getAddURL(String magnet) {
         try {
             return "http://" + Scraper.settings.get("dl_user") + ":" + Scraper.settings.get("dl_pass") + "@" +
                 Scraper.settings.get("dl_host") + ":" + Scraper.settings.get("dl_port") + "/gui/?action=add-url&s=" +
