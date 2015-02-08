@@ -3,6 +3,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Base64;
 
 public class Downloader {
     
@@ -11,7 +12,8 @@ public class Downloader {
             URL url = new URL(getAddURL(magnet));
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
-            con.getResponseCode();
+            con.setRequestProperty("Authorization", "Basic " + new String(Base64.getEncoder().encode((Scraper.settings
+                .get("dl_user") + ":" + Scraper.settings.get("dl_pass")).getBytes())));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -19,8 +21,7 @@ public class Downloader {
 
     private static String getAddURL(String magnet) {
         try {
-            return "http://" + Scraper.settings.get("dl_user") + ":" + Scraper.settings.get("dl_pass") + "@" +
-                Scraper.settings.get("dl_host") + ":" + Scraper.settings.get("dl_port") + "/gui/?action=add-url&s=" +
+            return "http://" + Scraper.settings.get("dl_host") + ":" + Scraper.settings.get("dl_port") + "/gui/?action=add-url&s=" +
                 URLEncoder.encode(magnet, "US-ASCII") + "&t=" + System.currentTimeMillis();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
