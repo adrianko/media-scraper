@@ -9,11 +9,10 @@ public class Downloader {
     
     public static void enqueue(String magnet) {
         try {
-            URL url = new URL(getAddURL(magnet));
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            HttpURLConnection con = (HttpURLConnection) new URL(getAddURL(magnet)).openConnection();
             con.setRequestMethod("GET");
             con.setRequestProperty("Authorization", "Basic " + new String(Base64.getEncoder().encode((Scraper.settings
-                .get("dl_user") + ":" + Scraper.settings.get("dl_pass")).getBytes())));
+                    .get("dl_user") + ":" + Scraper.settings.get("dl_pass")).getBytes())));
         } catch (IOException e) {
             e.printStackTrace();
         }
