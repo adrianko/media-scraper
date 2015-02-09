@@ -13,6 +13,7 @@ public class Downloader {
             con.setRequestMethod("GET");
             con.setRequestProperty("Authorization", "Basic " + new String(Base64.getEncoder().encode((Scraper.settings
                     .get("dl_user") + ":" + Scraper.settings.get("dl_pass")).getBytes())));
+            con.getResponseCode();
         } catch (IOException e) {
             e.printStackTrace();
         }
