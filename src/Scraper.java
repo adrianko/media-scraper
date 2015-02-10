@@ -8,6 +8,7 @@ import java.util.Map;
  * TODO add secondary source
  * TODO add connection check
  * TODO SD precedence HD
+ * TODO 720 categorization
  */
 public class Scraper {
 
