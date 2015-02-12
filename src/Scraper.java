@@ -3,7 +3,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * TODO File size checking
  * TODO Double quality download
  * TODO add secondary source
  * TODO add connection check
