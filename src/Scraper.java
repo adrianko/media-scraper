@@ -63,6 +63,7 @@ public class Scraper {
                         update.setInt(1, rs.getInt("episode") + 1);
                         update.setString(2, rs.getString("title"));
                         update.executeUpdate();
+                        break;
                     }
                 }
             }
