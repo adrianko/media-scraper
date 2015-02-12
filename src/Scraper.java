@@ -33,16 +33,28 @@ public class Scraper {
                     for (DownloadOption t : e.getOptions()) {
                         String quality = (rs.getInt("hd") == 1 ? "1080p" : "HDTV");
 
-                        if (t.getName().contains(quality) && !t.getName().contains("ReEnc")
-                                && e.getEpisode() == rs.getInt("episode") && !t.getName().contains("720p")) {
-                            System.out.println(t.getName() + " " + t.getMagnet());
-                            Downloader.enqueue(t.getMagnet());
-
-                            update.setInt(1, rs.getInt("episode") + 1);
-                            update.setString(2, rs.getString("title"));
-                            update.executeUpdate();
-                            break;
+                        if (!t.getName().contains(quality)) {
+                            continue;
                         }
+
+                        if (t.getName().contains("ReEnc")) {
+                            continue;
+                        }
+
+                        if (e.getEpisode() != rs.getInt("episode")) {
+                            continue;
+                        }
+
+                        if (t.getName().contains("720p")) {
+                            continue;
+                        }
+
+                        System.out.println(t.getName() + " " + t.getMagnet());
+                        Downloader.enqueue(t.getMagnet());
+
+                        update.setInt(1, rs.getInt("episode") + 1);
+                        update.setString(2, rs.getString("title"));
+                        update.executeUpdate();
                     }
                 }
             }
