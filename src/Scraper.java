@@ -49,7 +49,7 @@ public class Scraper {
 
             rs.close();
             update.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             DB.close();
