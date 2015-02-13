@@ -20,7 +20,7 @@ public class Scraper {
         fs.get("1080p").put("max", 2500000000L);
         fs.put("HDTV", new HashMap<>());
         fs.get("HDTV").put("min", 100000000L);
-        fs.get("HDTV").put("min", 500000000L);
+        fs.get("HDTV").put("max", 500000000L);
         expectedFileSize = fs;
     }
 
