@@ -40,7 +40,8 @@ public class Scraper {
                 KAShow show = new KAShow(rs.getString("title"), settings.get("ka_base") + rs.getString("ka_url"), settings.get("ka_ep"));
 
                 for (KAEpisode e : show.getEpisodes()) {
-
+                    boolean found = false;
+                    
                     for (DownloadOption t : e.getOptions()) {
                         String quality = (rs.getInt("hd") == 1 ? "1080p" : "HDTV");
 
@@ -62,7 +63,12 @@ public class Scraper {
                         update.setInt(1, rs.getInt("episode") + 1);
                         update.setString(2, rs.getString("title"));
                         update.executeUpdate();
+                        found = true;
                         break;
+                    }
+                    
+                    if (!found) {
+                        System.out.println("None found for: " + show.getTitle() + " S" + e.getSeason() + "E" + e.getEpisode());
                     }
                 }
             }
