@@ -41,10 +41,9 @@ public class Scraper {
 
                 for (KAEpisode e : show.getEpisodes()) {
                     boolean found = false;
+                    String quality = (rs.getInt("hd") == 1 ? "1080p" : "HDTV");
                     
                     for (DownloadOption t : e.getOptions()) {
-                        String quality = (rs.getInt("hd") == 1 ? "1080p" : "HDTV");
-
                         if (!t.getName().contains(quality)) continue;
 
                         if (t.getName().contains("ReEnc")) continue;
