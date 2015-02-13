@@ -67,7 +67,9 @@ public class Scraper {
                     }
                     
                     if (!found) {
-                        System.out.println("None found for: " + show.getTitle() + " S" + rs.getInt("season") + "E" + rs.getInt("episode"));
+                        System.out.println("None found for: " + show.getTitle() +
+                                " S" + (rs.getInt("season") < 10 ? "0" : "") + rs.getInt("season") +
+                                "E" + (rs.getInt("episode") < 10 ? "0" : "") + rs.getInt("episode"));
                     }
                 }
             }
