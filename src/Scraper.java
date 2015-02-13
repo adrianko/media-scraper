@@ -57,7 +57,7 @@ public class Scraper {
 
                         if (t.getByteSize() > expectedFileSize.get(quality).get("max")) continue;
 
-                        System.out.println(t.getName() + " " + t.getMagnet());
+                        System.out.println("Found: " + t.getName() + " " + t.getMagnet());
                         Downloader.enqueue(t.getMagnet());
 
                         update.setInt(1, rs.getInt("episode") + 1);
