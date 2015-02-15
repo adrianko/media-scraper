@@ -48,9 +48,9 @@ public class Scraper {
 
                         if (t.getName().contains("720p")) continue;
 
-                        if (t.getByteSize() < expectedFileSize.get(quality).get("min")) continue;
+                        if (t.getByteSize() < expectedFileSize.get(rs.getInt("runtime")).get(quality + "_min")) continue;
 
-                        if (t.getByteSize() > expectedFileSize.get(quality).get("max")) continue;
+                        if (t.getByteSize() > expectedFileSize.get(rs.getInt("runtime")).get(quality + "_max")) continue;
 
                         System.out.println("Found: " + t.getName() + " " + t.getMagnet());
                         Downloader.enqueue(t.getMagnet());
