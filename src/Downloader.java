@@ -6,6 +6,10 @@ import java.net.URLEncoder;
 import java.util.Base64;
 
 public class Downloader {
+
+    private static boolean running() {
+        return true;
+    }
     
     public static void enqueue(String magnet) {
         try {
