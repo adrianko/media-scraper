@@ -51,6 +51,12 @@ public class Helper {
             while (dbSettings.next()) {
                 Scraper.settings.put(dbSettings.getString("property"), dbSettings.getString("value"));
             }
+
+            ResultSet dbRuntimes = s.executeQuery("SELECT * FROM runtimes");
+
+            while (dbRuntimes.next()) {
+
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
