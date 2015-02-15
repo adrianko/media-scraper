@@ -8,6 +8,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 
 public class Helper {
 
@@ -55,7 +56,11 @@ public class Helper {
             ResultSet dbRuntimes = s.executeQuery("SELECT * FROM runtimes");
 
             while (dbRuntimes.next()) {
+                Scraper.expectedFileSize.put(dbRuntimes.getInt("id"), new HashMap<>());
 
+                for (String t : new String[]{"htdv_min", "hdtv_max", "1080p_min", "1080p_max"}) {
+                    Scraper.expectedFileSize.get(dbRuntimes.getInt("id")).put(t, dbRuntimes.getLong(t));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
