@@ -13,17 +13,7 @@ import java.util.Map;
 public class Scraper {
 
     public static Map<String, String> settings = new HashMap<>();
-    public static Map<String, HashMap<String, Long>> expectedFileSize;
-    static {
-        Map<String, HashMap<String, Long>> fs = new HashMap<>();
-        fs.put("1080p", new HashMap<>());
-        fs.get("1080p").put("min", 700000000L);
-        fs.get("1080p").put("max", 3000000000L);
-        fs.put("HDTV", new HashMap<>());
-        fs.get("HDTV").put("min", 100000000L);
-        fs.get("HDTV").put("max", 500000000L);
-        expectedFileSize = fs;
-    }
+    public static Map<Integer, HashMap<String, Long>> expectedFileSize = new HashMap<>();
 
     public static void main(String[] args) {
         if (!System.getProperty("os.name").contains("Windows")) {
