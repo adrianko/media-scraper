@@ -8,9 +8,15 @@ import java.util.Base64;
 public class Downloader {
 
     private static boolean running() {
+        try {
+            Process p = Runtime.getRuntime().exec("ps");
+            String line;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return true;
     }
-    
+
     public static void enqueue(String magnet) {
         try {
             HttpURLConnection con = (HttpURLConnection) new URL(getAddURL(magnet)).openConnection();
