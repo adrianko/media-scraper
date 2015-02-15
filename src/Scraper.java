@@ -26,6 +26,11 @@ public class Scraper {
     }
 
     public static void main(String[] args) {
+        if (!System.getProperty("os.name").contains("Windows")) {
+            System.out.println("This application is not designed to run on any operating system other than Windows. Sorry.");
+            System.exit(0);
+        }
+
         try (Statement s = DB.get().createStatement()) {
             Helper.loadSettings();
 
