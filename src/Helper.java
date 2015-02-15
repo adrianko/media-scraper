@@ -53,15 +53,18 @@ public class Helper {
                 Scraper.settings.put(dbSettings.getString("property"), dbSettings.getString("value"));
             }
 
+            dbSettings.close();
             ResultSet dbRuntimes = s.executeQuery("SELECT * FROM runtimes");
 
             while (dbRuntimes.next()) {
                 Scraper.expectedFileSize.put(dbRuntimes.getInt("id"), new HashMap<>());
 
-                for (String t : new String[]{"htdv_min", "hdtv_max", "1080p_min", "1080p_max"}) {
+                for (String t : new String[]{"hdtv_min", "hdtv_max", "1080p_min", "1080p_max"}) {
                     Scraper.expectedFileSize.get(dbRuntimes.getInt("id")).put(t, dbRuntimes.getLong(t));
                 }
             }
+
+            dbRuntimes.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
