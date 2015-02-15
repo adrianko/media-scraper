@@ -1,4 +1,6 @@
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -8,13 +10,24 @@ import java.util.Base64;
 public class Downloader {
 
     private static boolean running() {
+        boolean found = false;
+        
         try {
             Process p = Runtime.getRuntime().exec("ps");
+            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line;
+
+            while ((line = br.readLine()) != null) {
+                if (line.contains(Scraper.settings.get("dl_exe"))) {
+                    found = true;
+                    break;
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return true;
+
+        return found;
     }
 
     public static void enqueue(String magnet) {
