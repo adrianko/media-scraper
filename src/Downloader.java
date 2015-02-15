@@ -11,9 +11,9 @@ public class Downloader {
 
     private static boolean running() {
         boolean found = false;
-        
+
         try {
-            Process p = Runtime.getRuntime().exec("ps");
+            Process p = Runtime.getRuntime().exec("tasklist.exe");
             BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line;
 
