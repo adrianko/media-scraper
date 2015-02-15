@@ -39,10 +39,6 @@ public class Downloader {
     }
 
     public static void enqueue(String magnet) {
-        if (!running()) {
-            start();
-        }
-
         try {
             HttpURLConnection con = (HttpURLConnection) new URL(getAddURL(magnet)).openConnection();
             con.setRequestMethod("GET");
