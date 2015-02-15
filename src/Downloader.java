@@ -33,7 +33,12 @@ public class Downloader {
     private static void start() {
         try {
             Runtime.getRuntime().exec(Scraper.settings.get("dl_exe_path") + Scraper.settings.get("dl_exe"));
-        } catch (IOException e) {
+            Thread.sleep(4000);
+
+            if (!running()) {
+                start();
+            }
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
