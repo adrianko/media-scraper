@@ -33,10 +33,9 @@ public class Downloader {
     private static void start() {
         try {
             Runtime.getRuntime().exec(Scraper.settings.get("dl_exe_path") + Scraper.settings.get("dl_exe"));
-            Thread.sleep(4000);
 
-            if (!running()) {
-                start();
+            while (!running()) {
+                Thread.sleep(1000);
             }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
