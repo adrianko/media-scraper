@@ -30,6 +30,10 @@ public class Downloader {
         return found;
     }
 
+    public static void start() {
+
+    }
+
     public static void enqueue(String magnet) {
         try {
             HttpURLConnection con = (HttpURLConnection) new URL(getAddURL(magnet)).openConnection();
