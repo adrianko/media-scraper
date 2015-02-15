@@ -30,7 +30,7 @@ public class Downloader {
         return found;
     }
 
-    public static void start() {
+    private static void start() {
 
     }
 
