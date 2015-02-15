@@ -9,6 +9,7 @@ import java.util.Map;
  * TODO SD precedence HD
  * TODO 720 categorization
  * TODO Check dl is loaded
+ * TODO file sizes for different runtime
  */
 public class Scraper {
 
@@ -18,7 +19,7 @@ public class Scraper {
         Map<String, HashMap<String, Long>> fs = new HashMap<>();
         fs.put("1080p", new HashMap<>());
         fs.get("1080p").put("min", 700000000L);
-        fs.get("1080p").put("max", 2500000000L);
+        fs.get("1080p").put("max", 3000000000L);
         fs.put("HDTV", new HashMap<>());
         fs.get("HDTV").put("min", 100000000L);
         fs.get("HDTV").put("max", 500000000L);
