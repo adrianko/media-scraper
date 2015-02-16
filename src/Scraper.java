@@ -27,8 +27,7 @@ public class Scraper {
                 System.out.println("Wrong IP, exiting...");
                 System.exit(0);
             }
-
-            PreparedStatement update = DB.get().prepareStatement("UPDATE shows SET episode = ? WHERE title = ?");
+            
             ResultSet rs = s.executeQuery("SELECT * FROM shows");
 
             while (rs.next()) {
@@ -54,9 +53,7 @@ public class Scraper {
                         System.out.println("Found: " + t.getName() + " " + t.getMagnet());
                         Downloader.enqueue(t.getMagnet());
 
-                        update.setInt(1, rs.getInt("episode") + 1);
-                        update.setString(2, rs.getString("title"));
-                        update.executeUpdate();
+                        DB.bump(t.getName());
                         found = true;
                         break;
                     }
@@ -70,7 +67,6 @@ public class Scraper {
             }
 
             rs.close();
-            update.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
