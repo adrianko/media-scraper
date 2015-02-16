@@ -53,19 +53,18 @@ public class Scraper {
                 show.parse();
 
                 for (Episode e : show.getEpisodes()) {
-                    boolean found = false;
                     
                     for (DownloadOption t : e.getOptions()) {
                         if (Helper.validateOption(t, e, show)) {
                             System.out.println("Found: " + t.getName() + " " + t.getMagnet());
                             Downloader.enqueue(t.getMagnet());
                             DB.bump(show.getTitle());
-                            found = true;
+                            show.setFound();
                             break;
                         }
                     }
                     
-                    if (!found) {
+                    if (!show.getFound()) {
                         System.out.println("None found for: " + show.getTitle() +
                                 " S" + (show.getSeason() < 10 ? "0" : "") + show.getSeason() +
                                 "E" + (show.getEpisode() < 10 ? "0" : "") + show.getEpisode());
