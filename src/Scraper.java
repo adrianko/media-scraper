@@ -41,8 +41,7 @@ public class Scraper {
                     rs.getInt("runtime")
                 );
     
-                for (Episode ep : show.getEpisodes()) {
-                    KAEpisode e = (KAEpisode) ep;
+                for (Episode e : show.getEpisodes()) {
                     boolean found = false;
                     
                     for (DownloadOption t : e.getOptions()) {
