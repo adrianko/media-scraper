@@ -12,10 +12,14 @@ public abstract class Show {
     protected int runtime;
     protected String episodeUrl;
 
-    public Show(String t, String u, String eu) {
+    public Show(String t, String u, String eu, int s, int e, int h, int r) {
         title = t;
         url = u;
         episodeUrl = eu;
+        season = s;
+        episode = e;
+        hd = h;
+        runtime = r;
     }
 
     public abstract void parse();

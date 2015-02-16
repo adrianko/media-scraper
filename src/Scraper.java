@@ -31,9 +31,18 @@ public class Scraper {
             ResultSet rs = DB.getShows();
     
             while (rs.next()) {
-                Show show = new KAShow(rs.getString("title"), settings.get("ka_base") + rs.getString("ka_url"), settings.get("ka_ep"));
+                Show show = new KAShow(
+                    rs.getString("title"), 
+                    settings.get("ka_base") + rs.getString("ka_url"), 
+                    settings.get("ka_ep"), 
+                    rs.getInt("season"), 
+                    rs.getInt("episode"), 
+                    rs.getInt("hd"), 
+                    rs.getInt("runtime")
+                );
     
-                for (KAEpisode e : show.getEpisodes()) {
+                for (Episode ep : show.getEpisodes()) {
+                    KAEpisode e = (KAEpisode) ep;
                     boolean found = false;
                     String quality = (rs.getInt("hd") == 1 ? "1080p" : "HDTV");
                     

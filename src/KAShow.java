@@ -7,8 +7,8 @@ import java.text.SimpleDateFormat;
 
 public class KAShow extends Show {
 
-    public KAShow(String t, String u, String eu) {
-        super(t, u, eu);
+    public KAShow(String t, String u, String eu, int s, int e, int h, int r) {
+        super(t, u, eu, s, e, h,r);
         parse();
     }
 
