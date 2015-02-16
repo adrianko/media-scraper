@@ -12,6 +12,7 @@ public abstract class Show {
     protected int runtime;
     protected String episodeUrl;
     protected String quality;
+    protected boolean found = false;
 
     public Show(String t, String u, String eu, int s, int e, int h, int r) {
         title = t;
@@ -56,6 +57,14 @@ public abstract class Show {
 
     public String toString() {
         return title + " | S" + season + "E" + episode;
+    }
+
+    public void setFound() {
+        found = true;
+    }
+
+    public boolean getFound() {
+        return found;
     }
     
 }
