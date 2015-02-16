@@ -69,5 +69,10 @@ public class Helper {
             e.printStackTrace();
         }
     }
+    
+    public static boolean validateOption(DownloadOption t, Episode e) {
+        
+        return true;
+    }
 
 }

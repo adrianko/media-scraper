@@ -52,7 +52,6 @@ public class Scraper {
     
                         System.out.println("Found: " + t.getName() + " " + t.getMagnet());
                         Downloader.enqueue(t.getMagnet());
-    
                         DB.bump(t.getName());
                         found = true;
                         break;
