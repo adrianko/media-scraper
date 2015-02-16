@@ -44,5 +44,15 @@ public class DB {
             e.printStackTrace();
         }
     }
+    
+    public static ResultSet getShows() {
+        try {
+            return get().createStatement().executeQuery("SELECT * FROM shows");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return null;
+    }
 
 }
