@@ -31,4 +31,21 @@ public abstract class Show {
     public List<Episode> getEpisodes() {
         return episodes;
     }
+    
+    public int getSeason() {
+        return season;
+    }
+    
+    public int getEpisode() {
+        return episode;
+    }
+    
+    public int getHD() {
+        return hd;
+    }
+    
+    public int getRuntime() {
+        return runtime;
+    }
+    
 }
