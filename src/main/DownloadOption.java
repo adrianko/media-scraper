@@ -1,3 +1,5 @@
+package main;
+
 public class DownloadOption {
 
     private String name;

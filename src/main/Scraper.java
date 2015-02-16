@@ -1,3 +1,5 @@
+package main;
+
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,13 +36,13 @@ public class Scraper {
 
             while (rs.next()) {
                 shows.put(rs.getString("title"), new KAShow(
-                    rs.getString("title"),
-                    settings.get("ka_base") + rs.getString("ka_url"),
-                    settings.get("ka_ep"),
-                    rs.getInt("season"),
-                    rs.getInt("episode"),
-                    rs.getInt("hd"),
-                    rs.getInt("runtime")
+                        rs.getString("title"),
+                        settings.get("ka_base") + rs.getString("ka_url"),
+                        settings.get("ka_ep"),
+                        rs.getInt("season"),
+                        rs.getInt("episode"),
+                        rs.getInt("hd"),
+                        rs.getInt("runtime")
                 ));
             }
 
