@@ -20,39 +20,39 @@ public class Scraper {
             System.exit(0);
         }
 
-        try (Statement s = DB.get().createStatement()) {
+        try {
             Helper.loadSettings();
-
+    
             if (settings.get("ip").equals(Helper.getCurrentIP())) {
                 System.out.println("Wrong IP, exiting...");
                 System.exit(0);
             }
             
             ResultSet rs = DB.getShows();
-
+    
             while (rs.next()) {
                 Show show = new KAShow(rs.getString("title"), settings.get("ka_base") + rs.getString("ka_url"), settings.get("ka_ep"));
-
+    
                 for (KAEpisode e : show.getEpisodes()) {
                     boolean found = false;
                     String quality = (rs.getInt("hd") == 1 ? "1080p" : "HDTV");
                     
                     for (DownloadOption t : e.getOptions()) {
                         if (!t.getName().contains(quality)) continue;
-
+    
                         if (t.getName().contains("ReEnc")) continue;
-
+    
                         if (e.getEpisode() != rs.getInt("episode")) continue;
-
+    
                         if (t.getName().contains("720p")) continue;
-
+    
                         if (t.getByteSize() < expectedFileSize.get(rs.getInt("runtime")).get(quality.toLowerCase() + "_min")) continue;
-
+    
                         if (t.getByteSize() > expectedFileSize.get(rs.getInt("runtime")).get(quality.toLowerCase() + "_max")) continue;
-
+    
                         System.out.println("Found: " + t.getName() + " " + t.getMagnet());
                         Downloader.enqueue(t.getMagnet());
-
+    
                         DB.bump(t.getName());
                         found = true;
                         break;
@@ -65,7 +65,7 @@ public class Scraper {
                     }
                 }
             }
-
+    
             rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
