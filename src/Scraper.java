@@ -1,6 +1,8 @@
 import java.sql.*;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * TODO Double quality download
@@ -14,6 +16,7 @@ public class Scraper {
 
     public static Map<String, String> settings = new HashMap<>();
     public static Map<Integer, HashMap<String, Long>> expectedFileSize = new HashMap<>();
+    public static Map<String, Show> shows = new HashMap<>();
 
     public static void main(String[] args) {
         if (!System.getProperty("os.name").contains("Windows")) {
@@ -30,18 +33,25 @@ public class Scraper {
             }
             
             ResultSet rs = DB.getShows();
-    
+
             while (rs.next()) {
-                Show show = new KAShow(
-                    rs.getString("title"), 
-                    settings.get("ka_base") + rs.getString("ka_url"), 
-                    settings.get("ka_ep"), 
-                    rs.getInt("season"), 
-                    rs.getInt("episode"), 
-                    rs.getInt("hd"), 
+                shows.put(rs.getString("title"), new KAShow(
+                    rs.getString("title"),
+                    settings.get("ka_base") + rs.getString("ka_url"),
+                    settings.get("ka_ep"),
+                    rs.getInt("season"),
+                    rs.getInt("episode"),
+                    rs.getInt("hd"),
                     rs.getInt("runtime")
-                );
-    
+                ));
+                System.out.println("Adding: " + rs.getString("title"));
+            }
+
+            rs.close();
+
+            for (Map.Entry<String, Show> s : shows.entrySet()) {
+                Show show = s.getValue();
+
                 for (Episode e : show.getEpisodes()) {
                     boolean found = false;
                     
@@ -49,7 +59,7 @@ public class Scraper {
                         if (Helper.validateOption(t, e, show)) {
                             System.out.println("Found: " + t.getName() + " " + t.getMagnet());
                             Downloader.enqueue(t.getMagnet());
-                            DB.bump(t.getName());
+                            DB.bump(show.getTitle());
                             found = true;
                             break;
                         }
@@ -57,13 +67,11 @@ public class Scraper {
                     
                     if (!found) {
                         System.out.println("None found for: " + show.getTitle() +
-                                " S" + (rs.getInt("season") < 10 ? "0" : "") + rs.getInt("season") +
-                                "E" + (rs.getInt("episode") < 10 ? "0" : "") + rs.getInt("episode"));
+                                " S" + (show.getSeason() < 10 ? "0" : "") + show.getSeason() +
+                                "E" + (show.getEpisode() < 10 ? "0" : "") + show.getEpisode());
                     }
                 }
             }
-    
-            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
