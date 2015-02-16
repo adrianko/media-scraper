@@ -1,6 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DB {
 
@@ -22,6 +20,22 @@ public class DB {
     public static void close() {
         try {
             if (c != null) c.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static void bump(String title) {
+        try {
+            PreparedStatement retrieve = get().prepareStatement("SELECT episode FROM shows WHERE title = ?");
+            retrieve.setString(1, title);
+            ResultSet rs = retrieve.executeQuery();
+            rs.first();
+            
+            PreparedStatement update = get().prepareStatement("UPDATE shows SET episode = ? WHERE title = ?");
+            update.setInt(1, (rs.getInt("episode") + 1));
+            update.setString(2, title);
+            update.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
