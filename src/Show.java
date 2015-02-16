@@ -11,6 +11,7 @@ public abstract class Show {
     protected int hd;
     protected int runtime;
     protected String episodeUrl;
+    protected String quality;
 
     public Show(String t, String u, String eu, int s, int e, int h, int r) {
         title = t;
@@ -20,6 +21,7 @@ public abstract class Show {
         episode = e;
         hd = h;
         runtime = r;
+        quality = (getHD() == 1 ? "1080p" : "HDTV");
     }
 
     public abstract void parse();
@@ -46,6 +48,10 @@ public abstract class Show {
     
     public int getRuntime() {
         return runtime;
+    }
+    
+    public String getQuality() {
+        return quality;
     }
     
 }
