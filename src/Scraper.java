@@ -50,6 +50,7 @@ public class Scraper {
             rs.close();
 
             for (Show show : shows.values()) {
+                show.parse();
 
                 for (Episode e : show.getEpisodes()) {
                     boolean found = false;
