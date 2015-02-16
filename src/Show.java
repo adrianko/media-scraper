@@ -4,7 +4,7 @@ import java.util.List;
 public abstract class Show {
 
     protected String title;
-    protected List<KAEpisode> episodes = new LinkedList<>();
+    protected List<Episode> episodes = new LinkedList<>();
     protected String url;
     protected String episodeUrl;
 
@@ -20,7 +20,7 @@ public abstract class Show {
         return title;
     }
 
-    public List<KAEpisode> getEpisodes() {
+    public List<Episode> getEpisodes() {
         return episodes;
     }
 }
