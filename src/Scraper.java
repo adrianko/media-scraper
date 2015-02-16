@@ -49,8 +49,7 @@ public class Scraper {
 
             rs.close();
 
-            for (Map.Entry<String, Show> s : shows.entrySet()) {
-                Show show = s.getValue();
+            for (Show show : shows.values()) {
 
                 for (Episode e : show.getEpisodes()) {
                     boolean found = false;
