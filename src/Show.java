@@ -53,5 +53,9 @@ public abstract class Show {
     public String getQuality() {
         return quality;
     }
+
+    public String toString() {
+        return title + " | S" + season + "E" + episode;
+    }
     
 }
