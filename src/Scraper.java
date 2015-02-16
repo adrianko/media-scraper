@@ -44,20 +44,20 @@ public class Scraper {
                 for (Episode ep : show.getEpisodes()) {
                     KAEpisode e = (KAEpisode) ep;
                     boolean found = false;
-                    String quality = (rs.getInt("hd") == 1 ? "1080p" : "HDTV");
+                    String quality = (show.getHD() == 1 ? "1080p" : "HDTV");
                     
                     for (DownloadOption t : e.getOptions()) {
                         if (!t.getName().contains(quality)) continue;
     
                         if (t.getName().contains("ReEnc")) continue;
     
-                        if (e.getEpisode() != rs.getInt("episode")) continue;
+                        if (e.getEpisode() != show.getEpisode()) continue;
     
                         if (t.getName().contains("720p")) continue;
     
-                        if (t.getByteSize() < expectedFileSize.get(rs.getInt("runtime")).get(quality.toLowerCase() + "_min")) continue;
+                        if (t.getByteSize() < expectedFileSize.get(show.getRuntime()).get(quality.toLowerCase() + "_min")) continue;
     
-                        if (t.getByteSize() > expectedFileSize.get(rs.getInt("runtime")).get(quality.toLowerCase() + "_max")) continue;
+                        if (t.getByteSize() > expectedFileSize.get(show.getRuntime()).get(quality.toLowerCase() + "_max")) continue;
     
                         System.out.println("Found: " + t.getName() + " " + t.getMagnet());
                         Downloader.enqueue(t.getMagnet());
