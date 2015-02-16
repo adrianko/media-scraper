@@ -44,26 +44,15 @@ public class Scraper {
                 for (Episode ep : show.getEpisodes()) {
                     KAEpisode e = (KAEpisode) ep;
                     boolean found = false;
-                    String quality = (show.getHD() == 1 ? "1080p" : "HDTV");
                     
                     for (DownloadOption t : e.getOptions()) {
-                        if (!t.getName().contains(quality)) continue;
-    
-                        if (t.getName().contains("ReEnc")) continue;
-    
-                        if (e.getEpisode() != show.getEpisode()) continue;
-    
-                        if (t.getName().contains("720p")) continue;
-    
-                        if (t.getByteSize() < expectedFileSize.get(show.getRuntime()).get(quality.toLowerCase() + "_min")) continue;
-    
-                        if (t.getByteSize() > expectedFileSize.get(show.getRuntime()).get(quality.toLowerCase() + "_max")) continue;
-    
-                        System.out.println("Found: " + t.getName() + " " + t.getMagnet());
-                        Downloader.enqueue(t.getMagnet());
-                        DB.bump(t.getName());
-                        found = true;
-                        break;
+                        if (Helper.validateOption(t, e, show)) {
+                            System.out.println("Found: " + t.getName() + " " + t.getMagnet());
+                            Downloader.enqueue(t.getMagnet());
+                            DB.bump(t.getName());
+                            found = true;
+                            break;
+                        }
                     }
                     
                     if (!found) {
