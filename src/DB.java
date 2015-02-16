@@ -36,6 +36,10 @@ public class DB {
             update.setInt(1, (rs.getInt("episode") + 1));
             update.setString(2, title);
             update.executeUpdate();
+            
+            rs.close();
+            retrieve.close();
+            update.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
