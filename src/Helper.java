@@ -70,7 +70,19 @@ public class Helper {
         }
     }
     
-    public static boolean validateOption(DownloadOption t, Episode e) {
+    public static boolean validateOption(DownloadOption t, Episode e, Show s) {
+        if (!t.getName().contains(s.getQuality())) return false;
+
+        if (t.getName().contains("ReEnc")) return false;
+
+        if (e.getEpisode() != s.getEpisode()) return false;
+
+        if (t.getName().contains("720p")) return false;
+
+        if (t.getByteSize() < Scraper.expectedFileSize.get(s.getRuntime()).get(s.getQuality().toLowerCase() + "_min")) return false;
+
+        if (t.getByteSize() > Scraper.expectedFileSize.get(s.getRuntime()).get(s.getQuality().toLowerCase() + "_max")) return false;
+        
         return true;
     }
 
