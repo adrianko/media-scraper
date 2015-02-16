@@ -44,7 +44,6 @@ public class Scraper {
                     rs.getInt("hd"),
                     rs.getInt("runtime")
                 ));
-                System.out.println("Adding: " + rs.getString("title"));
             }
 
             rs.close();
