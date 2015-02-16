@@ -26,23 +26,23 @@ public class Scraper {
 
         try {
             Helper.loadSettings();
-    
+
             if (settings.get("ip").equals(Helper.getCurrentIP())) {
                 System.out.println("Wrong IP, exiting...");
                 System.exit(0);
             }
-            
+
             ResultSet rs = DB.getShows();
 
             while (rs.next()) {
                 shows.put(rs.getString("title"), new KAShow(
-                        rs.getString("title"),
-                        settings.get("ka_base") + rs.getString("ka_url"),
-                        settings.get("ka_ep"),
-                        rs.getInt("season"),
-                        rs.getInt("episode"),
-                        rs.getInt("hd"),
-                        rs.getInt("runtime")
+                    rs.getString("title"),
+                    settings.get("ka_base") + rs.getString("ka_url"),
+                    settings.get("ka_ep"),
+                    rs.getInt("season"),
+                    rs.getInt("episode"),
+                    rs.getInt("hd"),
+                    rs.getInt("runtime")
                 ));
             }
 
@@ -52,7 +52,7 @@ public class Scraper {
                 show.parse();
 
                 for (Episode e : show.getEpisodes()) {
-                    
+
                     for (DownloadOption t : e.getOptions()) {
                         if (Helper.validateOption(t, e, show)) {
                             System.out.println("Found: " + t.getName() + " " + t.getMagnet());
@@ -62,7 +62,7 @@ public class Scraper {
                             break;
                         }
                     }
-                    
+
                     if (!show.getFound()) {
                         System.out.println("None found for: " + show.getTitle() +
                                 " S" + (show.getSeason() < 10 ? "0" : "") + show.getSeason() +
