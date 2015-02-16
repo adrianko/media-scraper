@@ -7,6 +7,8 @@ public abstract class Episode {
     protected int season;
     protected int episode;
     protected List<DownloadOption> options = new LinkedList<>();
+    protected String quality;
+    protected int runtime;
 
     public Episode(String u) {
         url = u;
@@ -33,5 +35,21 @@ public abstract class Episode {
     public void setEpisode(int e) {
         episode = e;
     }
-
+    
+    public String getQuality() {
+        return quality;
+    }
+    
+    public void setQuality(String q) {
+        quality = q;
+    }
+    
+    public int getRuntime() {
+        return runtime;
+    }
+    
+    public void setRuntime(int r) {
+        runtime = r;
+    }
+    
 }
