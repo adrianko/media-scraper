@@ -71,7 +71,6 @@ public class Helper {
     }
     
     public static boolean validateOption(DownloadOption t, Episode e) {
-        
         return true;
     }
 
