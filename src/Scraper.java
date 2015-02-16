@@ -28,7 +28,7 @@ public class Scraper {
                 System.exit(0);
             }
             
-            ResultSet rs = s.executeQuery("SELECT * FROM shows");
+            ResultSet rs = DB.getShows();
 
             while (rs.next()) {
                 Show show = new KAShow(rs.getString("title"), settings.get("ka_base") + rs.getString("ka_url"), settings.get("ka_ep"));
