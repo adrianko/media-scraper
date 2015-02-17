@@ -59,18 +59,14 @@ public class DB {
             ResultSet rs = get().createStatement().executeQuery("SELECT * FROM shows");
 
             while (rs.next()) {
-                Constructor con = c.getConstructor(String.class, String.class, String.class, int.class, int.class, int.class, int.class);
-                Object s = con.newInstance(
+                shows.put(
                     rs.getString("title"),
-                    Scraper.settings.get("ka_base") + rs.getString("ka_url"),
-                    Scraper.settings.get("ka_ep"),
-                    rs.getInt("season"),
-                    rs.getInt("episode"),
-                    rs.getInt("hd"),
-                    rs.getInt("runtime")
+                    c.getConstructor(String.class, String.class, String.class, int.class, int.class, int.class, int.class)
+                    .newInstance(
+                        rs.getString("title"), Scraper.settings.get("ka_base") + rs.getString("ka_url"), Scraper.settings.get("ka_ep"),
+                        rs.getInt("season"), rs.getInt("episode"), rs.getInt("hd"), rs.getInt("runtime")
+                    )
                 );
-
-                shows.put(rs.getString("title"), (Show) s);
             }
 
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException | SQLException e) {
