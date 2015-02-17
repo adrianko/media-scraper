@@ -1,5 +1,6 @@
 package main;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +32,9 @@ public class Scraper {
                 System.out.println("Wrong IP, exiting...");
                 System.exit(0);
             }
+
+            DB.getShows(KAShow.class).forEach((title, show) -> System.out.println(show));
+            System.exit(0);
 
             ResultSet rs = DB.getShows();
 
