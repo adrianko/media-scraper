@@ -24,60 +24,39 @@ public class Scraper {
             System.exit(0);
         }
 
-        try {
-            Helper.loadSettings();
+        Helper.loadSettings();
 
-            if (settings.get("ip").equals(Helper.getCurrentIP())) {
-                System.out.println("Wrong IP, exiting...");
-                System.exit(0);
-            }
-
-            DB.getShows(KAShow.class).forEach((title, show) -> System.out.println(show));
+        if (settings.get("ip").equals(Helper.getCurrentIP())) {
+            System.out.println("Wrong IP, exiting...");
             System.exit(0);
+        }
 
-            ResultSet rs = DB.getShows();
+        shows = DB.getShows(KAShow.class);
+        
+        for (Show show : shows.values()) {
+            show.parse();
 
-            while (rs.next()) {
-                shows.put(rs.getString("title"), new KAShow(
-                    rs.getString("title"),
-                    settings.get("ka_base") + rs.getString("ka_url"),
-                    settings.get("ka_ep"),
-                    rs.getInt("season"),
-                    rs.getInt("episode"),
-                    rs.getInt("hd"),
-                    rs.getInt("runtime")
-                ));
-            }
+            for (Episode e : show.getEpisodes()) {
 
-            rs.close();
-
-            for (Show show : shows.values()) {
-                show.parse();
-
-                for (Episode e : show.getEpisodes()) {
-
-                    for (DownloadOption t : e.getOptions()) {
-                        if (Helper.validateOption(t, e, show)) {
-                            System.out.println("Found: " + t.getName() + " " + t.getMagnet());
-                            Downloader.enqueue(t.getMagnet());
-                            DB.bump(show.getTitle());
-                            show.setFound();
-                            break;
-                        }
-                    }
-
-                    if (!show.getFound()) {
-                        System.out.println("None found for: " + show.getTitle() +
-                                " S" + (show.getSeason() < 10 ? "0" : "") + show.getSeason() +
-                                "E" + (show.getEpisode() < 10 ? "0" : "") + show.getEpisode());
+                for (DownloadOption t : e.getOptions()) {
+                    if (Helper.validateOption(t, e, show)) {
+                        System.out.println("Found: " + t.getName() + " " + t.getMagnet());
+                        Downloader.enqueue(t.getMagnet());
+                        DB.bump(show.getTitle());
+                        show.setFound();
+                        break;
                     }
                 }
+
+                if (!show.getFound()) {
+                    System.out.println("None found for: " + show.getTitle() +
+                            " S" + (show.getSeason() < 10 ? "0" : "") + show.getSeason() +
+                            "E" + (show.getEpisode() < 10 ? "0" : "") + show.getEpisode());
+                }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DB.close();
         }
+        
+        DB.close();
     }
 
 }
