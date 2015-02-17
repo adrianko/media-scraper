@@ -20,7 +20,7 @@ public class Downloader {
             String line;
 
             while ((line = br.readLine()) != null) {
-                if (line.contains(Scraper.settings.get("dl_exe"))) {
+                if (line.contains(Helper.settings.get("dl_exe"))) {
                     found = true;
                     break;
                 }
@@ -34,7 +34,7 @@ public class Downloader {
 
     private static void start() {
         try {
-            Runtime.getRuntime().exec(Scraper.settings.get("dl_exe_path") + Scraper.settings.get("dl_exe"));
+            Runtime.getRuntime().exec(Helper.settings.get("dl_exe_path") + Helper.settings.get("dl_exe"));
             Thread.sleep(4000);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
@@ -49,8 +49,8 @@ public class Downloader {
         try {
             HttpURLConnection con = (HttpURLConnection) new URL(getAddURL(magnet)).openConnection();
             con.setRequestMethod("GET");
-            con.setRequestProperty("Authorization", "Basic " + new String(Base64.getEncoder().encode((Scraper.settings
-                    .get("dl_user") + ":" + Scraper.settings.get("dl_pass")).getBytes())));
+            con.setRequestProperty("Authorization", "Basic " + new String(Base64.getEncoder().encode((Helper.settings
+                    .get("dl_user") + ":" + Helper.settings.get("dl_pass")).getBytes())));
             con.getResponseCode();
         } catch (IOException e) {
             e.printStackTrace();
@@ -59,7 +59,7 @@ public class Downloader {
 
     private static String getAddURL(String magnet) {
         try {
-            return "http://" + Scraper.settings.get("dl_host") + ":" + Scraper.settings.get("dl_port") + "/gui/?action=add-url&s=" +
+            return "http://" + Helper.settings.get("dl_host") + ":" + Helper.settings.get("dl_port") + "/gui/?action=add-url&s=" +
                 URLEncoder.encode(magnet, "US-ASCII") + "&t=" + System.currentTimeMillis();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

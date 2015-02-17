@@ -12,9 +12,7 @@ import java.util.Map;
  * TODO multi number episode
  */
 public class Scraper {
-
-    public static Map<String, String> settings = new HashMap<>();
-    public static Map<Integer, HashMap<String, Long>> expectedFileSize = new HashMap<>();
+    
     public static Map<String, Show> shows = new HashMap<>();
     
     public Scraper() {

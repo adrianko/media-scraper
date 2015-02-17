@@ -11,8 +11,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Helper {
+
+    public static Map<String, String> settings = new HashMap<>();
+    public static Map<Integer, HashMap<String, Long>> expectedFileSize = new HashMap<>();
 
     public static String getCurrentIP() {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new URL("http://wtfismyip.com/text")
@@ -33,7 +37,7 @@ public class Helper {
     }
     
     public static void checkIP() {
-        if (Scraper.settings.get("ip").equals(getCurrentIP())) {
+        if (settings.get("ip").equals(getCurrentIP())) {
             System.out.println("Wrong IP, exiting...");
             System.exit(0);
         }
@@ -48,7 +52,7 @@ public class Helper {
 
     public static Document retrievePage(String url) {
         try {
-            return Jsoup.connect(url).timeout(Integer.parseInt(Scraper.settings.get("timeout"))).get();
+            return Jsoup.connect(url).timeout(Integer.parseInt(settings.get("timeout"))).get();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -61,17 +65,17 @@ public class Helper {
             ResultSet dbSettings = s.executeQuery("SELECT * FROM settings");
 
             while (dbSettings.next()) {
-                Scraper.settings.put(dbSettings.getString("property"), dbSettings.getString("value"));
+                settings.put(dbSettings.getString("property"), dbSettings.getString("value"));
             }
 
             dbSettings.close();
             ResultSet dbRuntimes = s.executeQuery("SELECT * FROM runtimes");
 
             while (dbRuntimes.next()) {
-                Scraper.expectedFileSize.put(dbRuntimes.getInt("id"), new HashMap<>());
+                expectedFileSize.put(dbRuntimes.getInt("id"), new HashMap<>());
 
                 for (String t : new String[]{"hdtv_min", "hdtv_max", "1080p_min", "1080p_max"}) {
-                    Scraper.expectedFileSize.get(dbRuntimes.getInt("id")).put(t, dbRuntimes.getLong(t));
+                    expectedFileSize.get(dbRuntimes.getInt("id")).put(t, dbRuntimes.getLong(t));
                 }
             }
 
@@ -90,9 +94,9 @@ public class Helper {
 
         if (t.getName().contains("720p")) return false;
 
-        if (t.getByteSize() < Scraper.expectedFileSize.get(s.getRuntime()).get(s.getQuality().toLowerCase() + "_min")) return false;
+        if (t.getByteSize() < expectedFileSize.get(s.getRuntime()).get(s.getQuality().toLowerCase() + "_min")) return false;
 
-        if (t.getByteSize() > Scraper.expectedFileSize.get(s.getRuntime()).get(s.getQuality().toLowerCase() + "_max")) return false;
+        if (t.getByteSize() > expectedFileSize.get(s.getRuntime()).get(s.getQuality().toLowerCase() + "_max")) return false;
         
         return true;
     }
