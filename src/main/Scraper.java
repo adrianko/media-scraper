@@ -45,6 +45,7 @@ public class Scraper {
     }
 
     public static void main(String[] args) {
+        Helper.checkOS();
         Helper.loadSettings();
         Helper.checkIP();
         new Scraper();
