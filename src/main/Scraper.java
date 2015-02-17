@@ -16,17 +16,10 @@ public class Scraper {
     public static Map<String, String> settings = new HashMap<>();
     public static Map<Integer, HashMap<String, Long>> expectedFileSize = new HashMap<>();
     public static Map<String, Show> shows = new HashMap<>();
-
-    public static void main(String[] args) {
-        if (!System.getProperty("os.name").contains("Windows")) {
-            System.out.println("This application is not designed to run on any operating system other than Windows. Sorry.");
-            System.exit(0);
-        }
-
-        Helper.loadSettings();
-        Helper.checkIP();
+    
+    public Scraper() {
         shows = DB.getShows(KAShow.class);
-        
+
         for (Show show : shows.values()) {
             show.parse();
 
@@ -44,12 +37,17 @@ public class Scraper {
 
                 if (!show.getFound()) {
                     System.out.println("None found for: " + show.getTitle() +
-                            " S" + (show.getSeason() < 10 ? "0" : "") + show.getSeason() +
-                            "E" + (show.getEpisode() < 10 ? "0" : "") + show.getEpisode());
+                        " S" + (show.getSeason() < 10 ? "0" : "") + show.getSeason() +
+                        "E" + (show.getEpisode() < 10 ? "0" : "") + show.getEpisode());
                 }
             }
         }
-        
+    }
+
+    public static void main(String[] args) {
+        Helper.loadSettings();
+        Helper.checkIP();
+        new Scraper();
         DB.close();
     }
 
