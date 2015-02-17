@@ -36,6 +36,13 @@ public class Helper {
 
         return "";
     }
+    
+    public static void checkIP() {
+        if (Scraper.settings.get("ip").equals(getCurrentIP())) {
+            System.out.println("Wrong IP, exiting...");
+            System.exit(0);
+        }
+    }
 
     public static Document retrievePage(String url) {
         try {

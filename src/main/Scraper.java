@@ -25,12 +25,7 @@ public class Scraper {
         }
 
         Helper.loadSettings();
-
-        if (settings.get("ip").equals(Helper.getCurrentIP())) {
-            System.out.println("Wrong IP, exiting...");
-            System.exit(0);
-        }
-
+        Helper.checkIP();
         shows = DB.getShows(KAShow.class);
         
         for (Show show : shows.values()) {
