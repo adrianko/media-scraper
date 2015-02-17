@@ -63,7 +63,7 @@ public class DB {
                     rs.getString("title"),
                     c.getConstructor(String.class, String.class, String.class, int.class, int.class, int.class, int.class)
                     .newInstance(
-                        rs.getString("title"), Scraper.settings.get("ka_base") + rs.getString("ka_url"), Scraper.settings.get("ka_ep"),
+                        rs.getString("title"), Helper.settings.get("ka_base") + rs.getString("ka_url"), Helper.settings.get("ka_ep"),
                         rs.getInt("season"), rs.getInt("episode"), rs.getInt("hd"), rs.getInt("runtime")
                     )
                 );
