@@ -15,21 +15,10 @@ import java.util.HashMap;
 public class Helper {
 
     public static String getCurrentIP() {
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(
-                new URL("http://wtfismyip.com/text").openConnection().getInputStream()
-            ));
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new URL("http://wtfismyip.com/text")
+            .openConnection().getInputStream()))) {
 
-            StringBuilder contents = new StringBuilder();
-            String line;
-
-            while ((line = br.readLine()) != null) {
-                contents.append(line);
-            }
-
-            br.close();
-
-            return contents.toString().trim();
+            return br.lines().toString().trim();
         } catch (IOException e) {
             e.printStackTrace();
         }
