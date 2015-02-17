@@ -42,16 +42,6 @@ public class DB {
         }
     }
 
-    public static ResultSet getShows() {
-        try {
-            return get().createStatement().executeQuery("SELECT * FROM shows");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
     public static <T extends Show> Map<String, Show> getShows(Class<T> c) {
         Map<String, Show> shows = new HashMap<>();
 
