@@ -43,6 +43,13 @@ public class Helper {
             System.exit(0);
         }
     }
+    
+    public static void checkOS() {
+        if (!System.getProperty("os.name").contains("Windows")) {
+            System.out.println("This application is not designed to run on any operating system other than Windows. Sorry.");
+            System.exit(0);
+        }
+    }
 
     public static Document retrievePage(String url) {
         try {
