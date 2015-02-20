@@ -21,12 +21,13 @@ public class Scraper {
         for (Show show : shows.values()) {
             show.parse();
 
-            for (Episode e : show.getEpisodes()) {
+            for (Episode episode : show.getEpisodes()) {
 
-                for (DownloadOption t : e.getOptions()) {
-                    if (Helper.validateOption(t, e, show)) {
-                        System.out.println("Found: " + t.getName() + " " + t.getMagnet());
-                        Downloader.enqueue(t.getMagnet());
+                for (DownloadOption option : episode.getOptions()) {
+                    
+                    if (Helper.validateOption(option, episode, show)) {
+                        System.out.println("Found: " + option.getName() + " " + option.getMagnet());
+                        Downloader.enqueue(option.getMagnet());
                         DB.bump(show.getTitle());
                         show.setFound();
                         break;
