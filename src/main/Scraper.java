@@ -4,10 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * TODO Double quality download
  * TODO add secondary source
  * TODO add connection check
- * TODO SD precedence HD
  * TODO 720 categorization
  * TODO multi number episode
  */
