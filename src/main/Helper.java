@@ -93,6 +93,7 @@ public class Helper {
         if (e.getEpisode() != s.getEpisode() || e.getSeason() != s.getSeason())  {
             if (e.getEpisode() != 1 && (s.getSeason() + 1) != e.getSeason()) return false;
             DB.nextSeason(s.getTitle());
+            Scraper.shows.get(s.getTitle())
         }
 
         if (t.getName().contains("720p")) return false;
