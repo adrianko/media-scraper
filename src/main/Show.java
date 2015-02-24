@@ -40,9 +40,17 @@ public abstract class Show {
     public int getSeason() {
         return season;
     }
+
+    public void setSeason(int s) {
+        season = s;
+    }
     
     public int getEpisode() {
         return episode;
+    }
+
+    public void setEpisode(int e) {
+        episode = e;
     }
     
     public int getHD() {
