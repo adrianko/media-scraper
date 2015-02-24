@@ -48,7 +48,7 @@ public class DB {
 
     public static void nextSeason(String title) {
         try {
-            PreparedStatement update = get().prepareStatement("UPDATE shows SET episode = 0, season = ? WHERE title = ?");
+            PreparedStatement update = get().prepareStatement("UPDATE shows SET episode = 1, season = ? WHERE title = ?");
             update.setInt(1, Scraper.shows.get(title).getSeason() + 1);
             update.setString(2, title);
             update.executeUpdate();
