@@ -19,21 +19,20 @@ public class Helper {
     public static Map<Integer, HashMap<String, Long>> expectedFileSize = new HashMap<>();
 
     public static String getCurrentIP() {
+        StringBuilder content = new StringBuilder();
+
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new URL("http://wtfismyip.com/text")
                 .openConnection().getInputStream()))) {
-            StringBuilder content = new StringBuilder();
             String line;
             
             while ((line = br.readLine()) != null) {
                 content.append(line);
             }
-            
-            return content.toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return "";
+        return content.toString();
     }
     
     public static void checkIP() {
