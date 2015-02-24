@@ -90,7 +90,9 @@ public class Helper {
 
         if (t.getName().contains("ReEnc")) return false;
 
-        if (e.getEpisode() != s.getEpisode()) return false;
+        if (e.getEpisode() != s.getEpisode())  {
+            if (e.getEpisode() != 1 && (s.getSeason() + 1) != e.getSeason()) return false;
+        }
 
         if (t.getName().contains("720p")) return false;
 
