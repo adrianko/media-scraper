@@ -90,7 +90,7 @@ public class Helper {
         if (t.getName().contains("ReEnc")) return false;
 
         if (e.getEpisode() != s.getEpisode() || e.getSeason() != s.getSeason())  {
-            if (e.getEpisode() != 1 && (s.getSeason() + 1) != e.getSeason()) return false;
+            if (e.getEpisode() != 1 || (s.getSeason() + 1) != e.getSeason()) return false;
             DB.nextSeason(s.getTitle());
             Scraper.shows.get(s.getTitle()).setSeason(s.getSeason() + 1);
             Scraper.shows.get(s.getTitle()).setEpisode(1);
