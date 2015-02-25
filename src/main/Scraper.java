@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * TODO add secondary source
  * TODO add connection check
- * TODO 720 categorization
+ * TODO move hdtv up queue
  * TODO multi number episode
  */
 public class Scraper {
