@@ -12,6 +12,7 @@ import java.util.Map;
 public class Scraper {
     
     public static Map<String, Show> shows = new HashMap<>();
+    public static boolean test = false;
     
     public Scraper() {
         shows = DB.getShows(KAShow.class);
@@ -42,6 +43,10 @@ public class Scraper {
     }
 
     public static void main(String[] args) {
+        if (args.length > 0 && args[0].equals("test")) {
+            test = true;
+        }
+
         Helper.checkOS();
         Helper.loadSettings();
         Helper.checkIP();

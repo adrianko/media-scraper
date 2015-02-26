@@ -17,7 +17,11 @@ public class DB {
         if (c == null) {
             try {
                 Class.forName("org.sqlite.JDBC");
-                c = DriverManager.getConnection("jdbc:sqlite:" + DB.class.getResource(".").getPath() + "../../../../db/shows.db");
+                if (Scraper.test) {
+                    c = DriverManager.getConnection("jdbc:sqlite:" + DB.class.getResource(".").getPath() + "../../../../db/test.db");
+                } else {
+                    c = DriverManager.getConnection("jdbc:sqlite:" + DB.class.getResource(".").getPath() + "../../../../db/shows.db");
+                }
             } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
