@@ -66,7 +66,7 @@ public abstract class Show {
     }
 
     public String toString() {
-        return title + " | S" + season + "E" + episode;
+        return title + " S" + (season < 10 ? "0" : "") + season + "E" + (episode < 10 ? "0" : "") + episode;
     }
 
     public void setFound() {
