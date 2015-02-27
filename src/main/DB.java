@@ -12,15 +12,16 @@ import java.util.Map;
 public class DB {
 
     private static Connection c = null;
+    private static String path = DB.class.getResource(".").getPath() + "../../../../db/";
 
     public static Connection get() {
         if (c == null) {
             try {
                 Class.forName("org.sqlite.JDBC");
                 if (Scraper.test) {
-                    c = DriverManager.getConnection("jdbc:sqlite:" + DB.class.getResource(".").getPath() + "../../../../db/test.db");
+                    c = DriverManager.getConnection("jdbc:sqlite:" + path + "test.db");
                 } else {
-                    c = DriverManager.getConnection("jdbc:sqlite:" + DB.class.getResource(".").getPath() + "../../../../db/shows.db");
+                    c = DriverManager.getConnection("jdbc:sqlite:" + path + "shows.db");
                 }
             } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
