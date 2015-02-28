@@ -6,7 +6,6 @@ public class KAEpisode extends Episode {
 
     public KAEpisode(String u) {
         super(u);
-        parse();
     }
 
     public void parse() {
@@ -19,6 +18,7 @@ public class KAEpisode extends Episode {
                 String size = e.select("td.nobr").first().text().replaceAll("\\s+", "");
 
                 options.add(new DownloadOption(name, magnet, size));
+                System.out.println(name);
             });
         }
     }

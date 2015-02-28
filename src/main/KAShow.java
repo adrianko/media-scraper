@@ -31,20 +31,24 @@ public class KAShow extends Show {
                         long timestamp = new SimpleDateFormat("EEEE, MMM dd yyyy").parse(span.get(2).text()).getTime();
 
                         if (!stringID.equals("") && timestamp < System.currentTimeMillis()) {
+                            /*
                             KAEpisode ep = new KAEpisode(episodeUrl + stringID);
+                            ep.parse();
 
                             if (ep.getOptions().size() > 0) {
                                 ep.setSeason(season);
                                 ep.setEpisode(epNum);
                                 episodes.add(ep);
-                                break;
                             }
+                            */
+                            episodes.add(new KAEpisode(episodeUrl + stringID));
                         }
                     } catch (ParseException ex) {
                         ex.printStackTrace();
                     }
                 }
             }
+            System.out.println(episodes);
         }
     }
 

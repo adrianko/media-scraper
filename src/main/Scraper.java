@@ -19,8 +19,10 @@ public class Scraper {
 
         for (Show show : shows.values()) {
             show.parse();
+            System.out.println(show.getEpisodes());
 
             for (Episode episode : show.getEpisodes()) {
+                episode.parse();
 
                 for (DownloadOption option : episode.getOptions()) {
                     
