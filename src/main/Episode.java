@@ -11,7 +11,13 @@ public abstract class Episode {
     protected List<DownloadOption> options = new LinkedList<>();
 
     public Episode(String u) {
+        this(u, 0, 0);
+    }
+
+    public Episode(String u, int s, int e) {
         url = u;
+        season = s;
+        episode = e;
     }
 
     public abstract void parse();
