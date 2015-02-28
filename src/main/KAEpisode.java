@@ -22,7 +22,6 @@ public class KAEpisode extends Episode {
                 String size = e.select("td.nobr").first().text().replaceAll("\\s+", "");
 
                 options.add(new DownloadOption(name, magnet, size));
-                System.out.println(name);
             });
         }
     }
