@@ -41,7 +41,7 @@ public class KAShow extends Show {
                                 episodes.add(ep);
                             }
                             */
-                            episodes.add(new KAEpisode(episodeUrl + stringID));
+                            episodes.add(new KAEpisode(episodeUrl + stringID, season, epNum));
                         }
                     } catch (ParseException ex) {
                         ex.printStackTrace();

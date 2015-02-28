@@ -5,7 +5,11 @@ import org.jsoup.nodes.Document;
 public class KAEpisode extends Episode {
 
     public KAEpisode(String u) {
-        super(u);
+        this(u, 0 , 0);
+    }
+
+    public KAEpisode(String u, int s, int e) {
+        super(u, s, e);
     }
 
     public void parse() {
