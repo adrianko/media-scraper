@@ -19,7 +19,6 @@ public class Scraper {
 
         for (Show show : shows.values()) {
             show.parse();
-            System.out.println(show.getEpisodes());
 
             for (Episode episode : show.getEpisodes()) {
                 episode.parse();
@@ -28,8 +27,8 @@ public class Scraper {
                     
                     if (Helper.validateOption(option, episode, show)) {
                         System.out.println("Found: " + option.getName() + " " + option.getMagnet());
-                        Downloader.enqueue(option.getMagnet());
-                        DB.bump(show.getTitle());
+                        //Downloader.enqueue(option.getMagnet());
+                        //DB.bump(show.getTitle());
                         show.setFound();
                         break;
                     }
@@ -37,6 +36,10 @@ public class Scraper {
 
                 if (!show.getFound()) {
                     System.out.println("None found for: " + show);
+                }
+
+                if (episode.getEpisode() <= show.getEpisode()) {
+                    break;
                 }
             }
         }
