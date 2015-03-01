@@ -28,7 +28,7 @@ public class Scraper {
                     if (Helper.validateOption(option, episode, show)) {
                         System.out.println("Found: " + option.getName() + " " + option.getMagnet());
                         //Downloader.enqueue(option.getMagnet());
-                        //DB.bump(show.getTitle());
+                        DB.bump(show.getTitle());
                         show.setFound();
                         break;
                     }
