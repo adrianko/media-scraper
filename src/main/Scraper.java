@@ -24,7 +24,6 @@ public class Scraper {
                 episode.parse();
 
                 for (DownloadOption option : episode.getOptions()) {
-                    System.out.println(option.getName());
 
                     if (Helper.validateOption(option, episode, show)) {
                         System.out.println("Found: " + option.getName() + " " + option.getMagnet());
