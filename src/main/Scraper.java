@@ -12,7 +12,7 @@ import java.util.Map;
 public class Scraper {
     
     public static Map<String, Show> shows = new HashMap<>();
-    public static boolean test = false;
+    public static boolean debug = false;
     
     public Scraper() {
         shows = DB.getShows(KAShow.class);
@@ -27,7 +27,11 @@ public class Scraper {
 
                     if (Helper.validateOption(option, episode, show)) {
                         System.out.println("Found: " + option.getName() + " " + option.getMagnet());
-                        //Downloader.enqueue(option.getMagnet());
+
+                        if (!debug) {
+                            Downloader.enqueue(option.getMagnet());
+                        }
+
                         DB.bump(show.getTitle());
                         show.setFound();
                         break;
@@ -47,7 +51,7 @@ public class Scraper {
 
     public static void main(String[] args) {
         if (args.length > 0 && args[0].equals("test")) {
-            test = true;
+            debug = true;
         }
 
         //Helper.checkOS();

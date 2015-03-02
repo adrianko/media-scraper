@@ -18,7 +18,7 @@ public class DB {
         if (c == null) {
             try {
                 Class.forName("org.sqlite.JDBC");
-                if (Scraper.test) {
+                if (Scraper.debug) {
                     c = DriverManager.getConnection("jdbc:sqlite:" + path + "test.db");
                 } else {
                     c = DriverManager.getConnection("jdbc:sqlite:" + path + "shows.db");
