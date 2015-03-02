@@ -89,15 +89,14 @@ public class Helper {
 
         if (t.getName().contains("ReEnc")) return false;
 
-        if (e.getEpisode() >= s.getEpisode() || e.getSeason() >= s.getSeason()) {
-
-        } else {
-            if (e.getEpisode() != s.getEpisode() || e.getSeason() != s.getSeason()) {
-                if (e.getEpisode() != 1 || (s.getSeason() + 1) != e.getSeason()) return false;
+        if ((s.getSeason() == e.getSeason() && s.getEpisode() <= e.getEpisode()) || (s.getSeason() < e.getSeason() && e.getEpisode() >= 1)) {
+            if (s.getSeason() < e.getSeason() && e.getEpisode() >= 1) {
                 DB.nextSeason(s.getTitle());
                 Scraper.shows.get(s.getTitle()).setSeason(s.getSeason() + 1);
                 Scraper.shows.get(s.getTitle()).setEpisode(1);
             }
+        } else {
+            return false;
         }
 
         if (t.getName().contains("720p")) return false;
