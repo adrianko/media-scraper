@@ -31,6 +31,7 @@ public class Scraper {
                         //Downloader.enqueue(option.getMagnet());
                         //DB.bump(show.getTitle());
                         show.setFound();
+                        break;
                     }
                 }
 
