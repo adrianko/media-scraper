@@ -87,7 +87,7 @@ public class Helper {
     public static boolean validateOption(DownloadOption t, Episode e, Show s) {
         if (!t.getName().contains(s.getQuality())) return false;
 
-        if (!t.getName().toLowerCase().contains("xvid")) return false;
+        if (t.getName().toLowerCase().contains("xvid")) return false;
 
         if (t.getName().contains("ReEnc")) return false;
 
