@@ -1,7 +1,9 @@
 package main;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * TODO add secondary source
@@ -12,11 +14,14 @@ import java.util.Map;
 public class Scraper {
     
     public static Map<String, Show> shows = new HashMap<>();
+    public static Set<String> found = new HashSet<>();
     public static boolean debug = false;
     
     public Scraper() {
         shows = DB.getShows(KAShow.class);
-
+    }
+    
+    public void parse() {
         for (Show show : shows.values()) {
             show.parse();
 
@@ -27,6 +32,7 @@ public class Scraper {
 
                     if (Helper.validateOption(option, episode, show)) {
                         System.out.println("Found: " + option.getName() + " " + option.getMagnet());
+                        found.add(show.getTitle());
 
                         if (!debug) {
                             Downloader.enqueue(option.getMagnet());
