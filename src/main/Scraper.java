@@ -54,7 +54,7 @@ public class Scraper {
             debug = true;
         }
 
-        //Helper.checkOS();
+        Helper.checkOS();
         Helper.loadSettings();
         Helper.checkIP();
         new Scraper();
