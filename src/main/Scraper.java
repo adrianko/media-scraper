@@ -1,9 +1,6 @@
 package main;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * TODO add secondary source
@@ -18,11 +15,14 @@ public class Scraper {
     public static boolean debug = false;
     
     public Scraper() {
-        for (Class c : new Class[]{KAShow.class, RBShow.class}) {
+        List<Class> classes = new LinkedList<>(Arrays.asList(KAShow.class, RBShow.class));
+        
+        classes.forEach(c -> {
+            //noinspection unchecked
             shows = DB.getShows(c);
             shows.keySet().stream().filter(found::contains).forEach(shows::remove);
             parse();
-        }
+        });
         
     }
     
