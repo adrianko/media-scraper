@@ -18,7 +18,12 @@ public class Scraper {
     public static boolean debug = false;
     
     public Scraper() {
-        shows = DB.getShows(KAShow.class);
+        for (Class c : new Class[]{KAShow.class, RBShow.class}) {
+            shows = DB.getShows(c);
+            shows.keySet().stream().filter(found::contains).forEach(shows::remove);
+            parse();
+        }
+        
     }
     
     public void parse() {
