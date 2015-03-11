@@ -18,11 +18,7 @@ public class DB {
         if (c == null) {
             try {
                 Class.forName("org.sqlite.JDBC");
-                if (Scraper.debug) {
-                    c = DriverManager.getConnection("jdbc:sqlite:" + path + "test.db");
-                } else {
-                    c = DriverManager.getConnection("jdbc:sqlite:" + path + "shows.db");
-                }
+                c = DriverManager.getConnection("jdbc:sqlite:" + path + (Scraper.debug ? "test" : "shows") + ".db");
             } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
