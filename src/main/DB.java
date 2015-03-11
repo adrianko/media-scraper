@@ -61,6 +61,7 @@ public class DB {
 
     public static <T extends Show> Map<String, Show> getShows(Class<T> c) {
         Map<String, Show> shows = new HashMap<>();
+        String prefix = c.getName().toLowerCase().substring(0, 2);
 
         try {
             ResultSet rs = get().createStatement().executeQuery("SELECT * FROM shows");
@@ -69,10 +70,9 @@ public class DB {
                 shows.put(
                     rs.getString("title"),
                     c.getConstructor(String.class, String.class, String.class, int.class, int.class, int.class, int.class)
-                    .newInstance(
-                        rs.getString("title"), Helper.settings.get("ka_base") + rs.getString("ka_url"), Helper.settings.get("ka_ep"),
-                        rs.getInt("season"), rs.getInt("episode"), rs.getInt("hd"), rs.getInt("runtime")
-                    )
+                    .newInstance(rs.getString("title"), Helper.settings.get(prefix + "_base") + rs.getString(prefix + "_url"), 
+                        Helper.settings.get(prefix + "_ep"), rs.getInt("season"), rs.getInt("episode"), rs.getInt("hd"), 
+                        rs.getInt("runtime"))
                 );
             }
 
