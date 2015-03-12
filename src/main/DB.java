@@ -61,7 +61,7 @@ public class DB {
 
     public static <T extends Show> Map<String, Show> getShows(Class<T> c) {
         Map<String, Show> shows = new HashMap<>();
-        String prefix = c.getName().toLowerCase().substring(0, 2);
+        String prefix = c.getName().toLowerCase().substring(5, 7);
 
         try {
             ResultSet rs = get().createStatement().executeQuery("SELECT * FROM shows");
