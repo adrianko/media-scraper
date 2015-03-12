@@ -49,7 +49,8 @@ public class DB {
 
     public static void nextSeason(String title) {
         try {
-            PreparedStatement update = get().prepareStatement("UPDATE shows SET episode = 1, season = ? WHERE title = ?");
+            PreparedStatement update = get().prepareStatement("UPDATE shows SET episode = 1, season = ? WHERE " +
+                "title = ?");
             update.setInt(1, Scraper.shows.get(title).getSeason() + 1);
             update.setString(2, title);
             update.executeUpdate();
@@ -69,14 +70,16 @@ public class DB {
             while (rs.next()) {
                 shows.put(
                     rs.getString("title"),
-                    c.getConstructor(String.class, String.class, String.class, int.class, int.class, int.class, int.class)
-                    .newInstance(rs.getString("title"), Helper.settings.get(prefix + "_base") + rs.getString(prefix + "_url"), 
-                        Helper.settings.get(prefix + "_ep"), rs.getInt("season"), rs.getInt("episode"), rs.getInt("hd"), 
-                        rs.getInt("runtime"))
+                    c.getConstructor(String.class, String.class, String.class, int.class, int.class, int.class, 
+                        int.class)
+                    .newInstance(rs.getString("title"), Helper.settings.get(prefix + "_base") + 
+                            rs.getString(prefix + "_url"), Helper.settings.get(prefix + "_ep"), rs.getInt("season"), 
+                        rs.getInt("episode"), rs.getInt("hd"), rs.getInt("runtime"))
                 );
             }
 
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException | SQLException e) {
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException | 
+            SQLException e) {
             e.printStackTrace();
         }
 

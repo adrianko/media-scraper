@@ -44,7 +44,8 @@ public class Helper {
     
     public static void checkOS() {
         if (!System.getProperty("os.name").contains("Windows")) {
-            System.out.println("This application is not designed to run on any operating system other than Windows. Sorry.");
+            System.out.println("This application is not designed to run on any operating system other than Windows. " +
+                "Sorry.");
             System.exit(0);
         }
     }
@@ -91,7 +92,8 @@ public class Helper {
 
         if (t.getName().contains("ReEnc")) return false;
 
-        if ((s.getSeason() == e.getSeason() && s.getEpisode() <= e.getEpisode()) || (s.getSeason() < e.getSeason() && e.getEpisode() >= 1)) {
+        if ((s.getSeason() == e.getSeason() && s.getEpisode() <= e.getEpisode()) || (s.getSeason() < e.getSeason() && 
+            e.getEpisode() >= 1)) {
             if (s.getSeason() < e.getSeason() && e.getEpisode() >= 1) {
                 DB.nextSeason(s.getTitle());
                 Scraper.shows.get(s.getTitle()).setSeason(s.getSeason() + 1);
@@ -103,9 +105,11 @@ public class Helper {
 
         if (t.getName().contains("720p")) return false;
 
-        if (t.getByteSize() < expectedFileSize.get(s.getRuntime()).get(s.getQuality().toLowerCase() + "_min")) return false;
+        if (t.getByteSize() < expectedFileSize.get(s.getRuntime()).get(s.getQuality().toLowerCase() + "_min")) 
+            return false;
 
-        if (t.getByteSize() > expectedFileSize.get(s.getRuntime()).get(s.getQuality().toLowerCase() + "_max")) return false;
+        if (t.getByteSize() > expectedFileSize.get(s.getRuntime()).get(s.getQuality().toLowerCase() + "_max")) 
+            return false;
         
         return true;
     }
