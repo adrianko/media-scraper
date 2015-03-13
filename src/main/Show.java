@@ -57,6 +57,10 @@ public abstract class Show {
         return hd;
     }
     
+    public void setHD(int hd) {
+        this.hd = hd;
+    }
+    
     public int getRuntime() {
         return runtime;
     }
