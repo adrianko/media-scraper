@@ -32,22 +32,7 @@ public class Scraper {
 
             for (Episode episode : show.getEpisodes()) {
                 episode.parse();
-
-                for (DownloadOption option : episode.getOptions()) {
-
-                    if (Helper.validateOption(option, episode, show)) {
-                        System.out.println("Found: " + option.getName() + " " + option.getMagnet());
-                        found.add(show.getTitle());
-
-                        if (!debug) {
-                            Downloader.enqueue(option.getMagnet());
-                        }
-
-                        DB.bump(show.getTitle());
-                        show.setFound();
-                        break;
-                    }
-                }
+                parseOptions(show, episode);
 
                 if (!show.getFound()) {
                     System.out.println("None found for: " + show);
@@ -58,6 +43,26 @@ public class Scraper {
                 }
             }
         }
+    }
+    
+    public Show parseOptions(Show show, Episode episode) {
+        for (DownloadOption option : episode.getOptions()) {
+
+            if (Helper.validateOption(option, episode, show)) {
+                System.out.println("Found: " + option.getName() + " " + option.getMagnet());
+                found.add(show.getTitle());
+
+                if (!debug) {
+                    Downloader.enqueue(option.getMagnet());
+                }
+
+                DB.bump(show.getTitle());
+                show.setFound();
+                break;
+            }
+        }
+        
+        return show;
     }
 
     public static void main(String[] args) {
