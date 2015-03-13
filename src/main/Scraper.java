@@ -35,7 +35,7 @@ public class Scraper {
                 parseOptions(show, episode);
 
                 if (!show.getFound()) {
-                    System.out.println("None found for: " + show);
+                    System.out.println("No " + show.getQuality() + " found for: " + show);
                     
                     if (show.getHD() == 1) {
                         show.setHD(0);

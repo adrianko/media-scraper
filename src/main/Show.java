@@ -24,7 +24,7 @@ public abstract class Show {
         episode = e;
         hd = h;
         runtime = r;
-        quality = (getHD() == 1 ? "1080p" : "HDTV");
+        setQuality();
     }
 
     public abstract void parse();
@@ -59,6 +59,7 @@ public abstract class Show {
     
     public void setHD(int hd) {
         this.hd = hd;
+        setQuality();
     }
     
     public int getRuntime() {
@@ -67,6 +68,10 @@ public abstract class Show {
     
     public String getQuality() {
         return quality;
+    }
+    
+    public void setQuality() {
+        quality = (getHD() == 1 ? "1080p" : "HDTV");
     }
 
     public String toString() {
