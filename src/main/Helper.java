@@ -86,11 +86,14 @@ public class Helper {
     }
     
     public static boolean validateOption(DownloadOption t, Episode e, Show s) {
-        if (!t.getName().contains(s.getQuality())) return false;
 
         if (t.getName().toLowerCase().contains("xvid")) return false;
 
         if (t.getName().contains("ReEnc")) return false;
+
+        if (t.getName().contains("720p")) return false;
+
+        if (!t.getName().contains(s.getQuality())) return false;
 
         if ((s.getSeason() == e.getSeason() && s.getEpisode() <= e.getEpisode()) || (s.getSeason() < e.getSeason() && 
             e.getEpisode() >= 1)) {
@@ -102,8 +105,6 @@ public class Helper {
         } else {
             return false;
         }
-
-        if (t.getName().contains("720p")) return false;
 
         if (t.getByteSize() < expectedFileSize.get(s.getRuntime()).get(s.getQuality().toLowerCase() + "_min")) 
             return false;
