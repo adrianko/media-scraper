@@ -15,9 +15,7 @@ public class Scraper {
     public static boolean debug = false;
     
     public Scraper() {
-        List<Class> classes = new LinkedList<>(Arrays.asList(KAShow.class, RBShow.class));
-        
-        classes.forEach(c -> {
+        Arrays.asList(KAShow.class, RBShow.class).forEach(c -> {
             //noinspection unchecked
             shows = DB.getShows(c);
             shows.keySet().stream().filter(found::contains).forEach(shows::remove);
