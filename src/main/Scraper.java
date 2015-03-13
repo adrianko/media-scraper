@@ -42,7 +42,7 @@ public class Scraper {
                         parseOptions(show, episode);
                         
                         if (!show.getFound()) {
-                            System.out.println("No HDTV found for: " + show);
+                            System.out.println("No " + show.getQuality() + " found for: " + show);
                             show.setHD(1);
                         }
                     }
