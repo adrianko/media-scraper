@@ -59,8 +59,8 @@ public class Downloader {
 
     private static String getAddURL(String magnet) {
         try {
-            return "http://" + Helper.settings.get("dl_host") + ":" + Helper.settings.get("dl_port") + 
-                "/gui/?action=add-url&s=" + URLEncoder.encode(magnet, "US-ASCII") + "&t=" + System.currentTimeMillis();
+            return "http://" + Helper.settings.get("dl_host") + ":" + Helper.settings.get("dl_port") + "/gui/?action=" +
+                "add-url&s=" + URLEncoder.encode(magnet, "US-ASCII") + "&t=" + System.currentTimeMillis();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
