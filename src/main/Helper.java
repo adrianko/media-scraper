@@ -91,6 +91,8 @@ public class Helper {
         if (t.getName().contains("ReEnc")) return false;
 
         if (t.getName().contains("720p")) return false;
+        
+        if (t.getName().contains("avi")) return false;
 
         if (!t.getName().contains(s.getQuality())) return false;
 
