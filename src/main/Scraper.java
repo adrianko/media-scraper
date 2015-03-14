@@ -50,7 +50,6 @@ public class Scraper {
     
     public Show parseOptions(Show show, Episode episode) {
         for (DownloadOption option : episode.getOptions()) {
-
             if (Helper.validateOption(option, episode, show)) {
                 System.out.println("Found " + show.getQuality() + ": " + option.getName() + " " + option.getMagnet());
                 found.add(show.getTitle());
