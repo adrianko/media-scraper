@@ -35,11 +35,11 @@ public class DB {
         }
     }
     
-    public static void bump(String title) {
+    public static void bump(Show s) {
         try {
             PreparedStatement update = get().prepareStatement("UPDATE shows SET episode = ? WHERE title = ?");
-            update.setInt(1, Scraper.shows.get(title).getEpisode() + 1);
-            update.setString(2, title);
+            update.setInt(1, s.getEpisode() + 1);
+            update.setString(2, s.getTitle());
             update.executeUpdate();
             update.close();
         } catch (SQLException e) {
@@ -47,12 +47,12 @@ public class DB {
         }
     }
 
-    public static void nextSeason(String title) {
+    public static void nextSeason(Show s) {
         try {
             PreparedStatement update = get().prepareStatement("UPDATE shows SET episode = 1, season = ? WHERE " +
                 "title = ?");
-            update.setInt(1, Scraper.shows.get(title).getSeason() + 1);
-            update.setString(2, title);
+            update.setInt(1, s.getSeason() + 1);
+            update.setString(2, s.getTitle());
             update.executeUpdate();
             update.close();
         } catch (SQLException e) {

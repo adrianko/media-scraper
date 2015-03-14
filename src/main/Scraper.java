@@ -1,6 +1,7 @@
 package main;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * TODO add secondary source
@@ -9,22 +10,16 @@ import java.util.*;
  * TODO multi number episode
  */
 public class Scraper {
-    
-    public static Map<String, Show> shows = new HashMap<>();
+
     public static Set<String> found = new HashSet<>();
     public static boolean debug = false;
     
     public Scraper() {
-        Arrays.asList(KAShow.class, RBShow.class).forEach(c -> {
-            //noinspection unchecked
-            shows = DB.getShows(c);
-            shows.keySet().stream().filter(found::contains).forEach(shows::remove);
-            parse();
-        });
-        
+        Arrays.asList(KAShow.class, RBShow.class).forEach(c -> parse(DB.getShows(c).entrySet().stream().filter(s ->
+                !found.contains(s.getKey())).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))));
     }
     
-    public void parse() {
+    public void parse(Map<String, Show> shows) {
         for (Show show : shows.values()) {
             show.parse();
 
@@ -64,7 +59,7 @@ public class Scraper {
                     Downloader.enqueue(option.getMagnet());
                 }
 
-                DB.bump(show.getTitle());
+                DB.bump(show);
                 show.setFound();
                 break;
             }
