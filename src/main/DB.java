@@ -35,13 +35,22 @@ public class DB {
         }
     }
     
-    public static void bump(Show s) {
+    public static void bump(Show s, Episode ep) {
         try {
-            PreparedStatement update = get().prepareStatement("UPDATE shows SET episode = ? WHERE title = ?");
-            update.setInt(1, s.getEpisode() + 1);
-            update.setString(2, s.getTitle());
-            update.executeUpdate();
-            update.close();
+            PreparedStatement currentEp = get().prepareStatement("SELECT episode FROM shows WHERE title = ?");
+            currentEp.setString(1, s.getTitle());
+            ResultSet rs = currentEp.executeQuery();
+            rs.next();
+            int episodeNum = rs.getInt("episode");
+            rs.close();
+
+            if (ep.getEpisode() >= episodeNum) {
+                PreparedStatement update = get().prepareStatement("UPDATE shows SET episode = ? WHERE title = ?");
+                update.setInt(1, ep.getEpisode() + 1);
+                update.setString(2, s.getTitle());
+                update.executeUpdate();
+                update.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
