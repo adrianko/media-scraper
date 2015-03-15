@@ -37,15 +37,15 @@ public class Helper {
     
     public static void checkIP() {
         if (settings.get("ip").equals(getCurrentIP())) {
-            System.out.println("Wrong IP, exiting...");
+            Scraper.logger.severe("Wrong IP, exiting...");
             System.exit(0);
         }
     }
     
     public static void checkOS() {
         if (!System.getProperty("os.name").contains("Windows")) {
-            System.out.println("This application is not designed to run on any operating system other than Windows. " +
-                "Sorry.");
+            Scraper.logger.severe("This application is not designed to run on any operating system other than Window" +
+                "s. Sorry.");
             System.exit(0);
         }
     }

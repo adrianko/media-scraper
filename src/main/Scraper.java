@@ -1,6 +1,10 @@
 package main;
 
+import java.io.IOException;
 import java.util.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 import java.util.stream.Collectors;
 
 /**
@@ -13,6 +17,8 @@ public class Scraper {
 
     public static Set<String> found = new HashSet<>();
     public static boolean debug = false;
+    public static Logger logger = Logger.getLogger(Scraper.class.getName());
+    static FileHandler fh;
     
     public Scraper() {
         Arrays.asList(KAShow.class, RBShow.class).forEach(c -> parse(DB.getShows(c).entrySet().stream().filter(s ->
@@ -28,14 +34,14 @@ public class Scraper {
                 parseOptions(show, episode);
 
                 if (!show.getFound()) {
-                    System.out.println("No " + show.getQuality() + " found for: " + show);
+                    logger.info("No " + show.getQuality() + " found for: " + show);
                     
                     if (show.getHD() == 1) {
                         show.setHD(0);
                         parseOptions(show, episode);
                         
                         if (!show.getFound()) {
-                            System.out.println("No " + show.getQuality() + " found for: " + show);
+                            logger.info("No " + show.getQuality() + " found for: " + show);
                             show.setHD(1);
                         }
                     }
@@ -51,7 +57,7 @@ public class Scraper {
     public Show parseOptions(Show show, Episode episode) {
         for (DownloadOption option : episode.getOptions()) {
             if (Helper.validateOption(option, episode, show)) {
-                System.out.println("Found " + show.getQuality() + ": " + option.getName() + " " + option.getMagnet());
+                logger.info("Found " + show.getQuality() + ": " + option.getName() + " " + option.getMagnet());
                 found.add(show.getTitle());
 
                 if (!debug) {
@@ -68,15 +74,26 @@ public class Scraper {
     }
 
     public static void main(String[] args) {
-        if (args.length > 0 && args[0].equals("test")) {
-            debug = true;
+        try {
+            fh = new FileHandler(Base.path + "scraper.log", true);
+            logger.addHandler(fh);
+            fh.setFormatter(new SimpleFormatter());
+            logger.info("Loaded");
+            
+            if (args.length > 0 && args[0].equals("test")) {
+                debug = true;
+                logger.info("Debug mode");
+            }
+            
+            //Helper.checkOS();
+            Helper.loadSettings();
+            Helper.checkIP();
+            new Scraper();
+            DB.close();
+            logger.info("Exiting...");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        //Helper.checkOS();
-        Helper.loadSettings();
-        Helper.checkIP();
-        new Scraper();
-        DB.close();
     }
 
 }
