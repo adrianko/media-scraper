@@ -1,5 +1,6 @@
 package main;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.logging.FileHandler;
@@ -75,7 +76,7 @@ public class Scraper {
 
     public static void main(String[] args) {
         try {
-            fh = new FileHandler(Base.path + "scraper.log", true);
+            fh = new FileHandler(new File(Base.path + "scraper.log").getAbsolutePath(), true);
             logger.addHandler(fh);
             fh.setFormatter(new SimpleFormatter());
             logger.info("Loaded");
