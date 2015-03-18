@@ -100,8 +100,8 @@ public class Helper {
             e.getEpisode() >= 1)) {
             if (s.getSeason() < e.getSeason() && e.getEpisode() >= 1) {
                 DB.nextSeason(s);
-                //Scraper.shows.get(s.getTitle()).setSeason(s.getSeason() + 1);
-                //Scraper.shows.get(s.getTitle()).setEpisode(1);
+                s.setSeason(s.getSeason() + 1);
+                s.setEpisode(1);
             }
         } else {
             return false;
