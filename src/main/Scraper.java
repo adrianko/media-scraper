@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
  * TODO add connection check
  * TODO move hdtv up queue
  * TODO multi number episode
+ * TODO check if dl HDTV when 1080p required
  */
 public class Scraper {
 
@@ -64,7 +65,7 @@ public class Scraper {
                 if (!debug) {
                     Downloader.enqueue(option.getMagnet());
                 }
-
+                
                 DB.bump(show, episode);
                 show.setFound();
                 break;
