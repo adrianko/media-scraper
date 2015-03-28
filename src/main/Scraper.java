@@ -37,16 +37,6 @@ public class Scraper {
 
                 if (!show.getFound()) {
                     logger.info("No " + show.getQuality() + " found for: " + show);
-                    
-                    if (show.getHD() == 1) {
-                        show.setHD(0);
-                        parseOptions(show, episode);
-                        
-                        if (!show.getFound()) {
-                            logger.info("No " + show.getQuality() + " found for: " + show);
-                            show.setHD(1);
-                        }
-                    }
                 }
 
                 if (episode.getEpisode() <= show.getEpisode()) {
