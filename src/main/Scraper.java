@@ -11,9 +11,7 @@ import java.util.stream.Collectors;
 /**
  * TODO add secondary source
  * TODO add connection check
- * TODO move hdtv up queue
  * TODO multi number episode
- * TODO check if dl HDTV when 1080p required
  */
 public class Scraper {
 
