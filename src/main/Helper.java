@@ -96,14 +96,8 @@ public class Helper {
 
         if (!t.getName().contains(s.getQuality())) return false;
 
-        if ((s.getSeason() == e.getSeason() && s.getEpisode() <= e.getEpisode()) || (s.getSeason() < e.getSeason() && 
-            e.getEpisode() >= 1)) {
-            if (s.getSeason() < e.getSeason() && e.getEpisode() >= 1) {
-                DB.nextSeason(s);
-                s.setSeason(s.getSeason() + 1);
-                s.setEpisode(1);
-            }
-        } else {
+        if (((s.getSeason() != e.getSeason() || s.getEpisode() > e.getEpisode())) && ((s.getSeason() >= e.getSeason() ||
+                e.getEpisode() < 1))) {
             return false;
         }
 

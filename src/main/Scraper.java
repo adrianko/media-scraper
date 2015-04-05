@@ -50,6 +50,10 @@ public class Scraper {
     public Show parseOptions(Show show, Episode episode) {
         for (DownloadOption option : episode.getOptions()) {
             if (Helper.validateOption(option, episode, show)) {
+                if (show.getSeason() < episode.getSeason() && episode.getEpisode() >= 1) {
+                    DB.nextSeason(show);
+                }
+                
                 logger.info("Found " + show.getQuality() + ": " + option.getName() + " " + option.getMagnet());
                 found.add(show.getTitle());
 
