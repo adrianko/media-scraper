@@ -53,7 +53,7 @@ public class Scraper {
                 if (show.getSeason() < episode.getSeason() && episode.getEpisode() >= 1) {
                     DB.nextSeason(show);
                 }
-                
+
                 logger.info("Found " + show.getQuality() + ": " + option.getName() + " " + option.getMagnet());
                 found.add(show.getTitle());
 
