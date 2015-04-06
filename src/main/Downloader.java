@@ -9,13 +9,15 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Base64;
 
+import static main.Helper.ifWindows;
+
 public class Downloader {
 
     private static boolean running() {
         boolean found = false;
 
         try {
-            Process p = Runtime.getRuntime().exec("tasklist.exe");
+            Process p = Runtime.getRuntime().exec((ifWindows() ? "tasklist.exe" : "ps aux"));
             BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line;
 
