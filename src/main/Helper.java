@@ -41,9 +41,13 @@ public class Helper {
             System.exit(0);
         }
     }
+
+    public static boolean ifWindows() {
+        return System.getProperty("os.name").contains("Windows");
+    }
     
     public static void checkOS() {
-        if (!System.getProperty("os.name").contains("Windows")) {
+        if (!ifWindows()) {
             Scraper.logger.severe("This application is not designed to run on any operating system other than Window" +
                 "s. Sorry.");
             System.exit(0);
