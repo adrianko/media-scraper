@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 /**
  * TODO add secondary source
  * TODO add connection check
- * TODO multi number episode
  */
 public class Scraper {
 
