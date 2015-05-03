@@ -65,6 +65,11 @@ public class Downloader {
         String hash = new LinkedList<>(Arrays.asList(magnet.split(":"))).getLast();
     }
 
+    private String getAddLabelURL(String label, String hash) {
+        return "http://" + Helper.settings.get("dl_host") + ":" + Helper.settings.get("dl_port") + "/gui/?action=" +
+            "setprops&s=label&hash=" + hash + "&v=" + label + "&t=" + System.currentTimeMillis();
+    }
+
     private static String getAddURL(String magnet) {
         try {
             return "http://" + Helper.settings.get("dl_host") + ":" + Helper.settings.get("dl_port") + "/gui/?action=" +
