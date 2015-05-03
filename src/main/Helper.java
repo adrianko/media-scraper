@@ -78,7 +78,7 @@ public class Helper {
             while (dbRuntimes.next()) {
                 expectedFileSize.put(dbRuntimes.getInt("id"), new HashMap<>());
 
-                for (String t : new String[]{"hdtv_min", "hdtv_max", "1080p_min", "1080p_max"}) {
+                for (String t : new String[]{"hdtv_min", "hdtv_max", "720p_min", "720p_max", "1080p_min", "1080p_max"}) {
                     expectedFileSize.get(dbRuntimes.getInt("id")).put(t, dbRuntimes.getLong(t));
                 }
             }
@@ -93,8 +93,6 @@ public class Helper {
         if (t.getName().toLowerCase().contains("xvid")) return false;
 
         if (t.getName().contains("ReEnc")) return false;
-
-        if (t.getName().contains("720p")) return false;
         
         if (t.getName().contains("avi")) return false;
 

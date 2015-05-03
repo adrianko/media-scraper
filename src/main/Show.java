@@ -71,7 +71,17 @@ public abstract class Show {
     }
     
     public void setQuality() {
-        quality = (getHD() == 1 ? "1080p" : "HDTV");
+        switch (getHD()) {
+            case 1:
+                quality = "1080p";
+                break;
+            case 2:
+                quality = "720p";
+                break;
+            default:
+                quality = "HDTV";
+                break;
+        }
     }
 
     public String toString() {
