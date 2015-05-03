@@ -50,8 +50,17 @@ public class Downloader {
             start();
         }
 
+        send(getAddURL(magnet));
+    }
+
+    public static void setLabel(String magnet) {
+        String hash = new LinkedList<>(Arrays.asList(magnet.split(":"))).getLast();
+        send(getAddLabelURL("tv", hash));
+    }
+
+    private static void send(String url) {
         try {
-            HttpURLConnection con = (HttpURLConnection) new URL(getAddURL(magnet)).openConnection();
+            HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
             con.setRequestMethod("GET");
             con.setRequestProperty("Authorization", "Basic " + new String(Base64.getEncoder().encode((Helper.settings
                     .get("dl_user") + ":" + Helper.settings.get("dl_pass")).getBytes())));
@@ -61,11 +70,7 @@ public class Downloader {
         }
     }
 
-    public static void setLabel(String magnet) {
-        String hash = new LinkedList<>(Arrays.asList(magnet.split(":"))).getLast();
-    }
-
-    private String getAddLabelURL(String label, String hash) {
+    private static String getAddLabelURL(String label, String hash) {
         return "http://" + Helper.settings.get("dl_host") + ":" + Helper.settings.get("dl_port") + "/gui/?action=" +
             "setprops&s=label&hash=" + hash + "&v=" + label + "&t=" + System.currentTimeMillis();
     }
