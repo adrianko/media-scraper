@@ -17,6 +17,7 @@ public class Helper {
 
     public static Map<String, String> settings = new HashMap<>();
     public static Map<Integer, HashMap<String, Long>> expectedFileSize = new HashMap<>();
+    public static boolean isWindows = System.getProperty("os.name").contains("Windows");
 
     public static String getCurrentIP() {
         StringBuilder content = new StringBuilder();
@@ -42,12 +43,8 @@ public class Helper {
         }
     }
 
-    public static boolean ifWindows() {
-        return System.getProperty("os.name").contains("Windows");
-    }
-    
     public static void checkOS() {
-        if (!ifWindows()) {
+        if (!isWindows) {
             Scraper.logger.severe("This application is not designed to run on any operating system other than Window" +
                 "s. Sorry.");
             System.exit(0);

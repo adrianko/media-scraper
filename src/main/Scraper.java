@@ -61,7 +61,7 @@ public class Scraper {
                     Downloader.setLabel(option.getMagnet());
                     DB.bump(show, episode);
                 }
-                
+
                 show.setFound();
                 break;
             }
