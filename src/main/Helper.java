@@ -96,6 +96,8 @@ public class Helper {
         
         if (t.getName().contains("avi")) return false;
 
+        if (t.getName().contains("NL Subs")) return false;
+
         if (!t.getName().contains(s.getQuality())) return false;
 
         if (((s.getSeason() != e.getSeason() || s.getEpisode() > e.getEpisode())) && ((s.getSeason() >= e.getSeason() ||
