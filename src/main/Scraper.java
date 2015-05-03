@@ -58,9 +58,11 @@ public class Scraper {
 
                 if (!debug) {
                     Downloader.enqueue(option.getMagnet());
+                    DB.bump(show, episode);
                 }
                 
-                DB.bump(show, episode);
+                Downloader.setLabel(option.getMagnet());
+
                 show.setFound();
                 break;
             }

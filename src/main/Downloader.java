@@ -7,7 +7,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.LinkedList;
 
 import static main.Helper.ifWindows;
 
@@ -57,6 +59,10 @@ public class Downloader {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void setLabel(String magnet) {
+        String hash = new LinkedList<>(Arrays.asList(magnet.split(":"))).getLast();
     }
 
     private static String getAddURL(String magnet) {
