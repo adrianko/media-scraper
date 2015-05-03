@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 /**
  * TODO add secondary source
  * TODO add connection check
- * TODO add 720p support
  */
 public class Scraper {
 
