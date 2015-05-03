@@ -63,3 +63,4 @@ db/
 scraper.log*
 build
 .gradle
+.settings
