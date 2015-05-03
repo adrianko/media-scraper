@@ -71,26 +71,17 @@ public class Scraper {
     }
 
     public static void main(String[] args) {
-        try {
-            fh = new FileHandler(new File(Base.path + "scraper.log").getAbsolutePath(), true);
-            logger.addHandler(fh);
-            fh.setFormatter(new SimpleFormatter());
-            logger.info("Loaded");
-            
-            if (args.length > 0 && args[0].equals("test")) {
-                debug = true;
-                logger.info("Debug mode");
-            }
-            
-            //Helper.checkOS();
-            Helper.loadSettings();
-            Helper.checkIP();
-            new Scraper();
-            DB.close();
-            logger.info("Exiting...");
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (args.length > 0 && args[0].equals("test")) {
+            debug = true;
+            logger.info("Debug mode");
         }
+
+        //Helper.checkOS();
+        Helper.loadSettings();
+        Helper.checkIP();
+        new Scraper();
+        DB.close();
+        logger.info("Exiting...");
     }
 
 }
