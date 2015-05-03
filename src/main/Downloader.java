@@ -11,15 +11,13 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.LinkedList;
 
-import static main.Helper.ifWindows;
-
 public class Downloader {
 
     private static boolean running() {
         boolean found = false;
 
         try {
-            Process p = Runtime.getRuntime().exec((ifWindows() ? "tasklist.exe" : "ps aux"));
+            Process p = Runtime.getRuntime().exec((Helper.isWindows ? "tasklist.exe" : "ps aux"));
             BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line;
 
