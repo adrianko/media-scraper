@@ -1,4 +1,4 @@
-package main;
+package main.tv;
 
 import java.io.BufferedReader;
 import java.io.IOException;

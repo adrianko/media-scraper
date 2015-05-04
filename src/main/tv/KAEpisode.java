@@ -1,4 +1,4 @@
-package main;
+package main.tv;
 
 import org.jsoup.nodes.Document;
 

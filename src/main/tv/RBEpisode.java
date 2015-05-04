@@ -1,4 +1,4 @@
-package main;
+package main.tv;
 
 public class RBEpisode extends Episode {
 

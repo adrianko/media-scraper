@@ -1,4 +1,4 @@
-package main;
+package main.tv;
 
 public class RBShow extends Show {
 

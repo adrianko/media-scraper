@@ -1,4 +1,6 @@
-package main;
+package main.tv;
+
+import main.Base;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
@@ -12,13 +14,12 @@ import java.util.Map;
 public class DB {
 
     private static Connection c = null;
-    private static String path = DB.class.getResource(".").getPath() + "../../../../db/";
 
     public static Connection get() {
         if (c == null) {
             try {
                 Class.forName("org.sqlite.JDBC");
-                c = DriverManager.getConnection("jdbc:sqlite:" + path + (Scraper.debug ? "test" : "shows") + ".db");
+                c = DriverManager.getConnection("jdbc:sqlite:" + Base.path + "/db/" + (Scraper.debug ? "test" : "shows") + ".db");
             } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -71,7 +72,7 @@ public class DB {
 
     public static <T extends Show> Map<String, Show> getShows(Class<T> c) {
         Map<String, Show> shows = new HashMap<>();
-        String prefix = c.getName().toLowerCase().substring(5, 7);
+        String prefix = c.getName().toLowerCase().substring(8, 10);
 
         try {
             ResultSet rs = get().createStatement().executeQuery("SELECT * FROM shows");
