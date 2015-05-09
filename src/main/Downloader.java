@@ -1,4 +1,6 @@
-package main.tv;
+package main;
+
+import main.tv.Helper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +11,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Base64;
 
-public class Downloader {
+public abstract class Downloader {
 
     private static boolean running() {
         boolean found = false;
@@ -49,11 +51,7 @@ public class Downloader {
         send(getAddURL(magnet));
     }
 
-    public static void setLabel(String magnet) {
-        send(getAddLabelURL("tv", magnet.substring(magnet.lastIndexOf(":") + 1)));
-    }
-
-    private static void send(String url) {
+    protected static void send(String url) {
         try {
             HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
             con.setRequestMethod("GET");
@@ -65,7 +63,7 @@ public class Downloader {
         }
     }
 
-    private static String getAddLabelURL(String label, String hash) {
+    protected static String getAddLabelURL(String label, String hash) {
         return "http://" + Helper.settings.get("dl_host") + ":" + Helper.settings.get("dl_port") + "/gui/?action=" +
             "setprops&s=label&hash=" + hash + "&v=" + label + "&t=" + System.currentTimeMillis();
     }
@@ -80,5 +78,7 @@ public class Downloader {
 
         return "";
     }
+
+    public abstract void setLabel(String magnet);
     
 }
