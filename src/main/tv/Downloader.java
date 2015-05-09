@@ -52,8 +52,7 @@ public class Downloader {
     }
 
     public static void setLabel(String magnet) {
-        String hash = new LinkedList<>(Arrays.asList(magnet.split(":"))).getLast();
-        send(getAddLabelURL("tv", hash));
+        send(getAddLabelURL("tv", magnet.substring(magnet.lastIndexOf(":") + 1)));
     }
 
     private static void send(String url) {
