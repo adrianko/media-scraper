@@ -17,6 +17,7 @@ public class Scraper {
     public static Set<String> found = new HashSet<>();
     public static boolean debug = false;
     public static Logger logger = Logger.getLogger(Scraper.class.getName());
+    public TVDownloader tvd = new TVDownloader();
     
     public Scraper() {
         Arrays.asList(KAShow.class, RBShow.class).forEach(c -> parse(DB.getShows(c).entrySet().stream().filter(s ->
@@ -54,7 +55,7 @@ public class Scraper {
 
                 if (!debug) {
                     TVDownloader.enqueue(option.getMagnet());
-                    (new TVDownloader()).setLabel(option.getMagnet());
+                    tvd.setLabel(option.getMagnet());
                     DB.bump(show, episode);
                 }
 
