@@ -1,12 +1,9 @@
 package main.tv;
 
-import main.Downloader;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -20,7 +17,6 @@ public class Scraper {
     public static Set<String> found = new HashSet<>();
     public static boolean debug = false;
     public static Logger logger = Logger.getLogger(Scraper.class.getName());
-    static FileHandler fh;
     
     public Scraper() {
         Arrays.asList(KAShow.class, RBShow.class).forEach(c -> parse(DB.getShows(c).entrySet().stream().filter(s ->
@@ -57,8 +53,8 @@ public class Scraper {
                 found.add(show.getTitle());
 
                 if (!debug) {
-                    Downloader.enqueue(option.getMagnet());
-                    Downloader.setLabel(option.getMagnet());
+                    TVDownloader.enqueue(option.getMagnet());
+                    (new TVDownloader()).setLabel(option.getMagnet());
                     DB.bump(show, episode);
                 }
 
