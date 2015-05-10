@@ -44,7 +44,7 @@ public class Scraper {
     
     public Show parseOptions(Show show, Episode episode) {
         for (DownloadOption option : episode.getOptions()) {
-            if (Helper.validateOption(option, episode, show)) {
+            if (TVHelper.validateOption(option, episode, show)) {
                 if (show.getSeason() < episode.getSeason() && episode.getEpisode() >= 1) {
                     TVDatabase.nextSeason(show);
                 }
@@ -73,9 +73,9 @@ public class Scraper {
         }
 
         //Helper.checkOS();
-        Helper.loadGlobalSettings();
-        Helper.loadSettings();
-        Helper.checkIP();
+        TVHelper.loadGlobalSettings();
+        TVHelper.loadSettings();
+        TVHelper.checkIP();
         new Scraper();
         TVDatabase.close("shows");
         TVDatabase.close("settings");

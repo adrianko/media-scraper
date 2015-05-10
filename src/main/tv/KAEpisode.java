@@ -13,7 +13,7 @@ public class KAEpisode extends Episode {
     }
 
     public void parse() {
-        Document doc = Helper.retrievePage(url);
+        Document doc = TVHelper.retrievePage(url);
 
         if (doc != null) {
             doc.select("tr.odd, tr.even").forEach(e -> {

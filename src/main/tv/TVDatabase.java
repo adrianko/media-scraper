@@ -83,8 +83,8 @@ public class TVDatabase {
                     rs.getString("title"),
                     c.getConstructor(String.class, String.class, String.class, int.class, int.class, int.class, 
                         int.class)
-                    .newInstance(rs.getString("title"), Helper.settings.get(prefix + "_base") + 
-                            rs.getString(prefix + "_url"), Helper.settings.get(prefix + "_ep"), rs.getInt("season"), 
+                    .newInstance(rs.getString("title"), TVHelper.settings.get(prefix + "_base") +
+                            rs.getString(prefix + "_url"), TVHelper.settings.get(prefix + "_ep"), rs.getInt("season"),
                         rs.getInt("episode"), rs.getInt("hd"), rs.getInt("runtime"))
                 );
             }

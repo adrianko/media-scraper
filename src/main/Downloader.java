@@ -1,6 +1,6 @@
 package main;
 
-import main.tv.Helper;
+import main.tv.TVHelper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,12 +17,12 @@ public abstract class Downloader {
         boolean found = false;
 
         try {
-            Process p = Runtime.getRuntime().exec((Helper.isWindows ? "tasklist.exe" : "ps aux"));
+            Process p = Runtime.getRuntime().exec((TVHelper.isWindows ? "tasklist.exe" : "ps aux"));
             BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line;
 
             while ((line = br.readLine()) != null) {
-                if (line.contains(Helper.settings.get("dl_exe"))) {
+                if (line.contains(TVHelper.settings.get("dl_exe"))) {
                     found = true;
                     break;
                 }
@@ -36,7 +36,7 @@ public abstract class Downloader {
 
     private static void start() {
         try {
-            Runtime.getRuntime().exec(Helper.settings.get("dl_exe_path") + Helper.settings.get("dl_exe"));
+            Runtime.getRuntime().exec(TVHelper.settings.get("dl_exe_path") + TVHelper.settings.get("dl_exe"));
             Thread.sleep(4000);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
@@ -55,8 +55,8 @@ public abstract class Downloader {
         try {
             HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
             con.setRequestMethod("GET");
-            con.setRequestProperty("Authorization", "Basic " + new String(Base64.getEncoder().encode((Helper.settings
-                    .get("dl_user") + ":" + Helper.settings.get("dl_pass")).getBytes())));
+            con.setRequestProperty("Authorization", "Basic " + new String(Base64.getEncoder().encode((TVHelper.settings
+                    .get("dl_user") + ":" + TVHelper.settings.get("dl_pass")).getBytes())));
             con.getResponseCode();
         } catch (IOException e) {
             e.printStackTrace();
@@ -64,13 +64,13 @@ public abstract class Downloader {
     }
 
     protected static String getAddLabelURL(String label, String hash) {
-        return "http://" + Helper.settings.get("dl_host") + ":" + Helper.settings.get("dl_port") + "/gui/?action=" +
+        return "http://" + TVHelper.settings.get("dl_host") + ":" + TVHelper.settings.get("dl_port") + "/gui/?action=" +
             "setprops&s=label&hash=" + hash + "&v=" + label + "&t=" + System.currentTimeMillis();
     }
 
     private static String getAddURL(String magnet) {
         try {
-            return "http://" + Helper.settings.get("dl_host") + ":" + Helper.settings.get("dl_port") + "/gui/?action=" +
+            return "http://" + TVHelper.settings.get("dl_host") + ":" + TVHelper.settings.get("dl_port") + "/gui/?action=" +
                 "add-url&s=" + URLEncoder.encode(magnet, "US-ASCII") + "&t=" + System.currentTimeMillis();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

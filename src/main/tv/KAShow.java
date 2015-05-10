@@ -14,7 +14,7 @@ public class KAShow extends Show {
     }
 
     public void parse() {
-        Document doc = Helper.retrievePage(url);
+        Document doc = TVHelper.retrievePage(url);
 
         if (doc != null) {
             Element main = doc.select(".mainpart").first().select("table").first().select("tr").first();
