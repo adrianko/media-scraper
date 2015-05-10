@@ -13,25 +13,25 @@ import java.util.Map;
 
 public class TVDatabase {
 
-    private static Connection c = null;
+    private static Map<String, Connection> connections = new HashMap<>();
 
-    public static Connection get() {
-        if (c == null) {
+    public static Connection get(String db) {
+        if (!connections.containsKey(db)) {
             try {
                 Class.forName("org.sqlite.JDBC");
-                c = DriverManager.getConnection("jdbc:sqlite:" + Base.path + "/db/" + (Scraper.debug ? "test" : "shows")
-                        + ".db");
+                Connection c = DriverManager.getConnection("jdbc:sqlite:" + Base.path + "/db/" + db + ".db");
+                connections.put(db, c);
             } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }
 
-        return c;
+        return connections.get(db);
     }
 
-    public static void close() {
+    public static void close(String db) {
         try {
-            if (c != null) c.close();
+            if (connections.containsKey(db)) connections.get(db).close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -39,7 +39,7 @@ public class TVDatabase {
 
     public static void bump(Show s, Episode ep) {
         try {
-            PreparedStatement currentEp = get().prepareStatement("SELECT episode FROM shows WHERE title = ?");
+            PreparedStatement currentEp = get("shows").prepareStatement("SELECT episode FROM shows WHERE title = ?");
             currentEp.setString(1, s.getTitle());
             ResultSet rs = currentEp.executeQuery();
             rs.next();
@@ -47,7 +47,7 @@ public class TVDatabase {
             rs.close();
 
             if (ep.getEpisode() >= episodeNum) {
-                PreparedStatement update = get().prepareStatement("UPDATE shows SET episode = ? WHERE title = ?");
+                PreparedStatement update = get("shows").prepareStatement("UPDATE shows SET episode = ? WHERE title = ?");
                 update.setInt(1, ep.getEpisode() + 1);
                 update.setString(2, s.getTitle());
                 update.executeUpdate();
@@ -60,7 +60,7 @@ public class TVDatabase {
 
     public static void nextSeason(Show s) {
         try {
-            PreparedStatement update = get().prepareStatement("UPDATE shows SET episode = 1, season = ? WHERE " +
+            PreparedStatement update = get("shows").prepareStatement("UPDATE shows SET episode = 1, season = ? WHERE " +
                 "title = ?");
             update.setInt(1, s.getSeason() + 1);
             update.setString(2, s.getTitle());
@@ -76,7 +76,7 @@ public class TVDatabase {
         String prefix = c.getName().toLowerCase().substring(8, 10);
 
         try {
-            ResultSet rs = get().createStatement().executeQuery("SELECT * FROM shows");
+            ResultSet rs = get("shows").createStatement().executeQuery("SELECT * FROM shows");
 
             while (rs.next()) {
                 shows.put(
