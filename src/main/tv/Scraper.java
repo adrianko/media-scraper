@@ -78,6 +78,7 @@ public class Scraper {
         Helper.checkIP();
         new Scraper();
         TVDatabase.close("shows");
+        TVDatabase.close("settings");
         logger.info("Exiting...");
     }
 
