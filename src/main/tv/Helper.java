@@ -62,7 +62,7 @@ public class Helper {
     }
 
     public static void loadSettings() {
-        try (Statement s = DB.get().createStatement()) {
+        try (Statement s = TVDatabase.get().createStatement()) {
             ResultSet dbSettings = s.executeQuery("SELECT * FROM settings");
 
             while (dbSettings.next()) {

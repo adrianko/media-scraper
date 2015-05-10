@@ -20,7 +20,7 @@ public class Scraper {
     public TVDownloader tvd = new TVDownloader();
     
     public Scraper() {
-        Arrays.asList(KAShow.class, RBShow.class).forEach(c -> parse(DB.getShows(c).entrySet().stream().filter(s ->
+        Arrays.asList(KAShow.class, RBShow.class).forEach(c -> parse(TVDatabase.getShows(c).entrySet().stream().filter(s ->
                 !found.contains(s.getKey())).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))));
     }
     
@@ -47,7 +47,7 @@ public class Scraper {
         for (DownloadOption option : episode.getOptions()) {
             if (Helper.validateOption(option, episode, show)) {
                 if (show.getSeason() < episode.getSeason() && episode.getEpisode() >= 1) {
-                    DB.nextSeason(show);
+                    TVDatabase.nextSeason(show);
                 }
 
                 logger.info("Found " + show.getQuality() + ": " + option.getName() + " " + option.getMagnet());
@@ -56,7 +56,7 @@ public class Scraper {
                 if (!debug) {
                     TVDownloader.enqueue(option.getMagnet());
                     tvd.setLabel(option.getMagnet());
-                    DB.bump(show, episode);
+                    TVDatabase.bump(show, episode);
                 }
 
                 show.setFound();
@@ -77,7 +77,7 @@ public class Scraper {
         Helper.loadSettings();
         Helper.checkIP();
         new Scraper();
-        DB.close();
+        TVDatabase.close();
         logger.info("Exiting...");
     }
 

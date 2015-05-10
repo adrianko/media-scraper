@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DB {
+public class TVDatabase {
 
     private static Connection c = null;
 
@@ -36,7 +36,7 @@ public class DB {
             e.printStackTrace();
         }
     }
-    
+
     public static void bump(Show s, Episode ep) {
         try {
             PreparedStatement currentEp = get().prepareStatement("SELECT episode FROM shows WHERE title = ?");
