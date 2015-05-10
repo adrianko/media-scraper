@@ -6,6 +6,7 @@ public class Scraper {
     
     public static boolean debug = false;
     public static Logger logger = Logger.getLogger(Scraper.class.getName());
+    public MovieDownloader mvd = new MovieDownloader();
 
     public Scraper() {}
 
