@@ -8,9 +8,13 @@ public class Scraper {
     public static Logger logger = Logger.getLogger(Scraper.class.getName());
     public MovieDownloader mvd = new MovieDownloader();
 
-    public Scraper() {}
+    public Scraper() {
+        MovieDatabase.getMovies().forEach(this::parse);
+    }
 
-    public void parse() {}
+    public void parse(Movie movie) {
+        logger.info("Scraping: " + movie.getTitle());
+    }
 
     public static void main(String[] args) {
         if (args.length > 0 && args[0].equals("test")) {
