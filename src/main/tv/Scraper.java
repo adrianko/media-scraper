@@ -1,6 +1,13 @@
 package main.tv;
 
-import main.tv.shows.*;
+import main.Database;
+import main.Downloader;
+import main.Helper;
+import main.tv.shows.DownloadOption;
+import main.tv.shows.Episode;
+import main.tv.shows.KAShow;
+import main.tv.shows.RBShow;
+import main.tv.shows.Show;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -55,7 +62,7 @@ public class Scraper {
                 found.add(show.getTitle());
 
                 if (!debug) {
-                    TVDownloader.enqueue(option.getMagnet());
+                    Downloader.enqueue(option.getMagnet());
                     tvd.setLabel(option.getMagnet());
                     TVDatabase.bump(show, episode);
                 }
@@ -75,12 +82,12 @@ public class Scraper {
         }
 
         //Helper.checkOS();
-        TVHelper.loadGlobalSettings();
+        Helper.loadGlobalSettings();
         TVHelper.loadSettings();
         TVHelper.checkIP();
         new Scraper();
-        TVDatabase.close("shows");
-        TVDatabase.close("settings");
+        Database.close("shows");
+        Database.close("settings");
         logger.info("Exiting...");
     }
 

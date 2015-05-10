@@ -39,20 +39,6 @@ public class TVHelper extends Helper {
             e.printStackTrace();
         }
     }
-
-    public static void loadGlobalSettings() {
-        try (Statement s = TVDatabase.get("settings").createStatement()) {
-            ResultSet dbSettings = s.executeQuery("SELECT * FROM settings");
-
-            while (dbSettings.next()) {
-                settings.put(dbSettings.getString("property"), dbSettings.getString("value"));
-            }
-
-            dbSettings.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
     
     public static boolean validateOption(DownloadOption t, Episode e, Show s) {
         if (t.getName().toLowerCase().contains("xvid")) return false;
