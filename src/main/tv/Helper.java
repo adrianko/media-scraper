@@ -84,7 +84,9 @@ public class Helper {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
+    public static void loadGlobalSettings() {
         try (Statement s = TVDatabase.get("settings").createStatement()) {
             ResultSet dbSettings = s.executeQuery("SELECT * FROM settings");
 

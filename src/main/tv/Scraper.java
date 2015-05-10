@@ -73,6 +73,7 @@ public class Scraper {
         }
 
         //Helper.checkOS();
+        Helper.loadGlobalSettings();
         Helper.loadSettings();
         Helper.checkIP();
         new Scraper();
