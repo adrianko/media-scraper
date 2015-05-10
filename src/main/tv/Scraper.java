@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
- * TODO Move global settings to separate db
  * TODO add secondary source
  * TODO add connection check
  */
