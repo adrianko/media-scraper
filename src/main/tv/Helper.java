@@ -3,6 +3,7 @@ package main.tv;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import javax.swing.plaf.nimbus.State;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -81,6 +82,18 @@ public class Helper {
             }
 
             dbRuntimes.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try (Statement s = TVDatabase.get("settings").createStatement()) {
+            ResultSet dbSettings = s.executeQuery("SELECT * FROM settings");
+
+            while (dbSettings.next()) {
+                settings.put(dbSettings.getString("property"), dbSettings.getString("value"));
+            }
+
+            dbSettings.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
