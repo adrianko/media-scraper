@@ -1,4 +1,4 @@
-package main.tv.objects;
+package main.tv.shows;
 
 import main.tv.TVHelper;
 import org.jsoup.nodes.Document;

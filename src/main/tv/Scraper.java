@@ -1,6 +1,6 @@
 package main.tv;
 
-import main.tv.objects.*;
+import main.tv.shows.*;
 
 import java.util.Arrays;
 import java.util.HashSet;

@@ -1,8 +1,8 @@
 package main.tv;
 
 import main.Base;
-import main.tv.objects.Episode;
-import main.tv.objects.Show;
+import main.tv.shows.Episode;
+import main.tv.shows.Show;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
