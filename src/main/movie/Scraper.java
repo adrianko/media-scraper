@@ -13,7 +13,7 @@ public class Scraper {
     }
 
     public void parse(Movie movie) {
-        logger.info("Scraping: " + movie.getTitle());
+        logger.info("Scraping: " + movie.getTitle() + " / " + movie.getYear());
     }
 
     public static void main(String[] args) {
