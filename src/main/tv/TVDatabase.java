@@ -75,7 +75,8 @@ public class TVDatabase {
 
     public static <T extends Show> Map<String, Show> getShows(Class<T> c) {
         Map<String, Show> shows = new HashMap<>();
-        String prefix = c.getName().toLowerCase().substring(8, 10);
+        int ind = c.getName().lastIndexOf(".");
+        String prefix = c.getName().substring(ind + 1, ind + 3).toLowerCase();
 
         try {
             ResultSet rs = get("shows").createStatement().executeQuery("SELECT * FROM shows");
