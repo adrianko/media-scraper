@@ -1,5 +1,6 @@
-package main.tv;
+package main.tv.objects;
 
+import main.tv.TVHelper;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;

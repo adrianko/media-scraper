@@ -1,6 +1,9 @@
 package main.tv;
 
 import main.Helper;
+import main.tv.objects.DownloadOption;
+import main.tv.objects.Episode;
+import main.tv.objects.Show;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

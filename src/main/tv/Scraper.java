@@ -1,5 +1,7 @@
 package main.tv;
 
+import main.tv.objects.*;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;

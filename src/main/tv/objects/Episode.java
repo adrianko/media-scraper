@@ -1,4 +1,4 @@
-package main.tv;
+package main.tv.objects;
 
 import java.util.LinkedList;
 import java.util.List;
