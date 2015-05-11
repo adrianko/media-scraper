@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 public class MovieHelper extends Helper {
 
-    public void loadSettings() {
+    public static void loadSettings() {
         try (Statement s = Database.get("movies").createStatement()) {
             ResultSet dbSettings = s.executeQuery("SELECT * FROM settings");
 

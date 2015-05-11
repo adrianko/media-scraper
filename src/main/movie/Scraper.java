@@ -1,5 +1,7 @@
 package main.movie;
 
+import main.Helper;
+
 import java.util.logging.Logger;
 
 public class Scraper {
@@ -22,6 +24,8 @@ public class Scraper {
             logger.info("Debug mode");
         }
 
+        Helper.loadGlobalSettings();
+        MovieHelper.loadSettings();
         new Scraper();
         logger.info("Exiting...");
     }
