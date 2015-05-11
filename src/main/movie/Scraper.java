@@ -1,6 +1,7 @@
 package main.movie;
 
 import main.Helper;
+import main.movie.orm.Movie;
 
 import java.util.logging.Logger;
 

@@ -1,4 +1,4 @@
-package main.movie;
+package main.movie.orm;
 
 public class Movie {
     

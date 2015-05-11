@@ -1,6 +1,8 @@
 package main.movie;
 
 import main.Database;
+import main.movie.orm.CacheItem;
+import main.movie.orm.Movie;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
