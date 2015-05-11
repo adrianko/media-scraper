@@ -23,10 +23,16 @@ public class Scraper {
     public void parse(Movie movie) {
         logger.info("Scraping: " + movie.getTitle() + " / " + movie.getYear());
         List<CacheItem> filtered = cacheItems.stream().filter(ci -> ci.getTitle().contains(movie.getTitle()) &&
-                ci.getTitle().contains("1080p")).collect(Collectors.toList());
+                ci.getTitle().contains(String.valueOf(movie.getYear())) && ci.getTitle().contains("1080p"))
+                .collect(Collectors.toList());
 
         if (!filtered.isEmpty()) {
-
+            if (filtered.size() > 1) {
+                
+            } else {
+                MovieDownloader.enqueue(filtered.get(0).getMagnet());
+                mvd.setLabel(filtered.get(0).getMagnet());
+            }
         }
     }
 
