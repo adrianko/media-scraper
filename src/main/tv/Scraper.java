@@ -82,7 +82,6 @@ public class Scraper {
         }
 
         //Helper.checkOS();
-        Helper.loadGlobalSettings();
         TVHelper.loadSettings();
         TVHelper.checkIP();
         new Scraper();

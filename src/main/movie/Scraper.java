@@ -25,7 +25,6 @@ public class Scraper {
             logger.info("Debug mode");
         }
 
-        Helper.loadGlobalSettings();
         MovieHelper.loadSettings();
         new Scraper();
         logger.info("Exiting...");

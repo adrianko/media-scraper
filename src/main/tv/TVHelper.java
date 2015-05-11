@@ -16,6 +16,8 @@ public class TVHelper extends Helper {
     public static Map<Integer, HashMap<String, Long>> expectedFileSize = new HashMap<>();
 
     public static void loadSettings() {
+        Helper.loadGlobalSettings();
+
         try (Statement s = TVDatabase.get("shows").createStatement()) {
             ResultSet dbSettings = s.executeQuery("SELECT * FROM settings");
 
