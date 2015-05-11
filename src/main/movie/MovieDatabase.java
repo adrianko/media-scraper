@@ -43,11 +43,13 @@ public class MovieDatabase extends Database {
     }
 
     public boolean addCacheItem(CacheItem ci) {
+        int rowCount = -1;
+
         try {
             PreparedStatement check = get("movies").prepareStatement("SELECT * FROM cache WHERE id=?");
             check.setInt(1, ci.getID());
             ResultSet checkRS = check.executeQuery();
-            int rowCount = checkRS.last() ? checkRS.getRow() : 0;
+            rowCount = checkRS.last() ? checkRS.getRow() : 0;
 
             if (rowCount == 0) {
                 PreparedStatement add = get("movies").prepareStatement("INSERT INTO cache (id, title, magnet) VALUES " +
@@ -60,6 +62,8 @@ public class MovieDatabase extends Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return (rowCount == 0);
     }
 
 }
