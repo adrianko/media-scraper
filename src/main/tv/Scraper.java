@@ -79,7 +79,7 @@ public class Scraper {
             debug = true;
             logger.info("Debug mode");
         }
-        
+
         TVHelper.loadSettings();
         TVHelper.checkIP();
         new Scraper();

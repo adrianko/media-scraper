@@ -1,22 +1,33 @@
 package main.movie;
 
-import main.Helper;
+import main.movie.orm.CacheItem;
 import main.movie.orm.Movie;
 
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class Scraper {
     
     public static boolean debug = false;
     public static Logger logger = Logger.getLogger(Scraper.class.getName());
     public MovieDownloader mvd = new MovieDownloader();
+    Set<CacheItem> cacheItems;
 
     public Scraper() {
+        cacheItems = MovieDatabase.getCache();
         MovieDatabase.getMovies().forEach(this::parse);
     }
 
     public void parse(Movie movie) {
         logger.info("Scraping: " + movie.getTitle() + " / " + movie.getYear());
+        List<CacheItem> filtered = cacheItems.stream().filter(ci -> ci.getTitle().contains(movie.getTitle()) &&
+                ci.getTitle().contains("1080p")).collect(Collectors.toList());
+
+        if (!filtered.isEmpty()) {
+
+        }
     }
 
     public static void main(String[] args) {
