@@ -2,7 +2,6 @@ package main.tv;
 
 import main.Database;
 import main.Downloader;
-import main.Helper;
 import main.tv.shows.DownloadOption;
 import main.tv.shows.Episode;
 import main.tv.shows.KAShow;
@@ -80,8 +79,7 @@ public class Scraper {
             debug = true;
             logger.info("Debug mode");
         }
-
-        //Helper.checkOS();
+        
         TVHelper.loadSettings();
         TVHelper.checkIP();
         new Scraper();
