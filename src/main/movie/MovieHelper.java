@@ -55,7 +55,7 @@ public class MovieHelper extends Helper {
         }
         
         Scraper.logger.info("Managed: " + page);
-        //send all retrieved to database
+        allRetrieved.forEach(MovieDatabase::addCacheItem);
     }
     
     public static Set<CacheItem> parsePage(String url) {

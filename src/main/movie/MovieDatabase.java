@@ -46,7 +46,7 @@ public class MovieDatabase extends Database {
         return cache;
     }
 
-    public boolean addCacheItem(CacheItem ci) {
+    public static boolean addCacheItem(CacheItem ci) {
         int rowCount = -1;
 
         try {
