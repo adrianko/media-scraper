@@ -27,7 +27,7 @@ public class MovieHelper extends Helper {
         }
     }
     
-    public boolean validateOption(CacheItem ci, Movie m) {
+    public static boolean validateOption(CacheItem ci, Movie m) {
         String t = ci.getTitle().replaceAll("(?i)" + m.getTitle(), "").replaceAll("(?i)\\(" + m.getYear() + "\\)", "")
             .replaceAll("(?i)1080p", "").replaceAll("(?i)BrRip", "").replaceAll("(?i)x264", "")
             .replaceAll("(?i)- YIFY", "").replaceAll("(?i)-YIFY", "").trim();

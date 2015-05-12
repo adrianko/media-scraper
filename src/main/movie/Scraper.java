@@ -27,12 +27,10 @@ public class Scraper {
                 .collect(Collectors.toList());
         
         if (!filtered.isEmpty()) {
-            if (filtered.size() > 1) {
-                
-            } else {
-                MovieDownloader.enqueue(filtered.get(0).getMagnet());
-                mvd.setLabel(filtered.get(0).getMagnet());
-            }
+            filtered.stream().filter(ci -> MovieHelper.validateOption(ci, movie)).forEach(ci -> {
+                MovieDownloader.enqueue(ci.getMagnet());
+                mvd.setLabel(ci.getMagnet());
+            });
         }
     }
 
