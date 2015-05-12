@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class MovieHelper extends Helper {
 
@@ -39,8 +40,19 @@ public class MovieHelper extends Helper {
     }
     
     public static void buildCache() {
+        Set<Integer> cacheIDs = MovieDatabase.getCache().stream().map(CacheItem::getID).collect(Collectors.toSet());
+        Set<CacheItem> allRetrieved = new HashSet<>();
         String url = settings.get("base_url");
+        int page = 1;
+        int duplicates = 0;
         
+        while (duplicates <= 5) {
+            Set<CacheItem> retrieved = parsePage(url + (page++));
+            allRetrieved.addAll(retrieved);
+            duplicates += retrieved.stream().filter(ci -> !cacheIDs.contains(ci.getID())).count();
+        }
+        
+        //send all retrieved to database
     }
     
     public static Set<CacheItem> parsePage(String url) {
