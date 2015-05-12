@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 public class MovieHelper extends Helper {
 
     public static void loadSettings() {
+        Scraper.logger.info("Loading settings");
         Helper.loadGlobalSettings();
 
         try (Statement s = Database.get("movies").createStatement()) {
@@ -40,6 +41,7 @@ public class MovieHelper extends Helper {
     }
     
     public static void buildCache() {
+        Scraper.logger.info("Building Cache");
         Set<Integer> cacheIDs = MovieDatabase.getCache().stream().map(CacheItem::getID).collect(Collectors.toSet());
         Set<CacheItem> allRetrieved = new HashSet<>();
         String url = settings.get("base_url");
@@ -52,6 +54,7 @@ public class MovieHelper extends Helper {
             duplicates += retrieved.stream().filter(ci -> !cacheIDs.contains(ci.getID())).count();
         }
         
+        Scraper.logger.info("Managed: " + page);
         //send all retrieved to database
     }
     
