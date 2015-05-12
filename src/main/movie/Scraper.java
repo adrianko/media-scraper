@@ -25,7 +25,7 @@ public class Scraper {
         List<CacheItem> filtered = cacheItems.stream().filter(ci -> ci.getTitle().contains(movie.getTitle()) &&
                 ci.getTitle().contains(String.valueOf(movie.getYear())) && ci.getTitle().contains("1080p"))
                 .collect(Collectors.toList());
-
+        
         if (!filtered.isEmpty()) {
             if (filtered.size() > 1) {
                 
