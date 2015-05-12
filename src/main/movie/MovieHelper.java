@@ -4,10 +4,13 @@ import main.Helper;
 import main.Database;
 import main.movie.orm.CacheItem;
 import main.movie.orm.Movie;
+import org.jsoup.nodes.Document;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MovieHelper extends Helper {
 
@@ -33,6 +36,18 @@ public class MovieHelper extends Helper {
             .replaceAll("(?i)- YIFY", "").replaceAll("(?i)-YIFY", "").trim();
         
         return t.equals("");
+    }
+    
+    public static void buildCache() {
+        String url = settings.get("base_url");
+        
+    }
+    
+    public static Set<CacheItem> parsePage(String url) {
+        Set<CacheItem> cacheItems = new HashSet<>();
+        Document doc = retrievePage(url);
+        
+        return cacheItems;
     }
 
 }
