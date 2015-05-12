@@ -16,6 +16,7 @@ public class Scraper {
     Set<CacheItem> cacheItems;
 
     public Scraper() {
+        MovieHelper.buildCache();
         cacheItems = MovieDatabase.getCache();
         MovieDatabase.getMovies().forEach(this::parse);
     }
