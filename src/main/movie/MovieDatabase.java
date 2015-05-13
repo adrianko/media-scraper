@@ -51,14 +51,14 @@ public class MovieDatabase extends Database {
 
         try {
             PreparedStatement check = get("movies").prepareStatement("SELECT * FROM cache WHERE id=?");
-            check.setInt(1, ci.getID());
+            check.setLong(1, ci.getID());
             ResultSet checkRS = check.executeQuery();
             rowCount = checkRS.last() ? checkRS.getRow() : 0;
 
             if (rowCount == 0) {
                 PreparedStatement add = get("movies").prepareStatement("INSERT INTO cache (id, title, magnet) VALUES " +
                         "(?, ?, ?)");
-                add.setInt(1, ci.getID());
+                add.setLong(1, ci.getID());
                 add.setString(2, ci.getTitle());
                 add.setString(3, ci.getMagnet());
                 add.executeUpdate();

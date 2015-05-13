@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class MovieHelper extends Helper {
@@ -45,7 +44,7 @@ public class MovieHelper extends Helper {
     
     public static void buildCache() {
         Scraper.logger.info("Building Cache");
-        Set<Integer> cacheIDs = MovieDatabase.getCache().stream().map(CacheItem::getID).collect(Collectors.toSet());
+        Set<Long> cacheIDs = MovieDatabase.getCache().stream().map(CacheItem::getID).collect(Collectors.toSet());
         Set<CacheItem> allRetrieved = new HashSet<>();
         String url = settings.get("base_url");
         int page = 1;
@@ -68,15 +67,17 @@ public class MovieHelper extends Helper {
         
         if (doc != null) {
             Elements tableRows = doc.select(".data").first().select(".odd, .even");
-            Pattern idPattern = Pattern.compile("[0-9]+");
-                
+
             for (Element e : tableRows) {
-                int id = Integer.parseInt(idPattern.matcher(e.attr("id")).toString());
-                String title = e.select("td").first().select(".torrentname").first().select("a.cellMainLink").first()
-                    .text();
-                String magnet = e.select("td").first().select(".iaconbox").first().select("a.imagnet").first()
-                    .attr("href").split("&")[0];
-                cacheItems.add(new CacheItem(id, title, magnet));
+                if (e.attr("id") != null) {
+                    String idString = e.attr("id").replaceAll("[\\D]", "");
+                    long id = Long.getLong(idString);
+                    String title = e.select("td").first().select(".torrentname").first().select("a.cellMainLink").first()
+                            .text();
+                    String magnet = e.select("td").first().select(".iaconbox").first().select("a.imagnet").first()
+                            .attr("href").split("&")[0];
+                    cacheItems.add(new CacheItem(id, title, magnet));
+                }
             }
         }
 

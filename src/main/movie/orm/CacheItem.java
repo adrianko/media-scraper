@@ -2,17 +2,17 @@ package main.movie.orm;
 
 public class CacheItem {
 
-    private int id;
+    private long id;
     private String title;
     private String magnet;
 
-    public CacheItem(int id, String title, String magnet) {
+    public CacheItem(long id, String title, String magnet) {
         this.id = id;
         this.title = title;
         this.magnet = magnet;
     }
 
-    public int getID() {
+    public long getID() {
         return id;
     }
 
