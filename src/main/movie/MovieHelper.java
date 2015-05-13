@@ -5,7 +5,6 @@ import main.Database;
 import main.movie.orm.CacheItem;
 import main.movie.orm.Movie;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.sql.ResultSet;
