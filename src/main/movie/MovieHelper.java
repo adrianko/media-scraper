@@ -53,7 +53,7 @@ public class MovieHelper extends Helper {
         while (duplicates <= 5) {
             Set<CacheItem> retrieved = parsePage(url + (page++));
             allRetrieved.addAll(retrieved);
-            duplicates += retrieved.stream().filter(ci -> !cacheIDs.contains(ci.getID())).count();
+            duplicates += retrieved.stream().filter(ci -> cacheIDs.contains(ci.getID())).count();
             cacheIDs.addAll(retrieved.stream().map(CacheItem::getID).collect(Collectors.toSet()));
         }
         
@@ -64,7 +64,7 @@ public class MovieHelper extends Helper {
     public static Set<CacheItem> parsePage(String url) {
         Set<CacheItem> cacheItems = new HashSet<>();
         Document doc = retrievePage(url);
-        
+
         if (doc != null) {
             Elements tableRows = doc.select(".data").first().select(".odd, .even");
 
