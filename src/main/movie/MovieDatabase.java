@@ -50,10 +50,11 @@ public class MovieDatabase extends Database {
         int rowCount = -1;
 
         try {
-            PreparedStatement check = get("movies").prepareStatement("SELECT * FROM cache WHERE id=?");
+            PreparedStatement check = get("movies").prepareStatement("SELECT COUNT(*) AS 'count' FROM cache WHERE id=?");
             check.setLong(1, ci.getID());
             ResultSet checkRS = check.executeQuery();
-            rowCount = checkRS.last() ? checkRS.getRow() : 0;
+            checkRS.next();
+            rowCount = checkRS.getInt("count");
 
             if (rowCount == 0) {
                 PreparedStatement add = get("movies").prepareStatement("INSERT INTO cache (id, title, magnet) VALUES " +

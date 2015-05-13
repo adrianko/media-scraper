@@ -68,17 +68,14 @@ public class MovieHelper extends Helper {
         if (doc != null) {
             Elements tableRows = doc.select(".data").first().select(".odd, .even");
 
-            for (Element e : tableRows) {
-                if (e.attr("id") != null) {
-                    String idString = e.attr("id").replaceAll("[\\D]", "");
-                    long id = Long.getLong(idString);
-                    String title = e.select("td").first().select(".torrentname").first().select("a.cellMainLink").first()
-                            .text();
-                    String magnet = e.select("td").first().select(".iaconbox").first().select("a.imagnet").first()
-                            .attr("href").split("&")[0];
-                    cacheItems.add(new CacheItem(id, title, magnet));
-                }
-            }
+            tableRows.stream().filter(e -> e.attr("id") != null).forEach(e -> {
+                long id = Long.parseLong(e.attr("id").replaceAll("[\\D]", ""));
+                String title = e.select("td").first().select(".torrentname").first().select("a.cellMainLink").first()
+                        .text();
+                String magnet = e.select("td").first().select(".iaconbox").first().select("a.imagnet").first()
+                        .attr("href").split("&")[0];
+                cacheItems.add(new CacheItem(id, title, magnet));
+            });
         }
 
         return cacheItems;
