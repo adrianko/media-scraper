@@ -5,12 +5,15 @@ import main.Database;
 import main.movie.orm.CacheItem;
 import main.movie.orm.Movie;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class MovieHelper extends Helper {
@@ -63,6 +66,20 @@ public class MovieHelper extends Helper {
         Set<CacheItem> cacheItems = new HashSet<>();
         Document doc = retrievePage(url);
         
+        if (doc != null) {
+            Elements tableRows = doc.select(".data").first().select(".odd, .even");
+            Pattern idPattern = Pattern.compile("[0-9]+");
+                
+            for (Element e : tableRows) {
+                int id = Integer.parseInt(idPattern.matcher(e.attr("id")).toString());
+                String title = e.select("td").first().select(".torrentname").first().select("a.cellMainLink").first()
+                    .text();
+                String magnet = e.select("td").first().select(".iaconbox").first().select("a.imagnet").first()
+                    .attr("href").split("&")[0];
+                cacheItems.add(new CacheItem(id, title, magnet));
+            }
+        }
+
         return cacheItems;
     }
 
