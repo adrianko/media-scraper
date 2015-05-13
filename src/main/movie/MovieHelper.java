@@ -52,6 +52,7 @@ public class MovieHelper extends Helper {
             Set<CacheItem> retrieved = parsePage(url + (page++));
             allRetrieved.addAll(retrieved);
             duplicates += retrieved.stream().filter(ci -> !cacheIDs.contains(ci.getID())).count();
+            cacheIDs.addAll(retrieved.stream().map(CacheItem::getID).collect(Collectors.toSet()));
         }
         
         Scraper.logger.info("Managed: " + page);
