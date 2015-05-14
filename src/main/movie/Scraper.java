@@ -28,12 +28,12 @@ public class Scraper {
 
     public void parse(Movie movie) {
         logger.info("Scraping: " + movie.getTitle() + " / " + movie.getYear());
-        List<CacheItem> filtered = cacheItems.stream().filter(ci -> 
+        List<CacheItem> filtered = cacheItems.stream().filter(ci ->
                 ci.getTitle().contains(movie.getTitle()) &&
-                ci.getTitle().contains(String.valueOf(movie.getYear())) && 
+                ci.getTitle().contains(String.valueOf(movie.getYear())) &&
                 ci.getTitle().contains("1080p"))
             .collect(Collectors.toList());
-        
+
         if (!filtered.isEmpty()) {
             filtered.stream().filter(ci -> MovieHelper.validateOption(ci, movie)).forEach(ci -> {
                 MovieDownloader.enqueue(ci.getMagnet());
@@ -52,5 +52,5 @@ public class Scraper {
         new Scraper();
         logger.info("Exiting...");
     }
-    
+
 }
