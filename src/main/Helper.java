@@ -3,6 +3,7 @@ package main;
 import main.tv.Scraper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -73,6 +74,14 @@ public class Helper {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+    public static String retrieveTitle(Element e) {
+        return e.select("td").first().select(".torrentname").first().select("a.cellMainLink").first().text();
+    }
+    
+    public static String retrieveMagnet(Element e) {
+        return e.select("td").first().select(".iaconbox").first().select("a.imagnet").first().attr("href").split("&")[0];
     }
 
 }
