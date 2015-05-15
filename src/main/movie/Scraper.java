@@ -38,6 +38,7 @@ public class Scraper {
             filtered.stream().filter(ci -> MovieHelper.validateOption(ci, movie)).forEach(ci -> {
                 MovieDownloader.enqueue(ci.getMagnet());
                 mvd.setLabel(ci.getMagnet());
+                MovieDatabase.markDone(movie);
             });
         }
     }
