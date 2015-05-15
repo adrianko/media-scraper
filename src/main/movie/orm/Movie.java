@@ -4,6 +4,7 @@ public class Movie {
     
     private String title;
     private int year;
+    private boolean found = false;
     
     public Movie(String t, int y) {
         setTitle(t);
@@ -24,6 +25,14 @@ public class Movie {
     
     public void setYear(int y) {
         year = y;
+    }
+    
+    public boolean found() {
+        return found;
+    }
+    
+    public void markFound() {
+        found = true;
     }
     
 }

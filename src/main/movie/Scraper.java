@@ -38,6 +38,7 @@ public class Scraper {
                 MovieDownloader.enqueue(ci.getMagnet());
                 mvd.setLabel(ci.getMagnet());
                 MovieDatabase.markDone(movie);
+                System.out.println("Found: " + ci.getTitle());
             });
         }
     }
