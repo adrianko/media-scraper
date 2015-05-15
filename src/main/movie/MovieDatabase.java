@@ -70,5 +70,15 @@ public class MovieDatabase extends Database {
 
         return (rowCount == 0);
     }
+    
+    public static void markDone(Movie movie) {
+        try {
+            PreparedStatement remove = get("movies").prepareStatement("DELETE FROM movies WHERE title=?");
+            remove.setString(1, movie.getTitle());
+            remove.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
