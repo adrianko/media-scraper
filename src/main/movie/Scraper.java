@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
- * TODO Remove completed requests
  * TODO Add processing messages when matching
  * TODO Add edge case for year if not found
  */
