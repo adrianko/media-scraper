@@ -26,30 +26,20 @@ public class Scraper {
 
     public void parse(Movie movie) {
         logger.info("Scraping: " + movie.getTitle() + " / " + movie.getYear());
-        Set<CacheItem> filtered = filter(false, movie);
-
-        if (!filtered.isEmpty()) {
-            filtered.stream().filter(ci -> MovieHelper.validateOption(ci, movie)).forEach(ci -> {
-                MovieDownloader.enqueue(ci.getMagnet());
-                mvd.setLabel(ci.getMagnet());
-                MovieDatabase.markDone(movie);
-                logger.info("Found: " + ci.getTitle());
-                movie.markFound();
-            });
+        movie = match(filter(false, movie), movie);
             
-            if (!movie.found()) {
-                logger.info("None found.");
-            }
+        if (!movie.found()) {
+            logger.info("None found.");
         }
     }
     
     public Set<CacheItem> filter(boolean edge, Movie movie) {
         if (edge) {
             return cacheItems.stream().filter(ci ->
-                    ci.getTitle().contains(movie.getTitle()) && (
-                        ci.getTitle().contains(String.valueOf(movie.getYear() + 1)) || 
+                ci.getTitle().contains(movie.getTitle()) && (
+                    ci.getTitle().contains(String.valueOf(movie.getYear() + 1)) ||
                         ci.getTitle().contains(String.valueOf(movie.getYear() - 1))
-                    ) && ci.getTitle().contains("1080p"))
+                ) && ci.getTitle().contains("1080p"))
                 .collect(Collectors.toSet());
         }
         
@@ -58,6 +48,17 @@ public class Scraper {
                 ci.getTitle().contains(String.valueOf(movie.getYear())) &&
                 ci.getTitle().contains("1080p"))
             .collect(Collectors.toSet());
+    }
+    
+    public Movie match(Set<CacheItem> filtered, Movie movie) {
+        filtered.stream().filter(ci -> MovieHelper.validateOption(ci, movie)).forEach(ci -> {
+            MovieDownloader.enqueue(ci.getMagnet());
+            mvd.setLabel(ci.getMagnet());
+            MovieDatabase.markDone(movie);
+            movie.markFound();
+        });
+        
+        return movie;
     }
 
     public static void main(String[] args) {
