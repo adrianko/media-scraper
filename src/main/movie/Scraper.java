@@ -37,16 +37,8 @@ public class Scraper {
     }
 
     public Set<CacheItem> filter(boolean edge, Movie movie) {
-        Set<CacheItem> filtered = cacheItems.stream().filter(ci -> ci.getTitle().contains(movie.getTitle()) &&
-                ci.getTitle().contains("1080p")).collect(Collectors.toSet());
-
-        if (edge) {
-            return filtered.stream().filter(ci -> ci.getTitle().contains(String.valueOf(movie.getYear() + 1)) ||
-                    ci.getTitle().contains(String.valueOf(movie.getYear() - 1))).collect(Collectors.toSet());
-        }
-
-        return filtered.stream().filter(ci -> ci.getTitle().contains(String.valueOf(movie.getYear())))
-                .collect(Collectors.toSet());
+        return cacheItems.stream().filter(ci -> ci.getTitle().contains(movie.getTitle()) &&
+                ci.getTitle().contains("1080p") && ifValidYear(edge, ci, movie)).collect(Collectors.toSet());
     }
 
     public Movie match(Set<CacheItem> filtered, Movie movie) {
@@ -59,6 +51,21 @@ public class Scraper {
         });
 
         return movie;
+    }
+
+    public boolean ifValidYear(boolean edge, CacheItem ci, Movie movie) {
+        if (edge) {
+            if (ci.getTitle().contains(String.valueOf(movie.getYear() + 1)) ||
+                    ci.getTitle().contains(String.valueOf(movie.getYear() - 1))) {
+                return true;
+            }
+        } else {
+            if (ci.getTitle().contains(String.valueOf(movie.getYear()))) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static void main(String[] args) {
