@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  * TODO add support for special character matching
  */
 public class Scraper {
-    
+
     public static boolean debug = false;
     public static Logger logger = Logger.getLogger(Scraper.class.getName());
     public MovieDownloader mvd = new MovieDownloader();
@@ -26,33 +26,29 @@ public class Scraper {
     public void parse(Movie movie) {
         logger.info("Scraping: " + movie.getTitle() + " / " + movie.getYear());
         movie = match(filter(false, movie), movie);
-            
+
         if (!movie.found()) {
             movie = match(filter(true, movie), movie);
-            
+
             if (!movie.found()) {
                 logger.info("None found.");
             }
         }
     }
-    
+
     public Set<CacheItem> filter(boolean edge, Movie movie) {
+        Set<CacheItem> filtered = cacheItems.stream().filter(ci -> ci.getTitle().contains(movie.getTitle()) &&
+                ci.getTitle().contains("1080p")).collect(Collectors.toSet());
+
         if (edge) {
-            return cacheItems.stream().filter(ci ->
-                ci.getTitle().contains(movie.getTitle()) && (
-                    ci.getTitle().contains(String.valueOf(movie.getYear() + 1)) ||
-                        ci.getTitle().contains(String.valueOf(movie.getYear() - 1))
-                ) && ci.getTitle().contains("1080p"))
-                .collect(Collectors.toSet());
+            return filtered.stream().filter(ci -> ci.getTitle().contains(String.valueOf(movie.getYear() + 1)) ||
+                    ci.getTitle().contains(String.valueOf(movie.getYear() - 1))).collect(Collectors.toSet());
         }
-        
-        return cacheItems.stream().filter(ci ->
-                ci.getTitle().contains(movie.getTitle()) &&
-                ci.getTitle().contains(String.valueOf(movie.getYear())) &&
-                ci.getTitle().contains("1080p"))
-            .collect(Collectors.toSet());
+
+        return filtered.stream().filter(ci -> ci.getTitle().contains(String.valueOf(movie.getYear())))
+                .collect(Collectors.toSet());
     }
-    
+
     public Movie match(Set<CacheItem> filtered, Movie movie) {
         filtered.stream().filter(ci -> MovieHelper.validateOption(ci, movie)).forEach(ci -> {
             MovieDownloader.enqueue(ci.getMagnet());
@@ -61,7 +57,7 @@ public class Scraper {
             System.out.println("Found: " + ci.getTitle());
             movie.markFound();
         });
-        
+
         return movie;
     }
 
