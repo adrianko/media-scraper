@@ -3,14 +3,10 @@ package main.movie;
 import main.movie.orm.CacheItem;
 import main.movie.orm.Movie;
 
-import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-/**
- * TODO Add edge case for year if not found
- */
 public class Scraper {
     
     public static boolean debug = false;
