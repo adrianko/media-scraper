@@ -7,6 +7,9 @@ import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+/**
+ * TODO add support for special character matching
+ */
 public class Scraper {
     
     public static boolean debug = false;
