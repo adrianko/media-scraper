@@ -26,11 +26,7 @@ public class Scraper {
 
     public void parse(Movie movie) {
         logger.info("Scraping: " + movie.getTitle() + " / " + movie.getYear());
-        List<CacheItem> filtered = cacheItems.stream().filter(ci ->
-                ci.getTitle().contains(movie.getTitle()) &&
-                ci.getTitle().contains(String.valueOf(movie.getYear())) &&
-                ci.getTitle().contains("1080p"))
-            .collect(Collectors.toList());
+        Set<CacheItem> filtered = filter(false, movie);
 
         if (!filtered.isEmpty()) {
             filtered.stream().filter(ci -> MovieHelper.validateOption(ci, movie)).forEach(ci -> {
@@ -45,6 +41,23 @@ public class Scraper {
                 logger.info("None found.");
             }
         }
+    }
+    
+    public Set<CacheItem> filter(boolean edge, Movie movie) {
+        if (edge) {
+            return cacheItems.stream().filter(ci ->
+                    ci.getTitle().contains(movie.getTitle()) && (
+                        ci.getTitle().contains(String.valueOf(movie.getYear() + 1)) || 
+                        ci.getTitle().contains(String.valueOf(movie.getYear() - 1))
+                    ) && ci.getTitle().contains("1080p"))
+                .collect(Collectors.toSet());
+        }
+        
+        return cacheItems.stream().filter(ci ->
+                ci.getTitle().contains(movie.getTitle()) &&
+                ci.getTitle().contains(String.valueOf(movie.getYear())) &&
+                ci.getTitle().contains("1080p"))
+            .collect(Collectors.toSet());
     }
 
     public static void main(String[] args) {
