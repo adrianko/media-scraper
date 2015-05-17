@@ -9,6 +9,10 @@ import java.util.stream.Collectors;
 
 /**
  * TODO add support for special character matching
+ * TODO WebUI
+ *  TODO Global settings page
+ *  TODO Media specific settings
+ *  TODO Media specific lists
  */
 public class Scraper {
 
