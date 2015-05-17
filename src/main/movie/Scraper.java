@@ -59,17 +59,11 @@ public class Scraper {
 
     public boolean ifValidYear(boolean edge, CacheItem ci, Movie movie) {
         if (edge) {
-            if (ci.getTitle().contains(String.valueOf(movie.getYear() + 1)) ||
-                    ci.getTitle().contains(String.valueOf(movie.getYear() - 1))) {
-                return true;
-            }
+            return (ci.getTitle().contains(String.valueOf(movie.getYear() + 1)) ||
+                    ci.getTitle().contains(String.valueOf(movie.getYear() - 1)));
         } else {
-            if (ci.getTitle().contains(String.valueOf(movie.getYear()))) {
-                return true;
-            }
+            return (ci.getTitle().contains(String.valueOf(movie.getYear())));
         }
-
-        return false;
     }
 
     public static void main(String[] args) {
