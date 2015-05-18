@@ -74,5 +74,9 @@ public class MovieHelper extends Helper {
 
         return cacheItems;
     }
+    
+    public String sanitizeString(String str) {
+        return str.replaceAll("[^A-Za-z0-9\\s]", "-").replaceAll("-+", "-");
+    }
 
 }
