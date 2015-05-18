@@ -1,6 +1,6 @@
-package main;
+package main.scrapers;
 
-import main.tv.TVHelper;
+import main.scrapers.tv.TVHelper;
 
 import java.io.BufferedReader;
 import java.io.IOException;

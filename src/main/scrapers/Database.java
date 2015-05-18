@@ -1,4 +1,4 @@
-package main;
+package main.scrapers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

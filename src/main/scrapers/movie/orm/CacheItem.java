@@ -1,4 +1,4 @@
-package main.movie.orm;
+package main.scrapers.movie.orm;
 
 public class CacheItem {
 

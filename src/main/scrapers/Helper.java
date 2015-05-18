@@ -1,6 +1,6 @@
-package main;
+package main.scrapers;
 
-import main.tv.Scraper;
+import main.scrapers.tv.Scraper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

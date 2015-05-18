@@ -1,6 +1,6 @@
-package main.movie;
+package main.scrapers.movie;
 
-import main.Downloader;
+import main.scrapers.Downloader;
 
 public class MovieDownloader extends Downloader {
 

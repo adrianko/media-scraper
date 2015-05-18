@@ -18,6 +18,6 @@ sourceSets {
 }
 
 task execute(type: JavaExec) {
-    main = 'main.tv.Scraper'
+    main = 'main.scrapers.tv.Scraper'
     classpath = sourceSets.main.runtimeClasspath
 }

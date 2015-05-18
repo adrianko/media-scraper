@@ -1,6 +1,6 @@
-package main.tv;
+package main.scrapers.tv;
 
-import main.Downloader;
+import main.scrapers.Downloader;
 
 public class TVDownloader extends Downloader {
 

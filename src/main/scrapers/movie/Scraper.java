@@ -1,7 +1,7 @@
-package main.movie;
+package main.scrapers.movie;
 
-import main.movie.orm.CacheItem;
-import main.movie.orm.Movie;
+import main.scrapers.movie.orm.CacheItem;
+import main.scrapers.movie.orm.Movie;
 
 import java.util.Set;
 import java.util.logging.Logger;

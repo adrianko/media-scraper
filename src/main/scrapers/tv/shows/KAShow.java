@@ -1,6 +1,6 @@
-package main.tv.shows;
+package main.scrapers.tv.shows;
 
-import main.tv.TVHelper;
+import main.scrapers.tv.TVHelper;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;

@@ -1,8 +1,8 @@
-package main.movie;
+package main.scrapers.movie;
 
-import main.Database;
-import main.movie.orm.CacheItem;
-import main.movie.orm.Movie;
+import main.scrapers.Database;
+import main.scrapers.movie.orm.CacheItem;
+import main.scrapers.movie.orm.Movie;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

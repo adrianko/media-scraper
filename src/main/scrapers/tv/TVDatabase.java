@@ -1,8 +1,8 @@
-package main.tv;
+package main.scrapers.tv;
 
-import main.Database;
-import main.tv.shows.Episode;
-import main.tv.shows.Show;
+import main.scrapers.Database;
+import main.scrapers.tv.shows.Episode;
+import main.scrapers.tv.shows.Show;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;

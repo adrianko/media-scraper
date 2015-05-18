@@ -1,9 +1,9 @@
-package main.tv;
+package main.scrapers.tv;
 
-import main.Helper;
-import main.tv.shows.DownloadOption;
-import main.tv.shows.Episode;
-import main.tv.shows.Show;
+import main.scrapers.Helper;
+import main.scrapers.tv.shows.DownloadOption;
+import main.scrapers.tv.shows.Episode;
+import main.scrapers.tv.shows.Show;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

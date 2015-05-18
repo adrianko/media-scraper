@@ -1,7 +1,7 @@
-package main.tv.shows;
+package main.scrapers.tv.shows;
 
-import main.Helper;
-import main.tv.TVHelper;
+import main.scrapers.Helper;
+import main.scrapers.tv.TVHelper;
 import org.jsoup.nodes.Document;
 
 public class KAEpisode extends Episode {

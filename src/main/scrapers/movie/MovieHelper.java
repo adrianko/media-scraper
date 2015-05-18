@@ -1,9 +1,9 @@
-package main.movie;
+package main.scrapers.movie;
 
-import main.Helper;
-import main.Database;
-import main.movie.orm.CacheItem;
-import main.movie.orm.Movie;
+import main.scrapers.Helper;
+import main.scrapers.Database;
+import main.scrapers.movie.orm.CacheItem;
+import main.scrapers.movie.orm.Movie;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 

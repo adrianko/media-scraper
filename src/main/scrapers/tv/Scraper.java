@@ -1,12 +1,12 @@
-package main.tv;
+package main.scrapers.tv;
 
-import main.Database;
-import main.Downloader;
-import main.tv.shows.DownloadOption;
-import main.tv.shows.Episode;
-import main.tv.shows.KAShow;
-import main.tv.shows.RBShow;
-import main.tv.shows.Show;
+import main.scrapers.Database;
+import main.scrapers.Downloader;
+import main.scrapers.tv.shows.DownloadOption;
+import main.scrapers.tv.shows.Episode;
+import main.scrapers.tv.shows.KAShow;
+import main.scrapers.tv.shows.RBShow;
+import main.scrapers.tv.shows.Show;
 
 import java.util.Arrays;
 import java.util.HashSet;

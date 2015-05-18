@@ -1,4 +1,4 @@
-package main.tv.shows;
+package main.scrapers.tv.shows;
 
 import java.util.LinkedList;
 import java.util.List;

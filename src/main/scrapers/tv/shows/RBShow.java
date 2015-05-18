@@ -1,4 +1,4 @@
-package main.tv.shows;
+package main.scrapers.tv.shows;
 
 public class RBShow extends Show {
 
