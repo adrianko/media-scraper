@@ -8,12 +8,24 @@ import java.net.InetSocketAddress;
 
 public class HTTPServer {
     
-    public static void main(String[] args) {
+    private HttpServer server;
+    
+    public HTTPServer() {
         try {
-            HttpServer.create(new InetSocketAddress(InetAddress.getByName("0.0.0.0"), 9898), 0);
+            server = HttpServer.create(new InetSocketAddress(InetAddress.getByName("0.0.0.0"), 9898), 0);
+            server.setExecutor(null);
+            server.start();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    public void stop() {
+        server.stop(0);
+    }
+    
+    public static void main(String[] args) {
+        new HTTPServer();
     }
     
 }
