@@ -28,6 +28,17 @@ public class HTTPServer {
     public void stop() {
         server.stop(0);
     }
+
+    public void sendResponse(HttpExchange t, String response, String contentType) {
+        try {
+            t.getResponseHeaders().add("Content-Type", contentType);
+            t.sendResponseHeaders(200, response.length());
+            t.getResponseBody().write(response.getBytes());
+            t.getResponseBody().close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     
     public static void main(String[] args) {
         new HTTPServer();
@@ -37,16 +48,7 @@ public class HTTPServer {
 
         @Override
         public void handle(HttpExchange t) {
-            String response = "Hello";
-            
-            try {
-                t.getResponseHeaders().add("Content-Type", "text/html");
-                t.sendResponseHeaders(200, response.length());
-                t.getResponseBody().write(response.getBytes());
-                t.getResponseBody().close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            sendResponse(t, "<h1>Media Scraper</h1>", "text/html");
         }
         
     }
@@ -56,16 +58,7 @@ public class HTTPServer {
         @Override
         public void handle(HttpExchange t) throws IOException {
             Scraper.main(new String[]{});
-
-            try {
-                String response = "1";
-                t.getResponseHeaders().add("Content-Type", "text/html");
-                t.sendResponseHeaders(200, response.length());
-                t.getResponseBody().write(response.getBytes());
-                t.getResponseBody().close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            sendResponse(t, "{success: 1}", "application/json");
         }
         
     }
