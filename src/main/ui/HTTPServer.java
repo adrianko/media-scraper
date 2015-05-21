@@ -1,5 +1,6 @@
 package main.ui;
 
+import com.sun.net.httpserver.BasicAuthenticator;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
@@ -18,17 +19,25 @@ public class HTTPServer {
     static final String MAIN_CONTROLLER = "Home";
     
     private HttpServer server;
-    
+    private BasicAuthenticator auth;
     
     public HTTPServer() {
         try {
             server = HttpServer.create(new InetSocketAddress(InetAddress.getByName(NIC), PORT), 0);
+            auth = new BasicAuthenticator("admin") {
+                @Override
+                public boolean checkCredentials(String user, String pwd) {
+                    return user.equals("root") && pwd.equals("password");
+                }
+            };
+
             Arrays.stream(HTTPServer.class.getDeclaredClasses()).forEach(c -> {
                 try {
-                    server.createContext("/" + c.getSimpleName().toLowerCase(), (HttpHandler) c.newInstance());
-                    
+                    HttpHandler controller = (HttpHandler) c.newInstance();
+                    server.createContext("/" + c.getSimpleName().toLowerCase(), controller).setAuthenticator(auth);
+
                     if (c.getSimpleName().equals(MAIN_CONTROLLER)) {
-                        server.createContext("/", (HttpHandler) c.newInstance());
+                        server.createContext("/", controller).setAuthenticator(auth);
                     }
                 } catch (InstantiationException | IllegalAccessException e) {
                     e.printStackTrace();
