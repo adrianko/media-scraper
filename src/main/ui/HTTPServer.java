@@ -8,18 +8,26 @@ import main.scrapers.tv.Scraper;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.util.Arrays;
 
 public class HTTPServer {
     
     private HttpServer server;
+    static final String NIC = "0.0.0.0";
+    static final int PORT = 9898;
+    
     
     public HTTPServer() {
         try {
-            server = HttpServer.create(new InetSocketAddress(InetAddress.getByName("0.0.0.0"), 9898), 0);
+            server = HttpServer.create(new InetSocketAddress(InetAddress.getByName(NIC), PORT), 0);
+            Arrays.stream(HTTPServer.class.getDeclaredClasses()).forEach(c -> {
+                System.out.println(c.getSimpleName() + ": " + c.getCanonicalName());
+            });
             server.createContext("/", new Home());
             server.createContext("/scrape", new Scrape());
             server.setExecutor(null);
             server.start();
+            System.out.println("Starting Server " + NIC + ":" + PORT);
         } catch (IOException e) {
             e.printStackTrace();
         }
