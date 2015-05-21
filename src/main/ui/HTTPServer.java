@@ -21,10 +21,12 @@ public class HTTPServer {
         try {
             server = HttpServer.create(new InetSocketAddress(InetAddress.getByName(NIC), PORT), 0);
             Arrays.stream(HTTPServer.class.getDeclaredClasses()).forEach(c -> {
-                System.out.println(c.getSimpleName() + ": " + c.getCanonicalName());
+                try {
+                    server.createContext("/" + c.getSimpleName().toLowerCase(), (HttpHandler) c.newInstance());
+                } catch (InstantiationException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
             });
-            server.createContext("/", new Home());
-            server.createContext("/scrape", new Scrape());
             server.setExecutor(null);
             server.start();
             System.out.println("Starting Server " + NIC + ":" + PORT);
@@ -37,7 +39,7 @@ public class HTTPServer {
         server.stop(0);
     }
 
-    public void sendResponse(HttpExchange t, String response, String contentType) {
+    public static void sendResponse(HttpExchange t, String response, String contentType) {
         try {
             t.getResponseHeaders().add("Content-Type", contentType);
             t.sendResponseHeaders(200, response.length());
@@ -52,7 +54,9 @@ public class HTTPServer {
         new HTTPServer();
     }
     
-    class Home implements HttpHandler {
+    static class Home implements HttpHandler {
+        
+        public Home() {}
 
         @Override
         public void handle(HttpExchange t) {
@@ -61,7 +65,9 @@ public class HTTPServer {
         
     }
     
-    class Scrape implements HttpHandler {
+    static class Scrape implements HttpHandler {
+        
+        public Scrape() {}
 
         @Override
         public void handle(HttpExchange t) throws IOException {
