@@ -12,10 +12,12 @@ import java.net.InetSocketAddress;
 import java.util.Arrays;
 
 public class HTTPServer {
-    
-    private HttpServer server;
+
     static final String NIC = "0.0.0.0";
     static final int PORT = 9898;
+    static final String MAIN_CONTROLLER = "Home";
+    
+    private HttpServer server;
     
     
     public HTTPServer() {
@@ -24,6 +26,10 @@ public class HTTPServer {
             Arrays.stream(HTTPServer.class.getDeclaredClasses()).forEach(c -> {
                 try {
                     server.createContext("/" + c.getSimpleName().toLowerCase(), (HttpHandler) c.newInstance());
+                    
+                    if (c.getSimpleName().equals(MAIN_CONTROLLER)) {
+                        server.createContext("/", (HttpHandler) c.newInstance());
+                    }
                 } catch (InstantiationException | IllegalAccessException e) {
                     e.printStackTrace();
                 }
