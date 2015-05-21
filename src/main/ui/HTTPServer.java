@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import main.scrapers.tv.Scraper;
+import main.ui.core.components.Controller;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -54,10 +55,8 @@ public class HTTPServer {
         new HTTPServer();
     }
     
-    static class Home implements HttpHandler {
+    static class Home extends Controller {
         
-        public Home() {}
-
         @Override
         public void handle(HttpExchange t) {
             sendResponse(t, "<h1>Media Scraper</h1>", "text/html");
@@ -65,9 +64,7 @@ public class HTTPServer {
         
     }
     
-    static class Scrape implements HttpHandler {
-        
-        public Scrape() {}
+    static class Scrape extends Controller {
 
         @Override
         public void handle(HttpExchange t) throws IOException {
