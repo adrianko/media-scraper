@@ -29,6 +29,18 @@ configurations {
     unitTestRuntime.extendsFrom unitTestCompile
 }
 
+test {
+    testLogging.showStandardStreams = true
+    
+    beforeTest { descriptor ->
+        logger.lifecycle("Running test: " + descriptor)
+    }
+    
+    onOutput { descriptor, event ->
+        logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message)
+    }
+}
+
 task unitTest(type: Test, dependsOn: assemble) {
     testClassesDir = sourceSets.test.output.classesDir
     classpath = sourceSets.test.runtimeClasspath
