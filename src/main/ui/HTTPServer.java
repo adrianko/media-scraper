@@ -17,7 +17,7 @@ public class HTTPServer {
     static final int PORT = 9898;
     static final String MAIN_CONTROLLER = "Home";
 
-    public Logger logger;
+    public static Logger logger;
     
     private HttpServer server;
     private BasicAuthenticator auth;
