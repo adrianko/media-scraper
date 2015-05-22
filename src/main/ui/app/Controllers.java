@@ -5,8 +5,6 @@ import main.scrapers.tv.Scraper;
 import main.ui.core.components.Controller;
 import main.ui.core.components.Response;
 
-import java.io.IOException;
-
 public class Controllers {
 
     public static class Home extends Controller {
@@ -21,7 +19,7 @@ public class Controllers {
     public static class Scrape extends Controller {
 
         @Override
-        public void handle(HttpExchange t) throws IOException {
+        public void handle(HttpExchange t) {
             Scraper.main(new String[]{});
             Response.send(t, "{success: 1}", "application/json");
         }
