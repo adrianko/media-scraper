@@ -72,10 +72,8 @@ public class HelperTest {
         Map<String, String> exp = new HashMap<>();
         exp.put("abc", "def");
         exp.put("ghi", "jkl");
-
-        InputStream is = new ByteArrayInputStream("abc=def\nghi=jkl".getBytes());
-
-        Map<String, String> act = Helper.parseHTTPRequest(is);
+        
+        Map<String, String> act = Helper.parseHTTPRequest(new ByteArrayInputStream("abc=def\nghi=jkl".getBytes()));
 
         Assert.assertEquals(exp, act);
     }
