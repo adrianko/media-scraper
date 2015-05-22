@@ -4,6 +4,7 @@ import com.sun.net.httpserver.BasicAuthenticator;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import main.ui.app.Controllers;
+import main.ui.core.components.Helper;
 
 import java.io.IOException;
 import java.net.InetAddress;
