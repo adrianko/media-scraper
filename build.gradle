@@ -52,6 +52,6 @@ task execute(type: JavaExec) {
 }
 
 task runServer(type: JavaExec) {
-    main = 'main.ui.HttpServer'
+    main = 'main.ui.HTTPServer'
     classpath = sourceSets.main.runtimeClasspath
 }
