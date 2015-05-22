@@ -83,4 +83,13 @@ public class MovieHelper extends Helper {
         return clean;
     }
 
+    public static boolean ifValidYear(boolean edge, CacheItem ci, Movie movie) {
+        if (edge) {
+            return (ci.getTitle().contains(String.valueOf(movie.getYear() + 1)) ||
+                ci.getTitle().contains(String.valueOf(movie.getYear() - 1)));
+        } else {
+            return (ci.getTitle().contains(String.valueOf(movie.getYear())));
+        }
+    }
+
 }

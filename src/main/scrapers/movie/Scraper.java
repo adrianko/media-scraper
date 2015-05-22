@@ -1,5 +1,6 @@
 package main.scrapers.movie;
 
+import main.scrapers.Helper;
 import main.scrapers.movie.orm.CacheItem;
 import main.scrapers.movie.orm.Movie;
 
@@ -42,7 +43,7 @@ public class Scraper {
 
     public Set<CacheItem> filter(boolean edge, Movie movie) {
         return cacheItems.stream().filter(ci -> ci.getTitle().contains(movie.getTitle()) &&
-                ci.getTitle().contains("1080p") && ifValidYear(edge, ci, movie)).collect(Collectors.toSet());
+                ci.getTitle().contains("1080p") && MovieHelper.ifValidYear(edge, ci, movie)).collect(Collectors.toSet());
     }
 
     public Movie match(Set<CacheItem> filtered, Movie movie) {
@@ -55,15 +56,6 @@ public class Scraper {
         });
 
         return movie;
-    }
-
-    public boolean ifValidYear(boolean edge, CacheItem ci, Movie movie) {
-        if (edge) {
-            return (ci.getTitle().contains(String.valueOf(movie.getYear() + 1)) ||
-                    ci.getTitle().contains(String.valueOf(movie.getYear() - 1)));
-        } else {
-            return (ci.getTitle().contains(String.valueOf(movie.getYear())));
-        }
     }
 
     public static void main(String[] args) {
