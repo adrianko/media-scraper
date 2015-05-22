@@ -73,6 +73,7 @@ public class Scraper {
         }
 
         MovieHelper.loadSettings();
+        MovieHelper.checkIP();
         new Scraper();
         logger.info("Exiting...");
     }
