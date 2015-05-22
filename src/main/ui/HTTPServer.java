@@ -9,18 +9,22 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.util.Arrays;
+import java.util.logging.Logger;
 
 public class HTTPServer {
 
     static final String NIC = "0.0.0.0";
     static final int PORT = 9898;
     static final String MAIN_CONTROLLER = "Home";
+
+    public Logger logger;
     
     private HttpServer server;
     private BasicAuthenticator auth;
     
     public HTTPServer() {
         try {
+            logger = Logger.getLogger(this.getClass().getName());
             server = HttpServer.create(new InetSocketAddress(InetAddress.getByName(NIC), PORT), 0);
             auth = new BasicAuthenticator("admin") {
                 @Override
@@ -43,7 +47,7 @@ public class HTTPServer {
             });
             server.setExecutor(null);
             server.start();
-            System.out.println("Starting Server " + NIC + ":" + PORT);
+            logger.info("Starting server on " + NIC + ":" + PORT);
         } catch (IOException e) {
             e.printStackTrace();
         }
