@@ -6,16 +6,13 @@ import main.scrapers.movie.orm.CacheItem;
 import main.scrapers.movie.orm.Movie;
 
 import java.util.Set;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
  * TODO add support for special character matching
  */
 public class MovieScraper extends Scraper {
-
-    public static boolean debug = false;
-    public static Logger logger = Logger.getLogger(Scraper.class.getName());
+    
     public MovieDownloader mvd = new MovieDownloader();
     Set<CacheItem> cacheItems;
 

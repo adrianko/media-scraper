@@ -23,10 +23,8 @@ import java.util.stream.Collectors;
  */
 public class TVScraper extends Scraper {
 
-    public static Set<String> found = new HashSet<>();
-    public static boolean debug = false;
-    public static Logger logger = Logger.getLogger(TVScraper.class.getName());
     public TVDownloader tvd = new TVDownloader();
+    public static Set<String> found = new HashSet<>();
     
     public TVScraper() {
         TVHelper.loadSettings();
