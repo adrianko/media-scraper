@@ -1,5 +1,6 @@
 package main.scrapers.movie;
 
+import main.scrapers.Helper;
 import main.scrapers.Scraper;
 import main.scrapers.movie.orm.CacheItem;
 import main.scrapers.movie.orm.Movie;
@@ -20,7 +21,7 @@ public class MovieScraper extends Scraper {
 
     public MovieScraper() {
         MovieHelper.loadSettings();
-        MovieHelper.checkIP();
+        Helper.checkIP();
         MovieHelper.buildCache();
         cacheItems = MovieDatabase.getCache();
         MovieDatabase.getMovies().forEach(this::parse);

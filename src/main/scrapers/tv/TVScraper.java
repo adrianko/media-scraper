@@ -2,6 +2,7 @@ package main.scrapers.tv;
 
 import main.scrapers.Database;
 import main.scrapers.Downloader;
+import main.scrapers.Helper;
 import main.scrapers.Scraper;
 import main.scrapers.tv.shows.DownloadOption;
 import main.scrapers.tv.shows.Episode;
@@ -29,7 +30,7 @@ public class TVScraper extends Scraper {
     
     public TVScraper() {
         TVHelper.loadSettings();
-        TVHelper.checkIP();
+        Helper.checkIP();
         Arrays.asList(KAShow.class, RBShow.class).forEach(c -> parse(TVDatabase.getShows(c).entrySet().stream().filter(s 
             -> !found.contains(s.getKey())).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))));
         Database.close("shows");
