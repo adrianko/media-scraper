@@ -1,11 +1,9 @@
 package main.ui;
 
 import com.sun.net.httpserver.BasicAuthenticator;
-import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import main.scrapers.tv.Scraper;
-import main.ui.core.components.Controller;
+import main.ui.app.Controllers;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -31,7 +29,7 @@ public class HTTPServer {
                 }
             };
 
-            Arrays.stream(HTTPServer.class.getDeclaredClasses()).forEach(c -> {
+            Arrays.stream(Controllers.class.getDeclaredClasses()).forEach(c -> {
                 try {
                     HttpHandler controller = (HttpHandler) c.newInstance();
                     server.createContext("/" + c.getSimpleName().toLowerCase(), controller).setAuthenticator(auth);
@@ -54,39 +52,9 @@ public class HTTPServer {
     public void stop() {
         server.stop(0);
     }
-
-    public static void sendResponse(HttpExchange t, String response, String contentType) {
-        try {
-            t.getResponseHeaders().add("Content-Type", contentType);
-            t.sendResponseHeaders(200, response.length());
-            t.getResponseBody().write(response.getBytes());
-            t.getResponseBody().close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     
     public static void main(String[] args) {
         new HTTPServer();
-    }
-    
-    static class Home extends Controller {
-        
-        @Override
-        public void handle(HttpExchange t) {
-            sendResponse(t, "<h1>Media Scraper</h1>", "text/html");
-        }
-        
-    }
-    
-    static class Scrape extends Controller {
-
-        @Override
-        public void handle(HttpExchange t) throws IOException {
-            Scraper.main(new String[]{});
-            sendResponse(t, "{success: 1}", "application/json");
-        }
-        
     }
     
 }
