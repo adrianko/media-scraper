@@ -4,7 +4,6 @@ import com.sun.net.httpserver.BasicAuthenticator;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import main.ui.app.Controllers;
-import main.ui.core.components.Helper;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -12,6 +11,11 @@ import java.net.InetSocketAddress;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
+/*
+ * TODO Global settings page
+ * TODO Media specific settings
+ * TODO Media specific lists
+ */
 public class HTTPServer {
 
     static final String NIC = "0.0.0.0";
