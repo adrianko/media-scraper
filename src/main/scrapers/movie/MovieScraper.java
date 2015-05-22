@@ -1,5 +1,6 @@
 package main.scrapers.movie;
 
+import main.scrapers.Scraper;
 import main.scrapers.movie.orm.CacheItem;
 import main.scrapers.movie.orm.Movie;
 
@@ -10,14 +11,14 @@ import java.util.stream.Collectors;
 /**
  * TODO add support for special character matching
  */
-public class Scraper {
+public class MovieScraper extends Scraper {
 
     public static boolean debug = false;
     public static Logger logger = Logger.getLogger(Scraper.class.getName());
     public MovieDownloader mvd = new MovieDownloader();
     Set<CacheItem> cacheItems;
 
-    public Scraper() {
+    public MovieScraper() {
         MovieHelper.buildCache();
         cacheItems = MovieDatabase.getCache();
         MovieDatabase.getMovies().forEach(this::parse);
@@ -38,7 +39,7 @@ public class Scraper {
 
     public Set<CacheItem> filter(boolean edge, Movie movie) {
         return cacheItems.stream().filter(ci -> ci.getTitle().contains(movie.getTitle()) &&
-                ci.getTitle().contains("1080p") && MovieHelper.ifValidYear(edge, ci, movie)).collect(Collectors.toSet());
+            ci.getTitle().contains("1080p") && MovieHelper.ifValidYear(edge, ci, movie)).collect(Collectors.toSet());
     }
 
     public Movie match(Set<CacheItem> filtered, Movie movie) {
@@ -61,7 +62,7 @@ public class Scraper {
 
         MovieHelper.loadSettings();
         MovieHelper.checkIP();
-        new Scraper();
+        new MovieScraper();
         logger.info("Exiting...");
     }
 

@@ -2,6 +2,7 @@ package main.scrapers.tv;
 
 import main.scrapers.Database;
 import main.scrapers.Downloader;
+import main.scrapers.Scraper;
 import main.scrapers.tv.shows.DownloadOption;
 import main.scrapers.tv.shows.Episode;
 import main.scrapers.tv.shows.KAShow;
@@ -19,14 +20,14 @@ import java.util.stream.Collectors;
  * TODO add secondary source
  * TODO add connection check
  */
-public class Scraper {
+public class TVScraper extends Scraper {
 
     public static Set<String> found = new HashSet<>();
     public static boolean debug = false;
-    public static Logger logger = Logger.getLogger(Scraper.class.getName());
+    public static Logger logger = Logger.getLogger(TVScraper.class.getName());
     public TVDownloader tvd = new TVDownloader();
     
-    public Scraper() {
+    public TVScraper() {
         Arrays.asList(KAShow.class, RBShow.class).forEach(c -> parse(TVDatabase.getShows(c).entrySet().stream().filter(s ->
                 !found.contains(s.getKey())).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))));
     }
@@ -82,7 +83,7 @@ public class Scraper {
 
         TVHelper.loadSettings();
         TVHelper.checkIP();
-        new Scraper();
+        new TVScraper();
         Database.close("shows");
         Database.close("settings");
         logger.info("Exiting...");
