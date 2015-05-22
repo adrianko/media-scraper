@@ -13,7 +13,7 @@ import java.util.Set;
 public class MovieDatabase extends Database {
 
     public static Set<Movie> getMovies() {
-        Scraper.logger.info("Retrieving request list");
+        MovieScraper.logger.info("Retrieving request list");
         Set<Movie> movies = new HashSet<>();
 
         try {
@@ -30,7 +30,7 @@ public class MovieDatabase extends Database {
     }
 
     public static Set<CacheItem> getCache() {
-        Scraper.logger.info("Retrieving cache");
+        MovieScraper.logger.info("Retrieving cache");
         Set<CacheItem> cache = new HashSet<>();
 
         try {

@@ -28,8 +28,13 @@ public class TVScraper extends Scraper {
     public TVDownloader tvd = new TVDownloader();
     
     public TVScraper() {
-        Arrays.asList(KAShow.class, RBShow.class).forEach(c -> parse(TVDatabase.getShows(c).entrySet().stream().filter(s ->
-                !found.contains(s.getKey())).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))));
+        TVHelper.loadSettings();
+        TVHelper.checkIP();
+        Arrays.asList(KAShow.class, RBShow.class).forEach(c -> parse(TVDatabase.getShows(c).entrySet().stream().filter(s 
+            -> !found.contains(s.getKey())).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))));
+        Database.close("shows");
+        Database.close("settings");
+        logger.info("Exiting...");
     }
     
     public void parse(Map<String, Show> shows) {
@@ -73,20 +78,6 @@ public class TVScraper extends Scraper {
         }
         
         return show;
-    }
-
-    public static void main(String[] args) {
-        if (args.length > 0 && args[0].equals("test")) {
-            debug = true;
-            logger.info("Debug mode");
-        }
-
-        TVHelper.loadSettings();
-        TVHelper.checkIP();
-        new TVScraper();
-        Database.close("shows");
-        Database.close("settings");
-        logger.info("Exiting...");
     }
 
 }

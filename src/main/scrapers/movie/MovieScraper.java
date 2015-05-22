@@ -19,9 +19,12 @@ public class MovieScraper extends Scraper {
     Set<CacheItem> cacheItems;
 
     public MovieScraper() {
+        MovieHelper.loadSettings();
+        MovieHelper.checkIP();
         MovieHelper.buildCache();
         cacheItems = MovieDatabase.getCache();
         MovieDatabase.getMovies().forEach(this::parse);
+        logger.info("Exiting...");
     }
 
     public void parse(Movie movie) {
@@ -52,18 +55,6 @@ public class MovieScraper extends Scraper {
         });
 
         return movie;
-    }
-
-    public static void main(String[] args) {
-        if (args.length > 0 && args[0].equals("test")) {
-            debug = true;
-            logger.info("Debug mode");
-        }
-
-        MovieHelper.loadSettings();
-        MovieHelper.checkIP();
-        new MovieScraper();
-        logger.info("Exiting...");
     }
 
 }

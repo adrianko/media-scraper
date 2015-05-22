@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class MovieHelper extends Helper {
 
     public static void loadSettings() {
-        Scraper.logger.info("Loading settings");
+        MovieScraper.logger.info("Loading settings");
         Helper.loadGlobalSettings();
 
         try (Statement s = Database.get("movies").createStatement()) {
@@ -43,7 +43,7 @@ public class MovieHelper extends Helper {
     }
     
     public static void buildCache() {
-        Scraper.logger.info("Building Cache");
+        MovieScraper.logger.info("Building Cache");
         Set<Long> cacheIDs = MovieDatabase.getCache().stream().map(CacheItem::getID).collect(Collectors.toSet());
         Set<CacheItem> allRetrieved = new HashSet<>();
         String url = settings.get("base_url");
@@ -57,7 +57,7 @@ public class MovieHelper extends Helper {
             cacheIDs.addAll(retrieved.stream().map(CacheItem::getID).collect(Collectors.toSet()));
         }
         
-        Scraper.logger.info("Managed: " + page);
+        MovieScraper.logger.info("Managed: " + page);
         allRetrieved.forEach(MovieDatabase::addCacheItem);
     }
     

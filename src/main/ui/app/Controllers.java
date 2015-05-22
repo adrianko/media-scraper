@@ -1,7 +1,7 @@
 package main.ui.app;
 
 import com.sun.net.httpserver.HttpExchange;
-import main.scrapers.tv.Scraper;
+import main.scrapers.tv.TVScraper;
 import main.ui.core.components.Controller;
 import main.ui.core.components.Response;
 
@@ -20,7 +20,7 @@ public class Controllers {
 
         @Override
         public void handle(HttpExchange t) {
-            Scraper.main(new String[]{});
+            TVScraper.main(new String[]{});
             Response.send(t, "{success: 1}", "application/json");
         }
 

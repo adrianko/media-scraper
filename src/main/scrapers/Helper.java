@@ -1,6 +1,6 @@
 package main.scrapers;
 
-import main.scrapers.tv.Scraper;
+import main.scrapers.tv.TVScraper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -39,7 +39,7 @@ public class Helper {
 
     public static void checkIP() {
         if (settings.get("ip").equals(getCurrentIP())) {
-            Scraper.logger.severe("Wrong IP, exiting...");
+            TVScraper.logger.severe("Wrong IP, exiting...");
             System.exit(0);
         }
     }
