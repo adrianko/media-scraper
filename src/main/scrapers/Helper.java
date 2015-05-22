@@ -44,14 +44,6 @@ public class Helper {
         }
     }
 
-    public static void checkOS() {
-        if (!isWindows) {
-            Scraper.logger.severe("This application is not designed to run on any operating system other than Window" +
-                    "s. Sorry.");
-            System.exit(0);
-        }
-    }
-
     public static Document retrievePage(String url) {
         try {
             return Jsoup.connect(url).timeout(Integer.parseInt(settings.get("timeout"))).get();
