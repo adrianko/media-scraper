@@ -12,13 +12,21 @@ public class Scraper {
     
     public static void main(String[] args) {
         if (args.length > 0) {
-            if (args[0].equals("tv")) {
-                new TVScraper();
-            } else if (args[0].equals("movie")) {
-                new MovieScraper();
+            switch (args[0]) {
+                case "tv":
+                    logger.info("Running tv");
+                    new TVScraper();
+                    break;
+                case "movie":
+                    logger.info("Running movie");
+                    new MovieScraper();
+                    break;
+                default:
+                    logger.info("Must specify [tv, movie]");
+                    break;
             }
         } else {
-            System.out.println("Need a scraper to run. [tv, movie]");
+            logger.info("Need a scraper to run. [tv, movie]");
         }
     }
     
