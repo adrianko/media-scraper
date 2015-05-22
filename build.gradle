@@ -38,3 +38,8 @@ task execute(type: JavaExec) {
     main = 'main.scrapers.tv.Scraper'
     classpath = sourceSets.main.runtimeClasspath
 }
+
+task runServer(type: JavaExec) {
+    main = 'main.ui.HttpServer'
+    classpath = sourceSets.main.runtimeClasspath
+}
