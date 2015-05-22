@@ -1,7 +1,13 @@
 package main.ui.core.components;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Helper {
     
@@ -21,6 +27,24 @@ public class Helper {
         }
         
         return stringBuffer.toString();
+    }
+
+    public static Map<String, String> parseHTTPRequest(InputStream is) {
+        Map<String, String> params = new HashMap<>();
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        String line;
+
+        try {
+            while ((line = br.readLine()) != null) {
+                String[] pair = line.split("=");
+                params.put(pair[0], pair[1]);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return params;
     }
     
 }
