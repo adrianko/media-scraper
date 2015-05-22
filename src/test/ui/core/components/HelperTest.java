@@ -4,6 +4,11 @@ import main.ui.core.components.Helper;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+
 public class HelperTest {
     
     @Test
@@ -58,6 +63,19 @@ public class HelperTest {
     public void sha1AlphaNumericSymbol() {
         String exp = "1e65a9370e914afc9042ddfcaa3dc1819cdf5034";
         String act = Helper.sha1("5E=9CKkc*{tPj74R");
+
+        Assert.assertEquals(exp, act);
+    }
+
+    @Test
+    public void parseHTTPRequest() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("abc", "def");
+        exp.put("ghi", "jkl");
+
+        InputStream is = new ByteArrayInputStream("abc=def\nghi=jkl".getBytes());
+
+        Map<String, String> act = Helper.parseHTTPRequest(is);
 
         Assert.assertEquals(exp, act);
     }
