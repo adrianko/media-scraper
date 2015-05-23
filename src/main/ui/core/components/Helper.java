@@ -29,7 +29,7 @@ public class Helper {
         return stringBuffer.toString();
     }
 
-    public static Map<String, String> parseHTTPRequest(InputStream is) {
+    public static Map<String, String> retrievePOSTData(InputStream is) {
         Map<String, String> params = new HashMap<>();
 
         BufferedReader br = new BufferedReader(new InputStreamReader(is));

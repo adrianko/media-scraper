@@ -38,7 +38,7 @@ public class Controllers {
             Map<String, Object> response = new HashMap<>();
             response.put("success", "1");
             response.put("request", t.getRequestURI().toString());
-            Helper.parseHTTPRequest(t.getRequestBody());
+            Helper.retrievePOSTData(t.getRequestBody());
             //t.getRequestHeaders().forEach((k, v) -> System.out.println(k + ": " + v));
             Response.send(t, new JSONObject(response).toString(), "application/json");
         }

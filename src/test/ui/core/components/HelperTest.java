@@ -5,7 +5,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,8 +71,8 @@ public class HelperTest {
         Map<String, String> exp = new HashMap<>();
         exp.put("abc", "def");
         exp.put("ghi", "jkl");
-        
-        Map<String, String> act = Helper.parseHTTPRequest(new ByteArrayInputStream("abc=def\nghi=jkl".getBytes()));
+
+        Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("abc=def\nghi=jkl".getBytes()));
 
         Assert.assertEquals(exp, act);
     }
