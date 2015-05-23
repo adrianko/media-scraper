@@ -1,5 +1,6 @@
 package main.ui.app.models;
 
+import main.scrapers.movie.orm.Movie;
 import main.scrapers.tv.shows.Show;
 import main.ui.Base;
 
@@ -36,8 +37,19 @@ public class Database {
         return new LinkedList<>();
     }
     
-    public static List<Show> getMovies() {
-        return new LinkedList<>();
+    public static List<Movie> getMovies() {
+        List<Movie> movies = new LinkedList<>();
+        try {
+            ResultSet rs = getConnection("movies").createStatement().executeQuery("SELECT * FROM movies");
+            
+            while (rs.next()) {
+                movies.add(new Movie(rs.getString("title"), rs.getInt("year")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return movies;
     }
     
     public static Map<String, String> getSettings(String db) {
