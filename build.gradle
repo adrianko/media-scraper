@@ -14,16 +14,8 @@ dependencies {
 }
 
 sourceSets {
-    main {
-        java {
-            srcDir 'src'
-        }
-    }
-    test {
-        java {
-            srcDir 'src'
-        }
-    }
+    main.java.srcDir 'src'
+    test.java.srcDir 'src'
 }
 
 configurations {
@@ -41,11 +33,6 @@ test {
     onOutput { descriptor, event ->
         logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message)
     }
-}
-
-task unitTest(type: Test, dependsOn: assemble) {
-    testClassesDir = sourceSets.test.output.classesDir
-    classpath = sourceSets.test.runtimeClasspath
 }
 
 task execute(type: JavaExec) {

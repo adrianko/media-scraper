@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,7 +75,7 @@ public class HelperTest {
         exp.put("ghi", "jkl");
 
         Headers h = new Headers();
-        h.put("Content-type", Arrays.asList("application/x-www-form-urlencoded"));
+        h.put("Content-type", Collections.singletonList("application/x-www-form-urlencoded"));
         Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("abc=def\nghi=jkl".getBytes()), h);
 
         Assert.assertEquals(exp, act);
@@ -87,7 +87,7 @@ public class HelperTest {
         exp.put("abc", "def");
 
         Headers h = new Headers();
-        h.put("Content-type", Arrays.asList("application/x-www-form-urlencoded"));
+        h.put("Content-type", Collections.singletonList("application/x-www-form-urlencoded"));
         Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("abc=def".getBytes()), h);
 
         Assert.assertEquals(exp, act);
@@ -98,7 +98,7 @@ public class HelperTest {
         Map<String, String> exp = new HashMap<>();
 
         Headers h = new Headers();
-        h.put("Content-type", Arrays.asList("application/x-www-form-urlencoded"));
+        h.put("Content-type", Collections.singletonList("application/x-www-form-urlencoded"));
         Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("".getBytes()), h);
 
         Assert.assertEquals(exp, act);
@@ -109,7 +109,7 @@ public class HelperTest {
         Map<String, String> exp = new HashMap<>();
 
         Headers h = new Headers();
-        h.put("Content-type", Arrays.asList("multipart/form-data; boundary=----WebKitFormBoundaryjZHn6UjtkjDDrxIx"));
+        h.put("Content-type", Collections.singletonList("multipart/form-data; boundary=----WebKitFormBoundaryjZHn6Uj"));
         Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("abc=def".getBytes()), h);
 
         Assert.assertEquals(exp, act);
