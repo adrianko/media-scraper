@@ -49,12 +49,19 @@ public class Helper {
 
     public static Map<String, String> retrieveGETData(String url) {
         Map<String, String> params = new HashMap<>();
-        String paramString = url.split("\\?")[1];
 
-        if (paramString.contains("&")) {
-            Arrays.stream(paramString.split("&")).forEach(pair -> splitParamPair(pair, params));
-        } else {
-            splitParamPair(paramString, params);
+        if (url.contains("?")) {
+            String[] paramString = url.split("\\?");
+
+            if (paramString.length > 1) {
+                String pairs = paramString[1];
+
+                if (pairs.contains("&")) {
+                    Arrays.stream(pairs.split("&")).forEach(pair -> splitParamPair(pair, params));
+                } else {
+                    splitParamPair(pairs, params);
+                }
+            }
         }
 
         return params;

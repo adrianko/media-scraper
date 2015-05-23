@@ -88,6 +88,14 @@ public class HelperTest {
     }
 
     @Test
+    public void retrievePOSTDataNoParam() {
+        Map<String, String> exp = new HashMap<>();
+        Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("".getBytes()));
+
+        Assert.assertEquals(exp, act);
+    }
+
+    @Test
     public void retrieveGETDataMultiParam() {
         Map<String, String> exp = new HashMap<>();
         exp.put("abc", "def");
@@ -104,6 +112,14 @@ public class HelperTest {
         exp.put("abc", "def");
 
         Map<String, String> act = Helper.retrieveGETData("http://somewebsite.com/index.php?abc=def");
+
+        Assert.assertEquals(exp, act);
+    }
+
+    @Test
+    public void retrieveGETDataNoParam() {
+        Map<String, String> exp = new HashMap<>();
+        Map<String, String> act = Helper.retrieveGETData("http://somewebsite.com/index.php");
 
         Assert.assertEquals(exp, act);
     }
