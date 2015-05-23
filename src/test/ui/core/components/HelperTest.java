@@ -76,5 +76,26 @@ public class HelperTest {
 
         Assert.assertEquals(exp, act);
     }
+
+    @Test
+    public void retrieveGETDataMultiParam() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("abc", "def");
+        exp.put("ghi", "jkl");
+
+        Map<String, String> act = Helper.retrieveGETData("http://somewebsite.com/index.php?abc=def&ghi=jkl");
+
+        Assert.assertEquals(exp, act);
+    }
+
+    @Test
+    public void retrieveGETDataSingleParam() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("abc", "def");
+
+        Map<String, String> act = Helper.retrieveGETData("http://somewebsite.com/index.php?abc=def");
+
+        Assert.assertEquals(exp, act);
+    }
     
 }
