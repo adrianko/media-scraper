@@ -1,10 +1,12 @@
 package test.ui.core.components;
 
+import com.sun.net.httpserver.Headers;
 import main.ui.core.components.Helper;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,8 +73,10 @@ public class HelperTest {
         Map<String, String> exp = new HashMap<>();
         exp.put("abc", "def");
         exp.put("ghi", "jkl");
-
-        Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("abc=def\nghi=jkl".getBytes()));
+        
+        Headers h = new Headers();
+        h.put("Content-type", Arrays.asList("application/x-www-form-urlencoded"));
+        Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("abc=def\nghi=jkl".getBytes()), h);
 
         Assert.assertEquals(exp, act);
     }
@@ -82,7 +86,9 @@ public class HelperTest {
         Map<String, String> exp = new HashMap<>();
         exp.put("abc", "def");
 
-        Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("abc=def".getBytes()));
+        Headers h = new Headers();
+        h.put("Content-type", Arrays.asList("application/x-www-form-urlencoded"));
+        Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("abc=def".getBytes()), h);
 
         Assert.assertEquals(exp, act);
     }
@@ -90,7 +96,10 @@ public class HelperTest {
     @Test
     public void retrievePOSTDataNoParam() {
         Map<String, String> exp = new HashMap<>();
-        Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("".getBytes()));
+
+        Headers h = new Headers();
+        h.put("Content-type", Arrays.asList("application/x-www-form-urlencoded"));
+        Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("".getBytes()), h);
 
         Assert.assertEquals(exp, act);
     }

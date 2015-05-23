@@ -1,5 +1,7 @@
 package main.ui.core.components;
 
+import com.sun.net.httpserver.Headers;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,6 +10,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Helper {
@@ -30,20 +33,29 @@ public class Helper {
         return stringBuffer.toString();
     }
 
-    public static Map<String, String> retrievePOSTData(InputStream is) {
+    public static Map<String, String> retrievePOSTData(InputStream is, Headers h) {
+        boolean contentType = false;
         Map<String, String> params = new HashMap<>();
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(is));
-        String line;
-
-        try {
-            while ((line = br.readLine()) != null) {
-                splitParamPair(line, params);
+        for (Map.Entry<String, List<String>> line : h.entrySet()) {
+            if (line.getKey().equals("Content-type") && line.getValue().contains("application/x-www-form-urlencoded")) {
+                contentType = true;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
+        if (contentType) {
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            String line;
+
+            try {
+                while ((line = br.readLine()) != null) {
+                    splitParamPair(line, params);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
         return params;
     }
 
