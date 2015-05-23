@@ -67,12 +67,22 @@ public class HelperTest {
     }
 
     @Test
-    public void retrievePOSTData() {
+    public void retrievePOSTDataMultiParam() {
         Map<String, String> exp = new HashMap<>();
         exp.put("abc", "def");
         exp.put("ghi", "jkl");
 
         Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("abc=def\nghi=jkl".getBytes()));
+
+        Assert.assertEquals(exp, act);
+    }
+
+    @Test
+    public void retrievePOSTDataSingleParam() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("abc", "def");
+
+        Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("abc=def".getBytes()));
 
         Assert.assertEquals(exp, act);
     }
