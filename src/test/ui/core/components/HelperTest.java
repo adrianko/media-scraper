@@ -67,7 +67,7 @@ public class HelperTest {
     }
 
     @Test
-    public void parseHTTPRequest() {
+    public void retrievePOSTData() {
         Map<String, String> exp = new HashMap<>();
         exp.put("abc", "def");
         exp.put("ghi", "jkl");

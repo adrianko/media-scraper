@@ -47,4 +47,23 @@ public class Helper {
         return params;
     }
     
+    public static Map<String, String> retrieveGETData(String url) {
+        Map<String, String> params = new HashMap<>();
+        String paramString = url.split("\\?")[1];
+
+        if (paramString.contains("&")) {
+            String[] pairs = paramString.split("&");
+
+            for (String pair : pairs) {
+                String[] singlePair = pair.split("=");
+                params.put(singlePair[0], singlePair[1]);
+            }
+        } else {
+            String[] singlePair = paramString.split("=");
+            params.put(singlePair[0], singlePair[1]);
+        }
+
+        return params;
+    }
+    
 }
