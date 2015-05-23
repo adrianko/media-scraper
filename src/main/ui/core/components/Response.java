@@ -1,8 +1,10 @@
 package main.ui.core.components;
 
 import com.sun.net.httpserver.HttpExchange;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class Response {
 
@@ -15,6 +17,14 @@ public class Response {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void sendJSON(HttpExchange t, Map<String, Object> json) {
+        Response.send(t, new JSONObject(json).toString(), "application/json");
+    }
+
+    public static void sendHTML(HttpExchange t, String html) {
+        Response.send(t, html, "text/html");
     }
     
 }

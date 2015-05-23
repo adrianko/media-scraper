@@ -73,7 +73,7 @@ public class HelperTest {
         Map<String, String> exp = new HashMap<>();
         exp.put("abc", "def");
         exp.put("ghi", "jkl");
-        
+
         Headers h = new Headers();
         h.put("Content-type", Arrays.asList("application/x-www-form-urlencoded"));
         Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("abc=def\nghi=jkl".getBytes()), h);
