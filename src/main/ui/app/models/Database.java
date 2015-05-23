@@ -1,7 +1,6 @@
 package main.ui.app.models;
 
 import main.scrapers.movie.orm.Movie;
-import main.scrapers.tv.shows.Show;
 import main.ui.Base;
 
 import java.nio.file.Files;
@@ -34,11 +33,25 @@ public class Database {
     }
     
     public static List<Show> getTVShows() {
-        return new LinkedList<>();
+        List<Show> shows = new LinkedList<>();
+        
+        try {
+            ResultSet rs = getConnection("shows").createStatement().executeQuery("SELECT * FROM shows");
+            
+            while (rs.next()) {
+                shows.add(new Show(rs.getInt("id"), rs.getString("title"), rs.getString("ka_url"), rs.getInt("rb_url"), 
+                        rs.getInt("season"), rs.getInt("episode"), rs.getInt("hd"), rs.getInt("runtime")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return shows;
     }
     
     public static List<Movie> getMovies() {
         List<Movie> movies = new LinkedList<>();
+        
         try {
             ResultSet rs = getConnection("movies").createStatement().executeQuery("SELECT * FROM movies");
             
@@ -66,6 +79,83 @@ public class Database {
         }
         
         return settings;
+    }
+
+    public static class Show {
+
+        protected int id;
+        protected String title;
+        protected String kaURL;
+        protected int rbURL;
+        protected int season;
+        protected int episode;
+        protected int hd;
+        protected int runtime;
+        protected String quality;
+
+        public Show(int i, String t, String ka, int rb, int s, int e, int h, int r) {
+            id = i;
+            title = t;
+            kaURL = ka;
+            rbURL = rb;
+            season = s;
+            episode = e;
+            hd = h;
+            runtime = r;
+            setQuality();
+        }
+
+        public String getTitle() {
+            return title;
+        }
+        
+        public int getSeason() {
+            return season;
+        }
+
+        public void setSeason(int s) {
+            season = s;
+        }
+
+        public int getEpisode() {
+            return episode;
+        }
+
+        public void setEpisode(int e) {
+            episode = e;
+        }
+
+        public int getHD() {
+            return hd;
+        }
+
+        public void setHD(int hd) {
+            this.hd = hd;
+            setQuality();
+        }
+
+        public int getRuntime() {
+            return runtime;
+        }
+
+        public String getQuality() {
+            return quality;
+        }
+
+        public void setQuality() {
+            switch (getHD()) {
+                case 1:
+                    quality = "1080p";
+                    break;
+                case 2:
+                    quality = "720p";
+                    break;
+                default:
+                    quality = "HDTV";
+                    break;
+            }
+        }
+
     }
     
 }
