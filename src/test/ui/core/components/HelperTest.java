@@ -105,6 +105,17 @@ public class HelperTest {
     }
 
     @Test
+    public void retrievePOSTDataWrongContentTypeWithParam() {
+        Map<String, String> exp = new HashMap<>();
+
+        Headers h = new Headers();
+        h.put("Content-type", Arrays.asList("multipart/form-data; boundary=----WebKitFormBoundaryjZHn6UjtkjDDrxIx"));
+        Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("abc=def".getBytes()), h);
+
+        Assert.assertEquals(exp, act);
+    }
+
+    @Test
     public void retrieveGETDataMultiParam() {
         Map<String, String> exp = new HashMap<>();
         exp.put("abc", "def");
