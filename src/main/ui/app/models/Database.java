@@ -16,15 +16,31 @@ import java.util.Map;
 
 public class Database {
     
-    public List<Show> getTVShows() {
+    static Map<String, Connection> connections = new HashMap<>();
+    
+    private Connection getConnection(String db) {
+        if (!connections.containsKey(db)) {
+            if (Files.exists(Paths.get(Base.path + db + ".db"))) {
+                try {
+                    connections.put(db, DriverManager.getConnection("jdbc:sqlite:" + Base.path + "/db/" + db + ".db"));
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        
+        return connections.get(db);
+    }
+    
+    public static List<Show> getTVShows() {
         return new LinkedList<>();
     }
     
-    public List<Show> getMovies() {
+    public static List<Show> getMovies() {
         return new LinkedList<>();
     }
     
-    public Map<String, String> getSettings(String db) {
+    public static Map<String, String> getSettings(String db) {
         Map<String, String> settings = new HashMap<>();
         
         if (Files.exists(Paths.get(Base.path + db + ".db"))) {
@@ -43,8 +59,10 @@ public class Database {
         return settings;
     }
     
-    public Map<String, String> getGlobalSettings() {
-        return new HashMap<>();
+    public static Map<String, String> getGlobalSettings() {
+        Map<String, String> settings = new HashMap<>();
+        
+        return settings;
     }
     
 }
