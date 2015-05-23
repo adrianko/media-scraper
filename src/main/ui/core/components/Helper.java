@@ -37,8 +37,7 @@ public class Helper {
 
         try {
             while ((line = br.readLine()) != null) {
-                String[] pair = line.split("=");
-                params.put(pair[0], pair[1]);
+                splitParamPair(line, params);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -46,7 +45,7 @@ public class Helper {
 
         return params;
     }
-    
+
     public static Map<String, String> retrieveGETData(String url) {
         Map<String, String> params = new HashMap<>();
         String paramString = url.split("\\?")[1];
@@ -55,15 +54,19 @@ public class Helper {
             String[] pairs = paramString.split("&");
 
             for (String pair : pairs) {
-                String[] singlePair = pair.split("=");
-                params.put(singlePair[0], singlePair[1]);
+                splitParamPair(pair, params);
             }
         } else {
-            String[] singlePair = paramString.split("=");
-            params.put(singlePair[0], singlePair[1]);
+            splitParamPair(paramString, params);
         }
 
         return params;
     }
-    
+
+    private static Map<String, String> splitParamPair(String pair, Map<String, String> params) {
+        String[] singlePair = pair.split("=");
+        params.put(singlePair[0], singlePair[1]);
+
+        return params;
+    }
 }
