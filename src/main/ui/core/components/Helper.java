@@ -34,14 +34,9 @@ public class Helper {
     }
 
     public static Map<String, String> retrievePOSTData(InputStream is, Headers h) {
-        boolean contentType = false;
         Map<String, String> params = new HashMap<>();
-
-        for (Map.Entry<String, List<String>> line : h.entrySet()) {
-            if (line.getKey().equals("Content-type") && line.getValue().contains("application/x-www-form-urlencoded")) {
-                contentType = true;
-            }
-        }
+        boolean contentType = h.entrySet().stream().filter(l -> l.getKey().equals("Content-type") && l.getValue()
+                .contains("application/x-www-form-urlencoded")).findAny().isPresent();
 
         if (contentType) {
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
