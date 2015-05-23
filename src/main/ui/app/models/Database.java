@@ -18,7 +18,7 @@ public class Database {
     
     static Map<String, Connection> connections = new HashMap<>();
     
-    private Connection getConnection(String db) {
+    private static Connection getConnection(String db) {
         if (!connections.containsKey(db)) {
             if (Files.exists(Paths.get(Base.path + db + ".db"))) {
                 try {
@@ -43,24 +43,15 @@ public class Database {
     public static Map<String, String> getSettings(String db) {
         Map<String, String> settings = new HashMap<>();
         
-        if (Files.exists(Paths.get(Base.path + db + ".db"))) {
-            try {
-                Connection c = DriverManager.getConnection("jdbc:sqlite:" + Base.path + "/db/" + db + ".db");
-                ResultSet rs = c.createStatement().executeQuery("SELECT * FROM settings");
-                
-                while (rs.next()) {
-                    settings.put(rs.getString("property"), rs.getString("value"));
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+        try {
+            ResultSet rs = getConnection(db).createStatement().executeQuery("SELECT * FROM settings");
+            
+            while (rs.next()) {
+                settings.put(rs.getString("property"), rs.getString("value"));
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        
-        return settings;
-    }
-    
-    public static Map<String, String> getGlobalSettings() {
-        Map<String, String> settings = new HashMap<>();
         
         return settings;
     }
