@@ -18,18 +18,19 @@ public class Database {
     
     static Map<String, Connection> connections = new HashMap<>();
     
-    private static Connection getConnection(String db) {
+    public static Connection getConnection(String db) {
         if (!connections.containsKey(db)) {
-            if (Files.exists(Paths.get(Base.path + db + ".db"))) {
+            if (Files.exists(Paths.get(Base.path + "/db/" + db + ".db"))) {
                 try {
+                    Class.forName("org.sqlite.JDBC");
                     connections.put(db, DriverManager.getConnection("jdbc:sqlite:" + Base.path + "/db/" + db + ".db"));
-                } catch (SQLException e) {
+                } catch (SQLException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
             }
         }
         
-        return connections.get(db);
+        return connections.containsKey(db) ? connections.get(db) : null;
     }
     
     public static List<Show> getTVShows() {
