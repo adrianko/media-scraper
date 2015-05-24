@@ -74,10 +74,12 @@ public class Helper {
         return params;
     }
 
-    private static Map<String, String> splitParamPair(String pair, Map<String, String> params) {
-        String[] singlePair = pair.split("=");
-        params.put(singlePair[0], singlePair[1]);
-
+    public static Map<String, String> splitParamPair(String pair, Map<String, String> params) {
+        if (pair.contains("=")) {
+            String[] singlePair = pair.split("=");
+            params.put(singlePair[0], singlePair[1]);
+        }
+        
         return params;
     }
 
