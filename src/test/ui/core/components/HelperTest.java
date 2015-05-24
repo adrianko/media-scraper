@@ -194,6 +194,36 @@ public class HelperTest {
     }
 
     @Test
+    public void retrieveGETDataSingleParamNumeric() {
+
+    }
+
+    @Test
+    public void retrieveGETDataSingleParamSymbol() {
+
+    }
+
+    @Test
+    public void retrieveGETDataSingleParamAlphaNumeric() {
+
+    }
+
+    @Test
+    public void retrieveGETDataSingleParamNumericSymbol() {
+
+    }
+
+    @Test
+    public void retrieveGETDataSingleParamAlphaSymbol() {
+
+    }
+
+    @Test
+    public void retrieveGETDataSingleParamAlphaNumericSymbol() {
+
+    }
+
+    @Test
     public void retrieveGETDataMultiParamAlpha() {
         Map<String, String> exp = new HashMap<>();
         exp.put("abc", "def");
@@ -202,6 +232,36 @@ public class HelperTest {
         Map<String, String> act = Helper.retrieveGETData("http://somewebsite.com/index.php?abc=def&ghi=jkl");
 
         Assert.assertEquals(exp, act);
+    }
+
+    @Test
+    public void retrieveGETDataMultiParamNumeric() {
+
+    }
+
+    @Test
+    public void retrieveGETDataMultiParamSymbol() {
+
+    }
+
+    @Test
+    public void retrieveGETDataMultiParamAlphaNumeric() {
+
+    }
+
+    @Test
+    public void retrieveGETDataMultiParamNumericSymbol() {
+
+    }
+
+    @Test
+    public void retrieveGETDataMultiParamAlphaSymbol() {
+
+    }
+
+    @Test
+    public void retrieveGETDataMultiParamAlphaNumericSymbol() {
+
     }
 
     @Test
