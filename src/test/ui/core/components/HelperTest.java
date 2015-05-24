@@ -92,6 +92,36 @@ public class HelperTest {
     }
 
     @Test
+    public void retrievePOSTDataSingleParamNumeric() {
+
+    }
+
+    @Test
+    public void retrievePOSTDataSingleParamSymbol() {
+
+    }
+
+    @Test
+    public void retrievePOSTDataSingleParamAlphaNumeric() {
+
+    }
+
+    @Test
+    public void retrievePOSTDataSingleParamNumericSymbol() {
+
+    }
+
+    @Test
+    public void retrievePOSTDataSingleParamAlphaSymbol() {
+
+    }
+
+    @Test
+    public void retrievePOSTDataSingleParamAlphaNumericSymbol() {
+
+    }
+
+    @Test
     public void retrievePOSTDataMultiParamAlpha() {
         Map<String, String> exp = new HashMap<>();
         exp.put("abc", "def");
@@ -102,6 +132,36 @@ public class HelperTest {
         Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("abc=def\nghi=jkl".getBytes()), h);
 
         Assert.assertEquals(exp, act);
+    }
+
+    @Test
+    public void retrievePOSTDataMultiParamNumeric() {
+
+    }
+
+    @Test
+    public void retrievePOSTDataMultiParamSymbol() {
+
+    }
+
+    @Test
+    public void retrievePOSTDataMultiParamAlphaNumeric() {
+
+    }
+
+    @Test
+    public void retrievePOSTDataMultiParamNumericSymbol() {
+
+    }
+
+    @Test
+    public void retrievePOSTDataMultiParamAlphaSymbol() {
+
+    }
+
+    @Test
+    public void retrievePOSTDataMultiParamAlphaNumericSymbol() {
+
     }
 
     @Test
