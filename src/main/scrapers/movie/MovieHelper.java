@@ -87,9 +87,9 @@ public class MovieHelper extends Helper {
         if (edge) {
             return (ci.getTitle().contains(String.valueOf(movie.getYear() + 1)) ||
                 ci.getTitle().contains(String.valueOf(movie.getYear() - 1)));
-        } else {
-            return (ci.getTitle().contains(String.valueOf(movie.getYear())));
         }
+
+        return (ci.getTitle().contains(String.valueOf(movie.getYear())));
     }
 
 }
