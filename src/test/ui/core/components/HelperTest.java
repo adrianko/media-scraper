@@ -204,4 +204,22 @@ public class HelperTest {
         Assert.assertEquals(exp, act);
     }
 
+    @Test
+    public void splitParamPairExists() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("abc", "def");
+
+        Map<String, String> act = Helper.splitParamPair("abc=def", new HashMap<>());
+
+        Assert.assertEquals(exp, act);
+    }
+
+    @Test
+    public void splitParamPairNotExists() {
+        Map<String, String> exp = new HashMap<>();
+        Map<String, String> act = Helper.splitParamPair("abcdef", new HashMap<>());
+
+        Assert.assertEquals(exp, act);
+    }
+
 }

@@ -79,7 +79,7 @@ public class Helper {
             String[] singlePair = pair.split("=");
             params.put(singlePair[0], singlePair[1]);
         }
-        
+
         return params;
     }
 
