@@ -69,7 +69,30 @@ public class HelperTest {
     }
 
     @Test
-    public void retrievePOSTDataMultiParam() {
+    public void retrievePOSTDataNoParam() {
+        Map<String, String> exp = new HashMap<>();
+
+        Headers h = new Headers();
+        h.put("Content-type", Collections.singletonList("application/x-www-form-urlencoded"));
+        Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("".getBytes()), h);
+
+        Assert.assertEquals(exp, act);
+    }
+
+    @Test
+    public void retrievePOSTDataSingleParamAlpha() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("abc", "def");
+
+        Headers h = new Headers();
+        h.put("Content-type", Collections.singletonList("application/x-www-form-urlencoded"));
+        Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("abc=def".getBytes()), h);
+
+        Assert.assertEquals(exp, act);
+    }
+
+    @Test
+    public void retrievePOSTDataMultiParamAlpha() {
         Map<String, String> exp = new HashMap<>();
         exp.put("abc", "def");
         exp.put("ghi", "jkl");
@@ -82,56 +105,12 @@ public class HelperTest {
     }
 
     @Test
-    public void retrievePOSTDataSingleParam() {
-        Map<String, String> exp = new HashMap<>();
-        exp.put("abc", "def");
-
-        Headers h = new Headers();
-        h.put("Content-type", Collections.singletonList("application/x-www-form-urlencoded"));
-        Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("abc=def".getBytes()), h);
-
-        Assert.assertEquals(exp, act);
-    }
-
-    @Test
-    public void retrievePOSTDataNoParam() {
-        Map<String, String> exp = new HashMap<>();
-
-        Headers h = new Headers();
-        h.put("Content-type", Collections.singletonList("application/x-www-form-urlencoded"));
-        Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("".getBytes()), h);
-
-        Assert.assertEquals(exp, act);
-    }
-
-    @Test
     public void retrievePOSTDataWrongContentTypeWithParam() {
         Map<String, String> exp = new HashMap<>();
 
         Headers h = new Headers();
-        h.put("Content-type", Collections.singletonList("multipart/form-data; boundary=----WebKitFormBoundaryjZHn6Uj"));
+        h.put("Content-type", Collections.singletonList("multipart/form-data; boundary=----WebKitFormBoundaryjZH"));
         Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("abc=def".getBytes()), h);
-
-        Assert.assertEquals(exp, act);
-    }
-
-    @Test
-    public void retrieveGETDataMultiParam() {
-        Map<String, String> exp = new HashMap<>();
-        exp.put("abc", "def");
-        exp.put("ghi", "jkl");
-
-        Map<String, String> act = Helper.retrieveGETData("http://somewebsite.com/index.php?abc=def&ghi=jkl");
-
-        Assert.assertEquals(exp, act);
-    }
-
-    @Test
-    public void retrieveGETDataSingleParam() {
-        Map<String, String> exp = new HashMap<>();
-        exp.put("abc", "def");
-
-        Map<String, String> act = Helper.retrieveGETData("http://somewebsite.com/index.php?abc=def");
 
         Assert.assertEquals(exp, act);
     }
@@ -143,5 +122,26 @@ public class HelperTest {
 
         Assert.assertEquals(exp, act);
     }
-    
+
+    @Test
+    public void retrieveGETDataSingleParamAlpha() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("abc", "def");
+
+        Map<String, String> act = Helper.retrieveGETData("http://somewebsite.com/index.php?abc=def");
+
+        Assert.assertEquals(exp, act);
+    }
+
+    @Test
+    public void retrieveGETDataMultiParamAlpha() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("abc", "def");
+        exp.put("ghi", "jkl");
+
+        Map<String, String> act = Helper.retrieveGETData("http://somewebsite.com/index.php?abc=def&ghi=jkl");
+
+        Assert.assertEquals(exp, act);
+    }
+
 }
