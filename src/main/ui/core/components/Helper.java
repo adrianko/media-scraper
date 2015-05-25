@@ -50,7 +50,6 @@ public class Helper {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
 
         return params;
