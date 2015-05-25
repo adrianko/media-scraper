@@ -5,11 +5,15 @@ import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import main.ui.app.Controllers;
+import main.ui.core.components.Controller;
+import main.ui.core.controllers.Handler;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /*
@@ -19,13 +23,13 @@ import java.util.logging.Logger;
  */
 public class HTTPServer {
 
-    static final String NIC = "0.0.0.0";
-    static final int PORT = 9898;
-    static final String MAIN_CONTROLLER = "Home";
-    static final boolean USE_AUTH = true;
+    public static final String NIC = "0.0.0.0";
+    public static final int PORT = 9898;
+    public static final String MAIN_CONTROLLER = "Home";
+    public static final boolean USE_AUTH = true;
 
     public static Logger logger;
-    
+    public static Map<String, HttpHandler> controllers;
     private HttpServer server;
     private BasicAuthenticator auth;
     
@@ -33,9 +37,11 @@ public class HTTPServer {
         try {
             logger = Logger.getLogger(this.getClass().getName());
             server = HttpServer.create(new InetSocketAddress(InetAddress.getByName(NIC), PORT), 0);
+            controllers = new HashMap<>();
             loadAuthentication();
             loadControllers(Arrays.stream(Controllers.class.getDeclaredClasses()).filter(c -> !c.getSimpleName()
                     .equals("Handler")).toArray(Class[]::new));
+            createRoute("/", new Handler());
             server.setExecutor(null);
             server.start();
             logger.info("Starting server on " + NIC + ":" + PORT);
@@ -56,11 +62,14 @@ public class HTTPServer {
         Arrays.stream(classes).forEach(c -> {
             try {
                 HttpHandler controller = (HttpHandler) c.newInstance();
+                controllers.put(c.getSimpleName(), controller);
                 createRoute("/" + c.getSimpleName().toLowerCase(), controller);
 
+                /*
                 if (c.getSimpleName().equals(MAIN_CONTROLLER)) {
                     createRoute("/", controller);
                 }
+                */
             } catch (InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
