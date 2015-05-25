@@ -361,32 +361,69 @@ public class HelperTest {
 
     @Test
     public void retrieveGETDataMultiParamNumeric() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("12", "34");
+        exp.put("56", "78");
 
+        Map<String, String> act = Helper.retrieveGETData("http://somewebsite.com/index.php?12=34&56=78");
+
+        Assert.assertEquals(exp, act);
     }
 
     @Test
     public void retrieveGETDataMultiParamSymbol() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("ab", "()");
+        exp.put("cd", "^$");
 
+        Map<String, String> act = Helper.retrieveGETData("http://somewebsite.com/index.php?ab=%28%29&cd=%5E%24");
+
+        Assert.assertEquals(exp, act);
     }
 
     @Test
     public void retrieveGETDataMultiParamAlphaNumeric() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("a1", "b2");
+        exp.put("c3", "d4");
 
+        Map<String, String> act = Helper.retrieveGETData("http://somewebsite.com/index.php?a1=b2&c3=d4");
+
+        Assert.assertEquals(exp, act);
     }
 
     @Test
     public void retrieveGETDataMultiParamNumericSymbol() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("12", "(34)");
+        exp.put("56", "^78$");
 
+        Map<String, String> act = Helper.retrieveGETData("http://somewebsite.com/index.php?12=%2834%29&56=%5E78%24");
+
+        Assert.assertEquals(exp, act);
     }
 
     @Test
     public void retrieveGETDataMultiParamAlphaSymbol() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("ab", "(cd)");
+        exp.put("ef", "^gh$");
 
+        Map<String, String> act = Helper.retrieveGETData("http://somewebsite.com/index.php?ab=%28cd%29&ef=%5Egh%24");
+
+        Assert.assertEquals(exp, act);
     }
 
     @Test
     public void retrieveGETDataMultiParamAlphaNumericSymbol() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("a1b2", "(c3d4)");
+        exp.put("e5f6", "^g7h8$");
 
+        Map<String, String> act = Helper.retrieveGETData(
+                "http://somewebsite.com/index.php?a1b2=%28c3d4%29&e5f6=%5Eg7h8%24");
+
+        Assert.assertEquals(exp, act);
     }
 
     @Test
