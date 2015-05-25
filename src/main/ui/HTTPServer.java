@@ -33,16 +33,7 @@ public class HTTPServer {
         try {
             logger = Logger.getLogger(this.getClass().getName());
             server = HttpServer.create(new InetSocketAddress(InetAddress.getByName(NIC), PORT), 0);
-
-            if (USE_AUTH) {
-                auth = new BasicAuthenticator("admin") {
-                    @Override
-                    public boolean checkCredentials(String user, String pwd) {
-                        return user.equals("root") && pwd.equals("password");
-                    }
-                };
-            }
-
+            loadAuthentication();
             Arrays.stream(Controllers.class.getDeclaredClasses()).forEach(c -> {
                 try {
                     HttpHandler controller = (HttpHandler) c.newInstance();
@@ -68,6 +59,17 @@ public class HTTPServer {
 
         if (USE_AUTH) {
             hc.setAuthenticator(auth);
+        }
+    }
+
+    public void loadAuthentication() {
+        if (USE_AUTH) {
+            auth = new BasicAuthenticator("admin") {
+                @Override
+                public boolean checkCredentials(String user, String pwd) {
+                    return user.equals("root") && pwd.equals("password");
+                }
+            };
         }
     }
     
