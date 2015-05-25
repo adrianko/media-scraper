@@ -34,18 +34,7 @@ public class HTTPServer {
             logger = Logger.getLogger(this.getClass().getName());
             server = HttpServer.create(new InetSocketAddress(InetAddress.getByName(NIC), PORT), 0);
             loadAuthentication();
-            Arrays.stream(Controllers.class.getDeclaredClasses()).forEach(c -> {
-                try {
-                    HttpHandler controller = (HttpHandler) c.newInstance();
-                    createRoute("/" + c.getSimpleName().toLowerCase(), controller);
-
-                    if (c.getSimpleName().equals(MAIN_CONTROLLER)) {
-                        createRoute("/", controller);
-                    }
-                } catch (InstantiationException | IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            });
+            loadControllers(Controllers.class.getDeclaredClasses());
             server.setExecutor(null);
             server.start();
             logger.info("Starting server on " + NIC + ":" + PORT);
@@ -60,6 +49,21 @@ public class HTTPServer {
         if (USE_AUTH) {
             hc.setAuthenticator(auth);
         }
+    }
+
+    public void loadControllers(Class[] classes) {
+        Arrays.stream(classes).forEach(c -> {
+            try {
+                HttpHandler controller = (HttpHandler) c.newInstance();
+                createRoute("/" + c.getSimpleName().toLowerCase(), controller);
+
+                if (c.getSimpleName().equals(MAIN_CONTROLLER)) {
+                    createRoute("/", controller);
+                }
+            } catch (InstantiationException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public void loadAuthentication() {
