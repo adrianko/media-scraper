@@ -290,32 +290,62 @@ public class HelperTest {
 
     @Test
     public void retrieveGETDataSingleParamNumeric() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("123", "456");
 
+        Map<String, String> act = Helper.retrieveGETData("http://somewebsite.com/index.php?123=456");
+
+        Assert.assertEquals(exp, act);
     }
 
     @Test
     public void retrieveGETDataSingleParamSymbol() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("abc", "()^$");
 
+        Map<String, String> act = Helper.retrieveGETData("http://somewebsite.com/index.php?abc=%28%29%5E%24");
+
+        Assert.assertEquals(exp, act);
     }
 
     @Test
     public void retrieveGETDataSingleParamAlphaNumeric() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("a1b2c3", "d4e5f6");
 
+        Map<String, String> act = Helper.retrieveGETData("http://somewebsite.com/index.php?a1b2c3=d4e5f6");
+
+        Assert.assertEquals(exp, act);
     }
 
     @Test
     public void retrieveGETDataSingleParamNumericSymbol() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("123", "(456)^$");
 
+        Map<String, String> act = Helper.retrieveGETData("http://somewebsite.com/index.php?123=%28456%29%5E%24");
+
+        Assert.assertEquals(exp, act);
     }
 
     @Test
     public void retrieveGETDataSingleParamAlphaSymbol() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("abc", "(def)^$");
 
+        Map<String, String> act = Helper.retrieveGETData("http://somewebsite.com/index.php?abc=%28def%29%5E%24");
+
+        Assert.assertEquals(exp, act);
     }
 
     @Test
     public void retrieveGETDataSingleParamAlphaNumericSymbol() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("a1b2c3", "(d4e5)^$");
 
+        Map<String, String> act = Helper.retrieveGETData("http://somewebsite.com/index.php?a1b2c3=%28d4e5%29%5E%24");
+
+        Assert.assertEquals(exp, act);
     }
 
     @Test
