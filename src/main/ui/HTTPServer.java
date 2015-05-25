@@ -39,8 +39,7 @@ public class HTTPServer {
             controllers = new HashMap<>();
             loadAuthentication();
             createRoute("/", new Handler());
-            loadControllers(Arrays.stream(Controllers.class.getDeclaredClasses()).filter(c -> !c.getSimpleName()
-                    .equals("Handler")).toArray(Class[]::new));
+            loadControllers(Controllers.class.getDeclaredClasses());
             server.setExecutor(null);
             server.start();
             logger.info("Starting server on " + NIC + ":" + PORT);
