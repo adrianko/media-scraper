@@ -2,6 +2,7 @@ package main.ui.app;
 
 import com.sun.net.httpserver.HttpExchange;
 import main.scrapers.tv.TVScraper;
+import main.ui.HTTPServer;
 import main.ui.core.components.Controller;
 import main.ui.core.components.Helper;
 import main.ui.core.components.Response;
@@ -10,6 +11,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Controllers {
+
+    public static class Handler extends Controller {
+
+        @Override
+        public void handle(HttpExchange t) {
+            HTTPServer.logger.info(t.getRequestURI().toString());
+            Response.sendHTML(t, "");
+        }
+
+    }
 
     public static class Home extends Controller {
 
