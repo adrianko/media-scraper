@@ -154,11 +154,11 @@ public class HelperTest {
     @Test
     public void retrievePOSTDataSingleParamAlphaNumericSymbol() {
         Map<String, String> exp = new HashMap<>();
-        exp.put("a1b2c3", "(d4e5f6)");
+        exp.put("a1b2", "(d4e5)");
 
         Headers h = new Headers();
         h.put("Content-type", Collections.singletonList("application/x-www-form-urlencoded"));
-        Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("a1b2c3=%28d4e5f6%29".getBytes()), h);
+        Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("a1b2=%28d4e5%29".getBytes()), h);
 
         Assert.assertEquals(exp, act);
     }
@@ -178,32 +178,85 @@ public class HelperTest {
 
     @Test
     public void retrievePOSTDataMultiParamNumeric() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("12", "34");
+        exp.put("56", "78");
 
+        Headers h = new Headers();
+        h.put("Content-type", Collections.singletonList("application/x-www-form-urlencoded"));
+        Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream("12=34\n56=78".getBytes()), h);
+
+        Assert.assertEquals(exp, act);
     }
 
     @Test
     public void retrievePOSTDataMultiParamSymbol() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("ab", "()");
+        exp.put("cd", "^$");
 
+        Headers h = new Headers();
+        h.put("Content-type", Collections.singletonList("application/x-www-form-urlencoded"));
+        Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream(
+                "ab=%28%29\ncd=%5E%24".getBytes()), h);
+
+        Assert.assertEquals(exp, act);
     }
 
     @Test
     public void retrievePOSTDataMultiParamAlphaNumeric() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("12ab", "34cd");
+        exp.put("56ef", "78gh");
 
+        Headers h = new Headers();
+        h.put("Content-type", Collections.singletonList("application/x-www-form-urlencoded"));
+        Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream(
+                "12ab=34cd\n56ef=78gh".getBytes()), h);
+
+        Assert.assertEquals(exp, act);
     }
 
     @Test
     public void retrievePOSTDataMultiParamNumericSymbol() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("12", "(34)");
+        exp.put("56", "^78$");
 
+        Headers h = new Headers();
+        h.put("Content-type", Collections.singletonList("application/x-www-form-urlencoded"));
+        Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream(
+                "12=%2834%29\n56=%5E78%24".getBytes()), h);
+
+        Assert.assertEquals(exp, act);
     }
 
     @Test
     public void retrievePOSTDataMultiParamAlphaSymbol() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("ab", "(ef)");
+        exp.put("cd", "^gh$");
 
+        Headers h = new Headers();
+        h.put("Content-type", Collections.singletonList("application/x-www-form-urlencoded"));
+        Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream(
+                "ab=%28ef%29\ncd=%5Egh%24".getBytes()), h);
+
+        Assert.assertEquals(exp, act);
     }
 
     @Test
     public void retrievePOSTDataMultiParamAlphaNumericSymbol() {
+        Map<String, String> exp = new HashMap<>();
+        exp.put("a1b2", "(e3f4)");
+        exp.put("c5d6", "^g7h8$");
 
+        Headers h = new Headers();
+        h.put("Content-type", Collections.singletonList("application/x-www-form-urlencoded"));
+        Map<String, String> act = Helper.retrievePOSTData(new ByteArrayInputStream(
+                "a1b2=%28e3f4%29\nc5d6=%5Eg7h8%24".getBytes()), h);
+
+        Assert.assertEquals(exp, act);
     }
 
     @Test
