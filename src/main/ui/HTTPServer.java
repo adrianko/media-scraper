@@ -21,7 +21,7 @@ public class HTTPServer {
 
     static final String NIC = "0.0.0.0";
     static final int PORT = 9898;
-    static final String MAIN_CONTROLLER = "Handler";
+    static final String MAIN_CONTROLLER = "Home";
     static final boolean USE_AUTH = true;
 
     public static Logger logger;
@@ -35,7 +35,7 @@ public class HTTPServer {
             server = HttpServer.create(new InetSocketAddress(InetAddress.getByName(NIC), PORT), 0);
             loadAuthentication();
             loadControllers(Arrays.stream(Controllers.class.getDeclaredClasses()).filter(c -> !c.getSimpleName()
-                    .equals(MAIN_CONTROLLER)).toArray(Class[]::new));
+                    .equals("Handler")).toArray(Class[]::new));
             server.setExecutor(null);
             server.start();
             logger.info("Starting server on " + NIC + ":" + PORT);
