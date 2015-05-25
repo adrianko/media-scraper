@@ -5,7 +5,6 @@ import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import main.ui.app.Controllers;
-import main.ui.core.components.Controller;
 import main.ui.core.controllers.Handler;
 
 import java.io.IOException;
@@ -39,9 +38,9 @@ public class HTTPServer {
             server = HttpServer.create(new InetSocketAddress(InetAddress.getByName(NIC), PORT), 0);
             controllers = new HashMap<>();
             loadAuthentication();
+            createRoute("/", new Handler());
             loadControllers(Arrays.stream(Controllers.class.getDeclaredClasses()).filter(c -> !c.getSimpleName()
                     .equals("Handler")).toArray(Class[]::new));
-            createRoute("/", new Handler());
             server.setExecutor(null);
             server.start();
             logger.info("Starting server on " + NIC + ":" + PORT);
@@ -64,12 +63,6 @@ public class HTTPServer {
                 HttpHandler controller = (HttpHandler) c.newInstance();
                 controllers.put(c.getSimpleName(), controller);
                 createRoute("/" + c.getSimpleName().toLowerCase(), controller);
-
-                /*
-                if (c.getSimpleName().equals(MAIN_CONTROLLER)) {
-                    createRoute("/", controller);
-                }
-                */
             } catch (InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }

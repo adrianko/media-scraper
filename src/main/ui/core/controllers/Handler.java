@@ -2,7 +2,6 @@ package main.ui.core.controllers;
 
 import com.sun.net.httpserver.HttpExchange;
 import main.ui.HTTPServer;
-import main.ui.app.Controllers;
 import main.ui.core.components.Controller;
 import main.ui.core.components.Response;
 
