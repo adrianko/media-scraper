@@ -46,18 +46,10 @@ public class HTTPServer {
             Arrays.stream(Controllers.class.getDeclaredClasses()).forEach(c -> {
                 try {
                     HttpHandler controller = (HttpHandler) c.newInstance();
-                    HttpContext hc = server.createContext("/" + c.getSimpleName().toLowerCase(), controller);
-
-                    if (USE_AUTH) {
-                        hc.setAuthenticator(auth);
-                    }
+                    createRoute("/" + c.getSimpleName().toLowerCase(), controller);
 
                     if (c.getSimpleName().equals(MAIN_CONTROLLER)) {
-                        HttpContext main = server.createContext("/", controller);
-
-                        if (USE_AUTH) {
-                            main.setAuthenticator(auth);
-                        }
+                        createRoute("/", controller);
                     }
                 } catch (InstantiationException | IllegalAccessException e) {
                     e.printStackTrace();
@@ -68,6 +60,14 @@ public class HTTPServer {
             logger.info("Starting server on " + NIC + ":" + PORT);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void createRoute(String path, HttpHandler handler) {
+        HttpContext hc = server.createContext(path, handler);
+
+        if (USE_AUTH) {
+            hc.setAuthenticator(auth);
         }
     }
     
