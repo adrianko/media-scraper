@@ -6,6 +6,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -77,6 +79,15 @@ public class Helper {
     public static Map<String, String> splitParamPair(String pair, Map<String, String> params) {
         if (pair.contains("=")) {
             String[] singlePair = pair.split("=");
+
+            if (singlePair[1].contains("%")) {
+                try {
+                    singlePair[1] = URLDecoder.decode(singlePair[1], "ASCII");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
+
             params.put(singlePair[0], singlePair[1]);
         }
 
