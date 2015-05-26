@@ -95,6 +95,12 @@ public class Helper {
     }
     
     public static String getFilePath(String file) {
+        if (Base.path.endsWith("/") && file.startsWith("/")) {
+            file = file.substring(1);
+        } else if (!Base.path.endsWith("/") && !file.startsWith("/")) {
+            file = "/" + file;
+        }
+        
         return Base.path + file.substring(1);
     }
 
