@@ -75,7 +75,7 @@ public class HTTPServer {
                 @Override
                 public boolean checkCredentials(String user, String pwd) {
                     return Helper.sha1("003fBd=h9Ev1Epq" + user).equals("a2e0fee40029310f8c61d83c37f9f6ad3da7576c") && 
-                            Helper.sha1("9n1802KjuYZ7^6Y" + pwd).equals("d5c307af6c77cc6cfc5aad6f8dd12e58e7dff5b3");
+                            Helper.sha1("9n1802KjuYZ7^6Y" + pwd).equals("a2e12dce65b13b4ab9a454ec6169da3069444544");
                 }
             };
         }
