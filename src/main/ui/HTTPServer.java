@@ -71,7 +71,7 @@ public class HTTPServer {
 
     public void loadAuthentication() {
         if (USE_AUTH) {
-            auth = new BasicAuthenticator("admin") {
+            auth = new BasicAuthenticator("root/toor") {
                 @Override
                 public boolean checkCredentials(String user, String pwd) {
                     return Helper.sha1("003fBd=h9Ev1Epq" + user).equals("a2e0fee40029310f8c61d83c37f9f6ad3da7576c") && 
