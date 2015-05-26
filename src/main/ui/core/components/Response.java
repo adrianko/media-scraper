@@ -13,10 +13,12 @@ public class Response {
     
     public static void setHeaders(HttpExchange t, byte[] response, String contentType) {
         try {
-            t.getResponseHeaders().add("Content-Type", contentType);
+            if (contentType != null) {
+                t.getResponseHeaders().add("Content-Type", contentType);
+            }
+            
             t.sendResponseHeaders(200, response.length);
             t.getResponseBody().write(response);
-            t.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -37,8 +39,7 @@ public class Response {
     public static void sendFile(HttpExchange t, String filePath) {
         try {
             Path path = Paths.get(filePath);
-            byte[] file = Files.readAllBytes(path);
-            setHeaders(t, file, Files.probeContentType(path));
+            setHeaders(t, Files.readAllBytes(path), Files.probeContentType(path));
         } catch (IOException e) {
             e.printStackTrace();
         }

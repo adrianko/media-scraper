@@ -1,6 +1,7 @@
 package main.ui.core.components;
 
 import com.sun.net.httpserver.Headers;
+import main.ui.Base;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -91,6 +92,10 @@ public class Helper {
         }
 
         return params;
+    }
+    
+    public static String getFilePath(String file) {
+        return Base.path + file.substring(1);
     }
 
 }
