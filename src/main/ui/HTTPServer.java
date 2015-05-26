@@ -5,6 +5,7 @@ import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import main.ui.app.Controllers;
+import main.ui.core.components.Helper;
 import main.ui.core.controllers.Handler;
 
 import java.io.IOException;
@@ -73,7 +74,8 @@ public class HTTPServer {
             auth = new BasicAuthenticator("admin") {
                 @Override
                 public boolean checkCredentials(String user, String pwd) {
-                    return user.equals("root") && pwd.equals("password");
+                    return Helper.sha1("003fBd=h9Ev1Epq" + user).equals("a2e0fee40029310f8c61d83c37f9f6ad3da7576c") && 
+                            Helper.sha1("9n1802KjuYZ7^6Y" + pwd).equals("d5c307af6c77cc6cfc5aad6f8dd12e58e7dff5b3");
                 }
             };
         }
