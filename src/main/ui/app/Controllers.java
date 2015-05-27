@@ -75,15 +75,16 @@ public class Controllers {
             return Arrays.asList(new Item("Hello"), new Item("World"));
         }
         
-        static class Item {
-            
+        class Item {
+
             public String name;
-            
+
             public Item(String n) {
                 name = n;
             }
             
         }
+
     }
     
 }
