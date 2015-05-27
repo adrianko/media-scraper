@@ -85,7 +85,7 @@ public class Database {
     public static class Show {
 
         protected int id;
-        protected String title;
+        public String title;
         protected String kaURL;
         protected int rbURL;
         protected int season;
