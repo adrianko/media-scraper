@@ -15,15 +15,16 @@ public class Handler extends Controller {
     @Override
     public void handle(HttpExchange t) {
         HTTPServer.logger.info(t.getRequestURI().toString());
+        String url = t.getRequestURI().toString();
 
-        if (t.getRequestURI().toString().equals("/")) {
+        if (url.equals("/")) {
             try {
                 HTTPServer.controllers.get(HTTPServer.MAIN_CONTROLLER).handle(t);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else if (Files.exists(Paths.get(Helper.getFilePath(t.getRequestURI().toString())))) {
-            Response.sendFile(t, Helper.getFilePath(t.getRequestURI().toString()));
+        } else if (Files.exists(Paths.get(Helper.getFilePath(url)))) {
+            Response.sendFile(t, Helper.getFilePath(url));
         } else {
             Response.sendHTML(t, "1");
         }
