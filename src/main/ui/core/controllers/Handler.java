@@ -1,8 +1,6 @@
 package main.ui.core.controllers;
 
 import com.github.mustachejava.DefaultMustacheFactory;
-import com.github.mustachejava.Mustache;
-import com.github.mustachejava.MustacheFactory;
 import com.sun.net.httpserver.HttpExchange;
 import main.scrapers.Base;
 import main.ui.HTTPServer;
@@ -31,12 +29,11 @@ public class Handler extends Controller {
         } else if (Files.exists(Paths.get(Helper.getFilePath(url)))) {
             Response.sendFile(t, Helper.getFilePath(url));
         } else if (Files.exists(Paths.get(Base.path + "/views/404.mustache"))) {
-            MustacheFactory mf = new DefaultMustacheFactory();
-            Mustache m = mf.compile(main.ui.Base.path + "/views/404.mustache");
             Writer w = new StringWriter();
 
             try {
-                m.execute(w, new Error404()).flush();
+                new DefaultMustacheFactory().compile(main.ui.Base.path + "/views/404.mustache").execute(w, 
+                        new Error404()).flush();
             } catch (IOException e) {
                 e.printStackTrace();
             }
