@@ -107,7 +107,7 @@ public class Helper {
         return Base.path + file;
     }
     
-    public static String loadTemplate(String template, Object context) {
+    public static String renderView(String template, Object context) {
         Writer w = new StringWriter();
 
         try {

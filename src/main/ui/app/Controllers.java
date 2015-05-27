@@ -58,17 +58,7 @@ public class Controllers {
 
         @Override
         public void handle(HttpExchange t) {
-            MustacheFactory mf = new DefaultMustacheFactory();
-            Mustache m = mf.compile(Base.path + "/views/example.mustache");
-            Writer w = new StringWriter();
-            
-            try {
-                m.execute(w, new View()).flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            Response.sendHTML(t, w.toString());
+            Response.sendHTML(t, Helper.renderView("/views/example.mustache", new View()));
         }
         
         List<Item> items() {
