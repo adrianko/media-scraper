@@ -101,7 +101,7 @@ public class Helper {
             file = "/" + file;
         }
         
-        return Base.path + file.substring(1);
+        return Base.path + file;
     }
 
 }

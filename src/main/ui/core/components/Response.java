@@ -1,6 +1,7 @@
 package main.ui.core.components;
 
 import com.sun.net.httpserver.HttpExchange;
+import main.ui.HTTPServer;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -16,6 +17,8 @@ public class Response {
     }
     
     public static void setHeaders(HttpExchange t, byte[] response, int code, String contentType) {
+        HTTPServer.logger.info(t.getRequestURI().toString());
+        
         try {
             if (contentType != null) {
                 t.getResponseHeaders().add("Content-Type", contentType);

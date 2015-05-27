@@ -20,7 +20,6 @@ public class Handler extends Controller {
 
     @Override
     public void handle(HttpExchange t) {
-        HTTPServer.logger.info(t.getRequestURI().toString());
         String url = t.getRequestURI().toString();
 
         if (url.equals("/") || url.equals("")) {
