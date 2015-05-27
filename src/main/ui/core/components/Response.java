@@ -12,12 +12,16 @@ import java.util.Map;
 public class Response {
     
     public static void setHeaders(HttpExchange t, byte[] response, String contentType) {
+        setHeaders(t, response, 200, contentType);
+    }
+    
+    public static void setHeaders(HttpExchange t, byte[] response, int code, String contentType) {
         try {
             if (contentType != null) {
                 t.getResponseHeaders().add("Content-Type", contentType);
             }
-            
-            t.sendResponseHeaders(200, response.length);
+
+            t.sendResponseHeaders(code, response.length);
             t.getResponseBody().write(response);
         } catch (IOException e) {
             e.printStackTrace();
@@ -26,6 +30,10 @@ public class Response {
 
     public static void send(HttpExchange t, String response, String contentType) {
         setHeaders(t, response.getBytes(), contentType);
+    }
+    
+    public static void send(HttpExchange t, String response, int code, String contentType) {
+        setHeaders(t, response.getBytes(), code, contentType);
     }
 
     public static void sendJSON(HttpExchange t, Map<String, Object> json) {
