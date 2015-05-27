@@ -34,8 +34,14 @@ public class HTTPServer {
     private BasicAuthenticator auth;
     
     public HTTPServer() {
+        logger = Logger.getLogger(this.getClass().getName());
+        start();
+    }
+
+    public void start() {
+        logger.info("Starting server on " + NIC + ":" + PORT);
+
         try {
-            logger = Logger.getLogger(this.getClass().getName());
             server = HttpServer.create(new InetSocketAddress(InetAddress.getByName(NIC), PORT), 0);
             controllers = new HashMap<>();
             loadAuthentication();
@@ -43,7 +49,6 @@ public class HTTPServer {
             loadControllers(Controllers.class.getDeclaredClasses());
             server.setExecutor(null);
             server.start();
-            logger.info("Starting server on " + NIC + ":" + PORT);
         } catch (IOException e) {
             e.printStackTrace();
         }
