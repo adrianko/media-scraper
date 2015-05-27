@@ -1,12 +1,20 @@
 package main.ui.app;
 
+import com.github.mustachejava.DefaultMustacheFactory;
+import com.github.mustachejava.Mustache;
+import com.github.mustachejava.MustacheFactory;
 import com.sun.net.httpserver.HttpExchange;
 import main.scrapers.tv.TVScraper;
+import main.ui.Base;
 import main.ui.core.components.Controller;
 import main.ui.core.components.Helper;
 import main.ui.core.components.Response;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Controllers {
@@ -43,6 +51,35 @@ public class Controllers {
             Response.sendJSON(t, response);
         }
 
+    }
+    
+    public static class View extends Controller {
+
+        @Override
+        public void handle(HttpExchange httpExchange) {
+            MustacheFactory mf = new DefaultMustacheFactory();
+            Mustache m = mf.compile(Base.path + "/views/example.mustache");
+            
+            try {
+                m.execute(new PrintWriter(System.out), new View()).flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        List<Item> items() {
+            return Arrays.asList(new Item("Hello"), new Item("World"));
+        }
+        
+        static class Item {
+            
+            public String name;
+            
+            public Item(String n) {
+                name = n;
+            }
+            
+        }
     }
     
 }
