@@ -8,6 +8,7 @@ import main.ui.core.components.Helper;
 import main.ui.core.components.Response;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -55,7 +56,7 @@ public class Controllers {
         }
         
         List<Database.Show> shows() {
-            return null;//Database.getTVShows();
+            return Database.getTVShows();
         }
 
     }

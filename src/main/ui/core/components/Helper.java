@@ -104,10 +104,6 @@ public class Helper {
             file = "/" + file;
         }
 
-        if (Base.os.contains("Windows")) {
-            return Base.path.substring(1) + file;
-        }
-        
         return Base.path + file;
     }
     
