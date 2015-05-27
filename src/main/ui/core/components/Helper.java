@@ -1,5 +1,6 @@
 package main.ui.core.components;
 
+import com.github.mustachejava.DefaultMustacheFactory;
 import com.sun.net.httpserver.Headers;
 import main.ui.Base;
 
@@ -7,7 +8,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.net.URLDecoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -102,6 +105,18 @@ public class Helper {
         }
         
         return Base.path + file;
+    }
+    
+    public static String loadTemplate(String template, Object context) {
+        Writer w = new StringWriter();
+
+        try {
+            new DefaultMustacheFactory().compile(Base.path + template).execute(w, context).flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        return w.toString();
     }
 
 }
