@@ -11,7 +11,8 @@ import main.ui.core.components.Helper;
 import main.ui.core.components.Response;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -56,15 +57,18 @@ public class Controllers {
     public static class View extends Controller {
 
         @Override
-        public void handle(HttpExchange httpExchange) {
+        public void handle(HttpExchange t) {
             MustacheFactory mf = new DefaultMustacheFactory();
             Mustache m = mf.compile(Base.path + "/views/example.mustache");
+            Writer w = new StringWriter();
             
             try {
-                m.execute(new PrintWriter(System.out), new View()).flush();
+                m.execute(w, new View()).flush();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            Response.sendHTML(t, w.toString());
         }
         
         List<Item> items() {
