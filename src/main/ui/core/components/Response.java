@@ -12,11 +12,11 @@ import java.util.Map;
 
 public class Response {
     
-    public static void setHeaders(HttpExchange t, byte[] response, String contentType) {
+    private static void setHeaders(HttpExchange t, byte[] response, String contentType) {
         setHeaders(t, response, 200, contentType);
     }
     
-    public static void setHeaders(HttpExchange t, byte[] response, int code, String contentType) {
+    private static void setHeaders(HttpExchange t, byte[] response, int code, String contentType) {
         HTTPServer.logger.info(t.getRequestURI().toString());
         
         try {

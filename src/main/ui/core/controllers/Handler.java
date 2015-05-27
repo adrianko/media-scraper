@@ -28,7 +28,7 @@ public class Handler extends Controller {
         } else if (Files.exists(Paths.get(Base.path + "/views/404.mustache"))) {
             Response.send(t, Helper.renderView("/views/404.mustache", new Error404()), 404, "text/html");
         } else {
-            Response.sendHTML(t, "404");
+            Response.sendHTML(t, "404 Not found");
         }
     }
     
