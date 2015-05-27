@@ -103,6 +103,10 @@ public class Helper {
         } else if (!Base.path.endsWith("/") && !file.startsWith("/")) {
             file = "/" + file;
         }
+
+        if (Base.os.contains("Windows")) {
+            return Base.path.substring(1) + file;
+        }
         
         return Base.path + file;
     }
