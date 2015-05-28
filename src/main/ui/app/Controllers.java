@@ -1,6 +1,7 @@
 package main.ui.app;
 
 import com.sun.net.httpserver.HttpExchange;
+import main.ui.Base;
 import main.scrapers.tv.TVScraper;
 import main.ui.app.models.Database;
 import main.ui.core.components.Controller;
@@ -54,6 +55,19 @@ public class Controllers {
             Response.sendHTML(t, Helper.renderView("/views/shows.mustache", new Shows()));
         }
         
+        List<Database.Show> shows() {
+            return Database.getTVShows();
+        }
+
+    }
+
+    public static class ShowsStyled extends Controller {
+
+        @Override
+        public void handle(HttpExchange t) {
+            Response.sendHTML(t, Helper.renderView("/views/shows-styled.mustache", new Shows()));
+        }
+
         List<Database.Show> shows() {
             return Database.getTVShows();
         }
