@@ -37,11 +37,12 @@ public class Database {
         List<Show> shows = new LinkedList<>();
         
         try {
-            ResultSet rs = getConnection("shows").createStatement().executeQuery("SELECT * FROM shows");
+            ResultSet rs = getConnection("shows").createStatement().executeQuery("SELECT s.*, r.runtime AS " +
+                    "'runtime_min' FROM shows AS s LEFT JOIN runtimes AS r ON r.id = s.runtime");
             
             while (rs.next()) {
                 shows.add(new Show(rs.getInt("id"), rs.getString("title"), rs.getString("ka_url"), rs.getInt("rb_url"), 
-                        rs.getInt("season"), rs.getInt("episode"), rs.getInt("hd"), rs.getInt("runtime")));
+                        rs.getInt("season"), rs.getInt("episode"), rs.getInt("hd"), rs.getInt("runtime_min")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
