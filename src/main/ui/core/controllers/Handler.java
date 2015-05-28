@@ -17,7 +17,7 @@ public class Handler extends Controller {
         String url = t.getRequestURI().toString();
 
         if (url.equals("/") || url.equals("")) {
-            Helper.redirectController(HTTPServer.MAIN_CONTROLLER, t);
+            Helper.redirectController(t, HTTPServer.MAIN_CONTROLLER);
         } else if (Files.exists(Paths.get(Helper.getFilePath(url)))) {
             Response.sendFile(t, Helper.getFilePath(url));
         } else if (Files.exists(Paths.get(Base.path + "/views/404.mustache"))) {

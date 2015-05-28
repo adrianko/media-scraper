@@ -121,7 +121,7 @@ public class Helper {
         return w.toString();
     }
     
-    public static void redirectController(String controller, HttpExchange t) {
+    public static void redirectController(HttpExchange t, String controller) {
         try {
             HTTPServer.controllers.get(controller).handle(t);
         } catch (IOException e) {
