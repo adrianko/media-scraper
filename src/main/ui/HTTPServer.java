@@ -20,6 +20,7 @@ import java.util.logging.Logger;
  * TODO Global settings page
  * TODO Media specific settings
  * TODO Media specific lists
+ * TODO handle directory listing
  */
 public class HTTPServer {
 
