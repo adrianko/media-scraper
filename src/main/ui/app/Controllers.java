@@ -61,7 +61,7 @@ public class Controllers {
 
     }
 
-    public static class ShowsStyled extends Controller {
+    public static class Style extends Controller {
 
         @Override
         public void handle(HttpExchange t) {
