@@ -11,14 +11,10 @@ import java.nio.file.Paths;
 import java.util.Map;
 
 public class Response {
-    
-    private static void setHeaders(HttpExchange t, byte[] response, String contentType) {
-        setHeaders(t, response, 200, contentType);
-    }
-    
-    private static void setHeaders(HttpExchange t, byte[] response, int code, String contentType) {
+
+    private static void send(HttpExchange t, byte[] response, int code, String contentType) {
         HTTPServer.logger.info(t.getRequestURI().toString());
-        
+
         try {
             if (contentType != null) {
                 t.getResponseHeaders().add("Content-Type", contentType);
@@ -27,18 +23,21 @@ public class Response {
             t.sendResponseHeaders(code, response.length);
             t.getResponseBody().write(response);
             t.getResponseBody().close();
-            HTTPServer.logger.info("Sent");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    
+    private static void send(HttpExchange t, byte[] response, String contentType) {
+        send(t, response, 200, contentType);
+    }
 
     public static void send(HttpExchange t, String response, String contentType) {
-        setHeaders(t, response.getBytes(), contentType);
+        send(t, response.getBytes(), contentType);
     }
     
     public static void send(HttpExchange t, String response, int code, String contentType) {
-        setHeaders(t, response.getBytes(), code, contentType);
+        send(t, response.getBytes(), code, contentType);
     }
 
     public static void sendJSON(HttpExchange t, Map<String, Object> json) {
@@ -52,7 +51,7 @@ public class Response {
     public static void sendFile(HttpExchange t, String filePath) {
         try {
             Path path = Paths.get(filePath);
-            setHeaders(t, Files.readAllBytes(path), Files.probeContentType(path));
+            send(t, Files.readAllBytes(path), Files.probeContentType(path));
         } catch (IOException e) {
             e.printStackTrace();
         }
