@@ -36,6 +36,7 @@ public class HTTPServer {
     
     public HTTPServer() {
         logger = Logger.getLogger(this.getClass().getName());
+        controllers = new HashMap<>();
         start();
     }
 
@@ -44,7 +45,6 @@ public class HTTPServer {
 
         try {
             server = HttpServer.create(new InetSocketAddress(InetAddress.getByName(NIC), PORT), 0);
-            controllers = new HashMap<>();
             loadAuthentication();
             createRoute("/", new Handler());
             loadControllers(Controllers.class.getDeclaredClasses());
