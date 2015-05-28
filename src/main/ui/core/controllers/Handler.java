@@ -27,6 +27,10 @@ public class Handler extends Controller {
         }
     }
     
-    public static class Error404 {}
+    class Error404 {
+        
+        public String message = "<a href=\"/\">Home</a>";
+        
+    }
 
 }
