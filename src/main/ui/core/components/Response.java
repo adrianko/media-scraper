@@ -26,6 +26,8 @@ public class Response {
 
             t.sendResponseHeaders(code, response.length);
             t.getResponseBody().write(response);
+            t.getResponseBody().close();
+            HTTPServer.logger.info("Sent");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -54,19 +54,6 @@ public class Controllers {
         public void handle(HttpExchange t) {
             Response.sendHTML(t, Helper.renderView("/views/shows.mustache", new Shows()));
         }
-        
-        List<Database.Show> shows() {
-            return Database.getTVShows();
-        }
-
-    }
-
-    public static class Style extends Controller {
-
-        @Override
-        public void handle(HttpExchange t) {
-            Response.sendHTML(t, Helper.renderView("/views/shows-styled.mustache", new Shows()));
-        }
 
         List<Database.Show> shows() {
             return Database.getTVShows();
