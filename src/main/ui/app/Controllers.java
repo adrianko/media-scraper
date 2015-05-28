@@ -1,6 +1,7 @@
 package main.ui.app;
 
 import com.sun.net.httpserver.HttpExchange;
+import main.scrapers.movie.orm.Movie;
 import main.scrapers.tv.TVScraper;
 import main.ui.app.models.Database;
 import main.ui.core.components.Controller;
@@ -58,6 +59,19 @@ public class Controllers {
             return Database.getTVShows();
         }
 
+    }
+    
+    public static class Movies extends Controller {
+
+        @Override
+        public void handle(HttpExchange t) {
+            Response.sendHTML(t, Helper.renderView("/views/movies.mustache", new Movies()));
+        }
+
+        List<Movie> movies() {
+            return Database.getMovies();
+        }
+        
     }
     
 }

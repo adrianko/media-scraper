@@ -1,0 +1,16 @@
+<html>
+<head>
+    <title>Movies</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/styles.css" />
+</head>
+<body>
+<table>
+    <tr><th>Title</th><th>Year</th></tr>
+    {{#movies}}
+        <tr>
+            <td>{{title}}</td><td>{{year}}</td>
+        </tr>
+    {{/movies}}
+</table>
+</body>
+</html>
