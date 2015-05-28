@@ -7,7 +7,6 @@ import main.ui.core.components.Controller;
 import main.ui.core.components.Helper;
 import main.ui.core.components.Response;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -18,17 +17,13 @@ public class Handler extends Controller {
         String url = t.getRequestURI().toString();
 
         if (url.equals("/") || url.equals("")) {
-            try {
-                HTTPServer.controllers.get(HTTPServer.MAIN_CONTROLLER).handle(t);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Helper.redirectController(HTTPServer.MAIN_CONTROLLER, t);
         } else if (Files.exists(Paths.get(Helper.getFilePath(url)))) {
             Response.sendFile(t, Helper.getFilePath(url));
         } else if (Files.exists(Paths.get(Base.path + "/views/404.mustache"))) {
             Response.send(t, Helper.renderView("/views/404.mustache", new Error404()), 404, "text/html");
         } else {
-            Response.sendHTML(t, "404 Not found");
+            Response.send(t, "404 Not found", 404, "text/html");
         }
     }
     

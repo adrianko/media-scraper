@@ -2,7 +2,9 @@ package main.ui.core.components;
 
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.sun.net.httpserver.Headers;
+import com.sun.net.httpserver.HttpExchange;
 import main.ui.Base;
+import main.ui.HTTPServer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -117,6 +119,14 @@ public class Helper {
         }
         
         return w.toString();
+    }
+    
+    public static void redirectController(String controller, HttpExchange t) {
+        try {
+            HTTPServer.controllers.get(controller).handle(t);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -1,7 +1,6 @@
 package main.ui.app;
 
 import com.sun.net.httpserver.HttpExchange;
-import main.ui.Base;
 import main.scrapers.tv.TVScraper;
 import main.ui.app.models.Database;
 import main.ui.core.components.Controller;
