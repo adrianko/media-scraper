@@ -85,6 +85,14 @@ public class Controllers {
             return Database.getSettings("settings");
         }
         
+        List<Database.Setting> showsSettings() {
+            return Database.getSettings("shows");
+        }
+        
+        List<Database.Setting> moviesSettings() {
+            return Database.getSettings("movies");
+        }
+        
     }
     
 }

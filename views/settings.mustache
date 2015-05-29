@@ -5,18 +5,48 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/styles.css" />
 </head>
 <body>
-<a href="/home">Home</a>
-<table class="settings">
-    <tr>
-        <th>Property</th>
-        <th>Value</th>
-    </tr>
-    {{#globalSettings}}
+    <a href="/home">Home</a>
+    <br />
+    <h1>Global</h1>
+    <table class="settings">
         <tr>
-            <td class="property">{{property}}</td>
-            <td class="value">{{value}}</td>
+            <th>Property</th>
+            <th>Value</th>
         </tr>
-    {{/globalSettings}}
-</table>
+        {{#globalSettings}}
+            <tr>
+                <td class="property">{{property}}</td>
+                <td class="value">{{value}}</td>
+            </tr>
+        {{/globalSettings}}
+    </table>
+    <br />
+    <h1>Shows</h1>
+    <table class="settings">
+        <tr>
+            <th>Property</th>
+            <th>Value</th>
+        </tr>
+        {{#showsSettings}}
+            <tr>
+                <td class="property">{{property}}</td>
+                <td class="value">{{value}}</td>
+            </tr>
+        {{/showsSettings}}
+    </table>
+    <br />
+    <h1>Movies</h1>
+    <table class="settings">
+        <tr>
+            <th>Property</th>
+            <th>Value</th>
+        </tr>
+        {{#moviesSettings}}
+            <tr>
+                <td class="property">{{property}}</td>
+                <td class="value">{{value}}</td>
+            </tr>
+        {{/moviesSettings}}
+    </table>
 </body>
 </html>
