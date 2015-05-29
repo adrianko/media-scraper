@@ -18,7 +18,7 @@ public class Controllers {
 
         @Override
         public void handle(HttpExchange t) {
-            Response.sendHTML(t, "<h1>Media Scraper</h1>");
+            Response.sendHTML(t, Helper.renderView("/views/home.mustache", new Home()));
         }
 
     }
