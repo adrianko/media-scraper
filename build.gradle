@@ -36,16 +36,19 @@ test {
     }
 }
 
-task execute(type: JavaExec) {
+task scrapetv(type: JavaExec) {
     main = 'main.scrapers.Scraper'
     classpath = sourceSets.main.runtimeClasspath
-
-    doLast {
-        args = ["$arg"]
-    }
+    args = ["tv"]
 }
 
-task runServer(type: JavaExec) {
+task scrapemovie(type: JavaExec) {
+    main = 'main.scrapers.Scraper'
+    classpath = sourceSets.main.runtimeClasspath
+    args = ["movie"]
+}
+
+task runserver(type: JavaExec) {
     main = 'main.ui.HTTPServer'
     classpath = sourceSets.main.runtimeClasspath
 }
