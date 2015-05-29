@@ -5,13 +5,17 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/styles.css" />
 </head>
 <body>
-<table>
-    <tr><th>Title</th><th>Year</th></tr>
-    {{#movies}}
-        <tr>
-            <td>{{title}}</td><td>{{year}}</td>
-        </tr>
-    {{/movies}}
+<table class="movies">
+    <tr>
+        <th>Title</th>
+        <th>Year</th>
+    </tr>
+{{#movies}}
+    <tr>
+        <td class="title">{{title}}</td>
+        <td class="year">{{year}}</td>
+    </tr>
+{{/movies}}
 </table>
 </body>
 </html>

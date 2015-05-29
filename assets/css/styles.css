@@ -1,1 +1,1 @@
-html{font-size:12px;font-family:Arial;margin:10px}.shows th{text-align:left}.shows .id{width:50px}.shows .title{min-width:150px}.shows .season,.shows .episode{width:60px}.shows .quality{width:50px}.shows .runtime{width:50px}
+html{font-size:12px;font-family:Arial;margin:10px}.shows th,.movies th{text-align:left}.shows .id,.movies .id,.shows .year,.movies .year,.shows .quality,.movies .quality,.shows .runtime,.movies .runtime{width:50px}.shows .title,.movies .title{min-width:150px}.shows .season,.movies .season,.shows .episode,.movies .episode{width:60px}
