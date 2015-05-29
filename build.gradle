@@ -37,16 +37,15 @@ test {
 }
 
 task execute(type: JavaExec) {
+    main = 'main.scrapers.Scraper'
+    classpath = sourceSets.main.runtimeClasspath
+
     doLast {
-        main = 'main.scrapers.Scraper'
         args = ["$arg"]
-        classpath = sourceSets.main.runtimeClasspath
     }
 }
 
 task runServer(type: JavaExec) {
-    doLast {
-        main = 'main.ui.HTTPServer'
-        classpath = sourceSets.main.runtimeClasspath
-    }
+    main = 'main.ui.HTTPServer'
+    classpath = sourceSets.main.runtimeClasspath
 }
