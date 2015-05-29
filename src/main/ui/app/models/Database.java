@@ -106,42 +106,9 @@ public class Database {
             runtime = r;
             setQuality();
         }
-
-        public String getTitle() {
-            return title;
-        }
         
-        public int getSeason() {
-            return season;
-        }
-
-        public void setSeason(int s) {
-            season = s;
-        }
-
-        public int getEpisode() {
-            return episode;
-        }
-
-        public void setEpisode(int e) {
-            episode = e;
-        }
-
         public int getHD() {
             return hd;
-        }
-
-        public void setHD(int hd) {
-            this.hd = hd;
-            setQuality();
-        }
-
-        public int getRuntime() {
-            return runtime;
-        }
-
-        public String getQuality() {
-            return quality;
         }
 
         public void setQuality() {
