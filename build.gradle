@@ -37,7 +37,8 @@ test {
 }
 
 task execute(type: JavaExec) {
-    main = 'main.scrapers.tv.Scraper'
+    main = 'main.scrapers.Scraper'
+    args = ["$arg"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
