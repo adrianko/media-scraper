@@ -67,14 +67,14 @@ public class Database {
         return movies;
     }
     
-    public static Map<String, String> getSettings(String db) {
-        Map<String, String> settings = new HashMap<>();
+    public static List<Setting> getSettings(String db) {
+        List<Setting> settings = new LinkedList<>();
         
         try {
             ResultSet rs = getConnection(db).createStatement().executeQuery("SELECT * FROM settings");
             
             while (rs.next()) {
-                settings.put(rs.getString("property"), rs.getString("value"));
+                settings.add(new Setting(rs.getString("property"), rs.getString("value")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -158,6 +158,18 @@ public class Database {
             }
         }
 
+    }
+    
+    public static class Setting {
+        
+        public String property;
+        public String value;
+        
+        public Setting(String p, String v) {
+            property = p;
+            value = v;
+        }
+        
     }
     
 }

@@ -74,4 +74,17 @@ public class Controllers {
         
     }
     
+    public static class Settings extends Controller {
+
+        @Override
+        public void handle(HttpExchange t) {
+            Response.sendHTML(t, Helper.renderView("/views/settings.mustache", new Settings()));
+        }
+
+        List<Database.Setting> globalSettings() {
+            return Database.getSettings("settings");
+        }
+        
+    }
+    
 }
