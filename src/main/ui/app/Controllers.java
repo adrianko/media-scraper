@@ -82,19 +82,19 @@ public class Controllers {
             Response.sendHTML(t, Helper.renderView("/views/settings.mustache", new Settings()));
         }
 
-        List<Wrapper> wrapper() {
+        List<SettingsWrapper> wrapper() {
             return Arrays.asList(
-                    new Wrapper("Global", Database.getSettings("settings")),
-                    new Wrapper("Shows", Database.getSettings("shows")),
-                    new Wrapper("Movies", Database.getSettings("movies"))
+                    new SettingsWrapper("Global", Database.getSettings("settings")),
+                    new SettingsWrapper("Shows", Database.getSettings("shows")),
+                    new SettingsWrapper("Movies", Database.getSettings("movies"))
             );
         }
-        
-        class Wrapper {
+
+        class SettingsWrapper {
             public String title;
             public List<Database.Setting> settings;
 
-            public Wrapper(String t, List<Database.Setting> s) {
+            public SettingsWrapper(String t, List<Database.Setting> s) {
                 title = t;
                 settings = s;
             }
