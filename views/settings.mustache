@@ -10,46 +10,20 @@
             <a href="/home">Home</a>
         </nav>
     </header>
-    <h2>Global</h2>
+{{#wrapper}}
+    <h2>{{title}}</h2>
     <table class="settings">
         <tr>
             <th>Property</th>
             <th>Value</th>
         </tr>
-        {{#globalSettings}}
+        {{#settings}}
             <tr>
                 <td class="property">{{property}}</td>
                 <td class="value">{{value}}</td>
             </tr>
-        {{/globalSettings}}
+        {{/settings}}
     </table>
-    
-    <h2>Shows</h2>
-    <table class="settings">
-        <tr>
-            <th>Property</th>
-            <th>Value</th>
-        </tr>
-        {{#showsSettings}}
-            <tr>
-                <td class="property">{{property}}</td>
-                <td class="value">{{value}}</td>
-            </tr>
-        {{/showsSettings}}
-    </table>
-    
-    <h2>Movies</h2>
-    <table class="settings">
-        <tr>
-            <th>Property</th>
-            <th>Value</th>
-        </tr>
-        {{#moviesSettings}}
-            <tr>
-                <td class="property">{{property}}</td>
-                <td class="value">{{value}}</td>
-            </tr>
-        {{/moviesSettings}}
-    </table>
+{{/wrapper}}
 </body>
 </html>

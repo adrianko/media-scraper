@@ -8,6 +8,7 @@ import main.ui.core.components.Controller;
 import main.ui.core.components.Helper;
 import main.ui.core.components.Response;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,16 +82,23 @@ public class Controllers {
             Response.sendHTML(t, Helper.renderView("/views/settings.mustache", new Settings()));
         }
 
-        List<Database.Setting> globalSettings() {
-            return Database.getSettings("settings");
+        List<Wrapper> wrapper() {
+            return Arrays.asList(
+                    new Wrapper("Global", Database.getSettings("settings")),
+                    new Wrapper("Shows", Database.getSettings("shows")),
+                    new Wrapper("Movies", Database.getSettings("movies"))
+            );
         }
         
-        List<Database.Setting> showsSettings() {
-            return Database.getSettings("shows");
-        }
-        
-        List<Database.Setting> moviesSettings() {
-            return Database.getSettings("movies");
+        class Wrapper {
+            public String title;
+            public List<Database.Setting> settings;
+
+            public Wrapper(String t, List<Database.Setting> s) {
+                title = t;
+                settings = s;
+            }
+
         }
         
     }
