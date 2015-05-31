@@ -91,6 +91,7 @@ public class Controllers {
         }
 
         class SettingsWrapper {
+
             public String title;
             public List<Database.Setting> settings;
 
