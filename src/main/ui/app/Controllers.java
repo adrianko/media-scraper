@@ -63,17 +63,16 @@ public class Controllers {
             
             if (route.isPresent()) {
                 try {
-                    Class c = Class.forName(route.get().getName());
-                    Object r1 = c.newInstance();
+                    Object rp1 = route.get().newInstance();
                     Optional<Method> subRoute = Arrays.asList(route.get().getMethods()).stream().filter(m -> m.getName()
                             .toLowerCase().equals(request.get(1).toLowerCase())).findAny();
 
                     if (subRoute.isPresent()) {
                         if (subRoute.get().getParameterCount() == 0) {
-                            response.put("test", subRoute.get().invoke(r1));
+                            response.put("response", subRoute.get().invoke(rp1));
                         }
                     }
-                } catch (InstantiationException | IllegalAccessException | InvocationTargetException | ClassNotFoundException e) {
+                } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();
                 }
             }
