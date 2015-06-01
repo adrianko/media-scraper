@@ -58,18 +58,16 @@ public class Controllers {
             Map<String, String> post = Helper.retrievePOSTData(t.getRequestBody(), t.getRequestHeaders());
             Map<String, String> get = Helper.retrieveGETData(url);
             
-            Optional<Class> route = routes.stream().filter(c -> c.getSimpleName().toLowerCase().equals(request.get(0)
-                    .toLowerCase())).findFirst();
+            Optional<Class> route = Helper.checkAPIRoute(routes, request);
             
             if (route.isPresent()) {
                 try {
                     Object rp1 = route.get().newInstance();
-                    Optional<Method> subRoute = Arrays.asList(route.get().getMethods()).stream().filter(m -> m.getName()
-                            .toLowerCase().equals(request.get(1).toLowerCase())).findAny();
+                    Optional<Method> method = Helper.checkAPISubRoute(rp1, request);
 
-                    if (subRoute.isPresent()) {
-                        if (subRoute.get().getParameterCount() == 0) {
-                            response.put("response", subRoute.get().invoke(rp1));
+                    if (method.isPresent()) {
+                        if (method.get().getParameterCount() == 0) {
+                            response.put("response", method.get().invoke(rp1));
                         }
                     }
                 } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {

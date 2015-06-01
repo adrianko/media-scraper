@@ -13,12 +13,15 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.lang.reflect.Method;
 import java.net.URLDecoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class Helper {
     
@@ -127,6 +130,16 @@ public class Helper {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    public static Optional<Class> checkAPIRoute(List<Class> routes, List<String> request) {
+        return routes.stream().filter(c -> c.getSimpleName().toLowerCase().equals(request.get(0).toLowerCase()))
+                .findFirst();
+    }
+    
+    public static Optional<Method> checkAPISubRoute(Object rp1, List<String> request) {
+        return Arrays.asList(rp1.getClass().getMethods()).stream().filter(m -> m.getName().toLowerCase().equals(request
+                .get(1).toLowerCase())).findAny();
     }
 
 }
