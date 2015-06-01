@@ -8,10 +8,12 @@ import main.ui.core.components.Controller;
 import main.ui.core.components.Helper;
 import main.ui.core.components.Response;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Controllers {
@@ -38,20 +40,43 @@ public class Controllers {
     }
 
     public static class API extends Controller {
+        
+        private List<Class> routes = Arrays.asList(this.getClass().getClasses());
 
         @Override
         public void handle(HttpExchange t) {
+            String url = t.getRequestURI().toString();
+            
             Map<String, Object> response = new HashMap<>();
             response.put("success", "1");
-            response.put("request", t.getRequestURI().toString());
-            List<String> request = Arrays.asList(t.getRequestURI().toString().split("/")).stream().filter(s -> 
-                    !s.equals("")).collect(Collectors.toList());
-            Map<String, String> post = Helper.retrievePOSTData(t.getRequestBody(), t.getRequestHeaders());
-
-            System.out.println(request);
+            response.put("request", url);
             
+            List<String> request = Arrays.asList(url.split("/")).stream().filter(s -> !s.equals(""))
+                    .collect(Collectors.toList());
+            request.remove(0);
+            Map<String, String> post = Helper.retrievePOSTData(t.getRequestBody(), t.getRequestHeaders());
+            Map<String, String> get = Helper.retrieveGETData(url);
+            
+            Optional<Class> route = routes.stream().filter(c -> c.getSimpleName().toLowerCase().equals(request.get(0)
+                    .toLowerCase())).findAny();
             
             Response.sendJSON(t, response);
+        }
+        
+        class Settings {
+            
+            public boolean add(String db, String property, String value) {
+                return true;    
+            }
+            
+        }
+        
+        class TV {
+            
+            public boolean add(String title, int season, int episode, String quality, int runtime) {
+                return true;
+            }
+            
         }
 
     }
