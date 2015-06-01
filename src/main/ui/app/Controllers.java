@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Controllers {
 
@@ -43,7 +44,13 @@ public class Controllers {
             Map<String, Object> response = new HashMap<>();
             response.put("success", "1");
             response.put("request", t.getRequestURI().toString());
-            Helper.retrievePOSTData(t.getRequestBody(), t.getRequestHeaders());
+            List<String> request = Arrays.asList(t.getRequestURI().toString().split("/")).stream().filter(s -> 
+                    !s.equals("")).collect(Collectors.toList());
+            Map<String, String> post = Helper.retrievePOSTData(t.getRequestBody(), t.getRequestHeaders());
+
+            System.out.println(request);
+            
+            
             Response.sendJSON(t, response);
         }
 
