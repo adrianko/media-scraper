@@ -88,6 +88,10 @@ public class Controllers {
                 return 3;
             }
             
+            public String testMethodParam(String p1, int p2) {
+                return p1 + p2;
+            }
+            
             public boolean add(String db, String property, String value) {
                 return true;    
             }
