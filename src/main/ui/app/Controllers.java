@@ -70,8 +70,7 @@ public class Controllers {
                             response.put("response", method.get().invoke(rp1));
                         } else {
                             List<Object> args = new LinkedList<>(request.subList(2, request.size()));
-                            Object[] a = args.toArray(new Object[args.size()]);
-                            response.put("response", method.get().invoke(rp1, a));
+                            response.put("response", method.get().invoke(rp1, args.toArray(new Object[args.size()])));
                         }
                     }
                 } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
