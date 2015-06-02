@@ -66,12 +66,8 @@ public class Controllers {
                     Optional<Method> method = Helper.checkAPISubRoute(rp1, request);
 
                     if (method.isPresent()) {
-                        if (method.get().getParameterCount() == 0) {
-                            response.put("response", method.get().invoke(rp1));
-                        } else {
-                            List<Object> args = new LinkedList<>(request.subList(2, request.size()));
-                            response.put("response", method.get().invoke(rp1, args.toArray(new Object[args.size()])));
-                        }
+                        List<Object> args = new LinkedList<>(request.subList(2, request.size()));
+                        response.put("response", method.get().invoke(rp1, args.toArray(new Object[args.size()])));
                     }
                 } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();
