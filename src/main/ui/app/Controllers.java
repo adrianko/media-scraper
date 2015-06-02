@@ -66,6 +66,7 @@ public class Controllers {
                     if (method.isPresent()) {
                         List<Object> args = new LinkedList<>(request.subList(2, request.size()));
                         ar.addResponse(method.get().invoke(rp1, args.toArray(new Object[args.size()])));
+                        ar.success();
                     }
                 } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();
