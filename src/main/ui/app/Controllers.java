@@ -12,6 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -47,7 +48,6 @@ public class Controllers {
         @Override
         public void handle(HttpExchange t) {
             String url = t.getRequestURI().toString();
-            
             Map<String, Object> response = new HashMap<>();
             response.put("success", "1");
             response.put("request", url);
@@ -68,6 +68,10 @@ public class Controllers {
                     if (method.isPresent()) {
                         if (method.get().getParameterCount() == 0) {
                             response.put("response", method.get().invoke(rp1));
+                        } else {
+                            List<Object> args = new LinkedList<>(request.subList(2, request.size()));
+                            Object[] a = args.toArray(new Object[args.size()]);
+                            response.put("response", method.get().invoke(rp1, a));
                         }
                     }
                 } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
@@ -88,8 +92,8 @@ public class Controllers {
                 return 3;
             }
             
-            public String testMethodParam(String p1, int p2) {
-                return p1 + p2;
+            public String testMethodParam(Object p1, Object p2) {
+                return p1.toString() + p2.toString();
             }
             
             public boolean add(String db, String property, String value) {
