@@ -111,7 +111,6 @@ public class Controllers {
             }
             
             public String testGETParams() {
-                System.out.println(params);
                 return params.toString();
             }
             
