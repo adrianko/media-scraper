@@ -26,6 +26,10 @@ public class APIResponse {
         success = 0;
     }
     
+    public void addResponse(Object r) {
+        response = r;
+    }
+    
     public void send() {
         Map<String, Object> response = new HashMap<>();
         response.put("request", request);

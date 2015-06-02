@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import main.scrapers.movie.orm.Movie;
 import main.scrapers.tv.TVScraper;
 import main.ui.app.models.Database;
+import main.ui.core.components.APIResponse;
 import main.ui.core.components.Controller;
 import main.ui.core.components.Helper;
 import main.ui.core.components.Response;
@@ -48,10 +49,7 @@ public class Controllers {
         @Override
         public void handle(HttpExchange t) {
             String url = t.getRequestURI().toString();
-            Map<String, Object> response = new HashMap<>();
-            response.put("success", "1");
-            response.put("request", url);
-            
+            APIResponse ar = new APIResponse(url, t);
             List<String> request = Arrays.asList(url.split("/")).stream().filter(s -> !s.equals(""))
                     .collect(Collectors.toList());
             request.remove(0);
@@ -67,14 +65,14 @@ public class Controllers {
 
                     if (method.isPresent()) {
                         List<Object> args = new LinkedList<>(request.subList(2, request.size()));
-                        response.put("response", method.get().invoke(rp1, args.toArray(new Object[args.size()])));
+                        ar.addResponse(method.get().invoke(rp1, args.toArray(new Object[args.size()])));
                     }
                 } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();
                 }
             }
             
-            Response.sendJSON(t, response);
+            ar.send();
         }
         
         static class CRUD {
