@@ -52,7 +52,13 @@ public class Controllers {
             APIResponse ar = new APIResponse(url, t);
             List<String> request = Arrays.asList(url.split("/")).stream().filter(s -> !s.equals(""))
                     .collect(Collectors.toList());
-            request.remove(0);
+            String last = request.get(request.size() - 1);
+            
+            if (last.contains("?")) {
+                request.set(request.size() - 1, last.split("\\?")[0]);
+            }
+            
+            request.remove(0); //remove "api"
             Map<String, String> post = Helper.retrievePOSTData(t.getRequestBody(), t.getRequestHeaders());
             Map<String, String> get = Helper.retrieveGETData(url);
             
@@ -69,6 +75,7 @@ public class Controllers {
                         if (args.size() != method.get().getParameterCount()) {
                             ar.fail();
                         } else {
+                            rp1.setParams(get);
                             ar.addResponse(method.get().invoke(rp1, args.toArray(new Object[args.size()])));
                             ar.success();
                         }
@@ -82,7 +89,15 @@ public class Controllers {
         }
         
         static class CRUD {
+            
+            protected Map<String, String> params;
+            
             public CRUD() {}
+            
+            public void setParams(Map<String, String> params) {
+                this.params = params;
+            }
+            
         }
         
         static class Settings extends CRUD {
@@ -93,6 +108,11 @@ public class Controllers {
             
             public String testMethodParam(Object p1, Object p2) {
                 return p1.toString() + p2.toString();
+            }
+            
+            public String testGETParams() {
+                System.out.println(params);
+                return params.toString();
             }
             
             public boolean add(String db, String property, String value) {
