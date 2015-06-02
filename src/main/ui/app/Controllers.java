@@ -75,7 +75,12 @@ public class Controllers {
                         List<Object> args = new LinkedList<>(request.subList(2, request.size()));
                         
                         if (args.size() == method.getParameterCount()) {
-                            rp1.setParams(get);
+                            if (!get.isEmpty()) {
+                                rp1.setParams(get);
+                            } else if (!post.isEmpty()) {
+                                rp1.setParams(post);
+                            }
+                            
                             ar.addResponse(method.invoke(rp1, args.toArray(new Object[args.size()])));
                             ar.success();
                         }
