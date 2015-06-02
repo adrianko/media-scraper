@@ -68,14 +68,15 @@ public class Controllers {
             if (route.isPresent()) {
                 try {
                     CRUD rp1 = (CRUD) route.get().newInstance();
-                    Optional<Method> method = Helper.checkAPISubRoute(rp1, request);
+                    Optional<Method> subRoute = Helper.checkAPISubRoute(rp1, request);
 
-                    if (method.isPresent()) {
+                    if (subRoute.isPresent()) {
+                        Method method = subRoute.get();
                         List<Object> args = new LinkedList<>(request.subList(2, request.size()));
                         
-                        if (args.size() == method.get().getParameterCount()) {
+                        if (args.size() == method.getParameterCount()) {
                             rp1.setParams(get);
-                            ar.addResponse(method.get().invoke(rp1, args.toArray(new Object[args.size()])));
+                            ar.addResponse(method.invoke(rp1, args.toArray(new Object[args.size()])));
                             ar.success();
                         }
                     }
