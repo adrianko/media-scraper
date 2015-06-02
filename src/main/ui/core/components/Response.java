@@ -13,7 +13,7 @@ import java.util.Map;
 public class Response {
 
     private static void send(HttpExchange t, byte[] response, int code, String contentType) {
-        HTTPServer.logger.info(t.getRequestURI().toString());
+        HTTPServer.logger.info(t.getRequestMethod() + ": " + t.getRequestURI().toString());
 
         try {
             if (contentType != null) {
