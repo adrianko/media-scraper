@@ -60,7 +60,7 @@ public class Controllers {
             
             if (route.isPresent()) {
                 try {
-                    Object rp1 = route.get().newInstance();
+                    CRUD rp1 = (CRUD) route.get().newInstance();
                     Optional<Method> method = Helper.checkAPISubRoute(rp1, request);
 
                     if (method.isPresent()) {
