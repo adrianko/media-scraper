@@ -63,6 +63,7 @@ public class Controllers {
             Map<String, String> get = Helper.retrieveGETData(url);
             
             Optional<Class> route = Helper.checkAPIRoute(routes, request);
+            ar.fail();
             
             if (route.isPresent()) {
                 try {
@@ -72,9 +73,7 @@ public class Controllers {
                     if (method.isPresent()) {
                         List<Object> args = new LinkedList<>(request.subList(2, request.size()));
                         
-                        if (args.size() != method.get().getParameterCount()) {
-                            ar.fail();
-                        } else {
+                        if (args.size() == method.get().getParameterCount()) {
                             rp1.setParams(get);
                             ar.addResponse(method.get().invoke(rp1, args.toArray(new Object[args.size()])));
                             ar.success();
