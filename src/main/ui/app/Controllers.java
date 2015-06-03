@@ -52,13 +52,14 @@ public class Controllers {
             APIResponse ar = new APIResponse(url, t);
             List<String> request = Arrays.asList(url.split("/")).stream().filter(s -> !s.equals(""))
                     .collect(Collectors.toList());
+            request.remove(0); //remove "api"
             String last = request.get(request.size() - 1);
             
             if (last.contains("?")) {
                 request.set(request.size() - 1, last.split("\\?")[0]);
             }
             
-            request.remove(0); //remove "api"
+            
             Map<String, String> post = Helper.retrievePOSTData(t.getRequestBody(), t.getRequestHeaders());
             Map<String, String> get = Helper.retrieveGETData(url);
             
