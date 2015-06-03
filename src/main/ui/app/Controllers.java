@@ -78,11 +78,11 @@ public class Controllers {
                         
                         if (args.size() == method.getParameterCount()) {
                             if (!get.isEmpty()) {
-                                rp1.setParams(get);
+                                rp1.setGetParams(get);
                             }
                             
                             if (!post.isEmpty()) {
-                                rp1.setParams(post);
+                                rp1.setPostParams(post);
                             }
                             
                             ar.addResponse(method.invoke(rp1, args.toArray(new Object[args.size()])));
@@ -99,16 +99,22 @@ public class Controllers {
         
         static class CRUD {
             
-            protected Map<String, String> params;
+            protected Map<String, String> get;
+            protected Map<String, String> post;
             
             public CRUD() {}
             
             public void clearParams() {
-                params = new HashMap<>();
+                get = new HashMap<>();
+                post = new HashMap<>();
+            }
+
+            public void setGetParams(Map<String, String> params) {
+                get.putAll(params);
             }
             
-            public void setParams(Map<String, String> params) {
-                this.params.putAll(params);
+            public void setPostParams(Map<String, String> params) {
+                post.putAll(params);
             }
             
         }
@@ -124,7 +130,7 @@ public class Controllers {
             }
             
             public String testGETParams() {
-                return params.toString();
+                return get.toString();
             }
             
             public boolean add(String db, String property, String value) {
