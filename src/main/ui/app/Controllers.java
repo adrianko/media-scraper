@@ -74,11 +74,14 @@ public class Controllers {
                     if (subRoute.isPresent()) {
                         Method method = subRoute.get();
                         List<Object> args = new LinkedList<>(request.subList(2, request.size()));
+                        rp1.clearParams();
                         
                         if (args.size() == method.getParameterCount()) {
                             if (!get.isEmpty()) {
                                 rp1.setParams(get);
-                            } else if (!post.isEmpty()) {
+                            }
+                            
+                            if (!post.isEmpty()) {
                                 rp1.setParams(post);
                             }
                             
@@ -100,8 +103,12 @@ public class Controllers {
             
             public CRUD() {}
             
+            public void clearParams() {
+                params = new HashMap<>();
+            }
+            
             public void setParams(Map<String, String> params) {
-                this.params = params;
+                this.params.putAll(params);
             }
             
         }
