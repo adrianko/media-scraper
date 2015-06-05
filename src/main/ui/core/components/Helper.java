@@ -25,11 +25,14 @@ import java.util.Optional;
 
 public class Helper {
     
+    public static final String HASHING_SCHEME = "SHA-1";
+    public static final String URL_ENCODING = "ASCII";
+    
     public static String sha1(String message) {
         StringBuilder stringBuffer = new StringBuilder();
         
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-1");
+            MessageDigest md = MessageDigest.getInstance(HASHING_SCHEME);
             md.reset();
             md.update(message.getBytes());
 
@@ -90,7 +93,7 @@ public class Helper {
 
             if (singlePair[1].contains("%")) {
                 try {
-                    singlePair[1] = URLDecoder.decode(singlePair[1], "ASCII");
+                    singlePair[1] = URLDecoder.decode(singlePair[1], URL_ENCODING);
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
