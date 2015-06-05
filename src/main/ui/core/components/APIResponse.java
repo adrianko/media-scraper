@@ -39,4 +39,12 @@ public class APIResponse {
         Response.sendJSON(httpExchange, response);
     }
     
+    public String getURL() {
+        return request;
+    }
+    
+    public HttpExchange getRequest() {
+        return httpExchange;
+    }
+    
 }

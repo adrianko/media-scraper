@@ -50,13 +50,12 @@ public class Controllers {
         @Override
         public void handle(HttpExchange t) {
             ar.create(t.getRequestURI().toString(), t);
-            parse(t);
+            parse();
             ar.send();
         }
         
-        public void parse(HttpExchange t) {
-            String url = t.getRequestURI().toString();
-            List<String> request = Arrays.asList(url.split("/")).stream().filter(s -> !s.equals(""))
+        public void parse() {
+            List<String> request = Arrays.asList(ar.getURL().split("/")).stream().filter(s -> !s.equals(""))
                     .collect(Collectors.toList());
             String last = request.get(request.size() - 1);
 
@@ -71,8 +70,9 @@ public class Controllers {
                 return;
             }
             
-            Map<String, String> post = Helper.retrievePOSTData(t.getRequestBody(), t.getRequestHeaders());
-            Map<String, String> get = Helper.retrieveGETData(url);
+            Map<String, String> post = Helper.retrievePOSTData(ar.getRequest().getRequestBody(), ar.getRequest()
+                    .getRequestHeaders());
+            Map<String, String> get = Helper.retrieveGETData(ar.getURL());
 
             Optional<Class> route = Helper.checkAPIRoute(routes, request);
 
