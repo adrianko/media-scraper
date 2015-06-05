@@ -13,7 +13,7 @@ public class APIResponse {
     
     private HttpExchange httpExchange;
     
-    public APIResponse(String req, HttpExchange he) {
+    public void create(String req, HttpExchange he) {
         request = req;
         httpExchange = he;
     }

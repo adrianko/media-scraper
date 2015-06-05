@@ -45,11 +45,12 @@ public class Controllers {
     public static class API extends Controller {
         
         protected List<Class> routes = Arrays.asList(this.getClass().getDeclaredClasses());
+        protected APIResponse ar = new APIResponse();
 
         @Override
         public void handle(HttpExchange t) {
             String url = t.getRequestURI().toString();
-            APIResponse ar = new APIResponse(url, t);
+            ar.create(url, t);
             List<String> request = Arrays.asList(url.split("/")).stream().filter(s -> !s.equals(""))
                     .collect(Collectors.toList());
             String last = request.get(request.size() - 1);
@@ -103,6 +104,10 @@ public class Controllers {
             }
             
             ar.send();
+        }
+        
+        public void parse() {
+            
         }
         
         static class CRUD {
