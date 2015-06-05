@@ -52,16 +52,7 @@ public class Helper {
                 .contains("application/x-www-form-urlencoded")).findAny().isPresent();
 
         if (contentType) {
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            String line;
-
-            try {
-                while ((line = br.readLine()) != null) {
-                    splitParamPair(line, params);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            new BufferedReader(new InputStreamReader(is)).lines().forEach(line -> splitParamPair(line, params));
         }
 
         return params;
