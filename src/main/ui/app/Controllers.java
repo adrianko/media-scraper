@@ -69,27 +69,30 @@ public class Controllers {
             if (route.isPresent()) {
                 try {
                     CRUD rp1 = (CRUD) route.get().newInstance();
-                    Optional<Method> subRoute = Helper.checkAPISubRoute(rp1, request);
+                    
+                    if (request.size() > 1) {
+                        Optional<Method> subRoute = Helper.checkAPISubRoute(rp1, request);
 
-                    if (subRoute.isPresent()) {
-                        Method method = subRoute.get();
-                        List<Object> args = new LinkedList<>(request.subList(2, request.size()));
-                        rp1.clearParams();
-                        
-                        if (args.size() == method.getParameterCount()) {
-                            if (!get.isEmpty()) {
-                                rp1.setGetParams(get);
+                        if (subRoute.isPresent()) {
+                            Method method = subRoute.get();
+                            List<Object> args = new LinkedList<>(request.subList(2, request.size()));
+                            rp1.clearParams();
+
+                            if (args.size() == method.getParameterCount()) {
+                                if (!get.isEmpty()) {
+                                    rp1.setGetParams(get);
+                                }
+
+                                if (!post.isEmpty()) {
+                                    rp1.setPostParams(post);
+                                }
+
+                                ar.addResponse(method.invoke(rp1, args.toArray(new Object[args.size()])));
+                                ar.success();
+                            } else {
+                                ar.addResponse("Path has incorrect number of parameters. Given: " + args.size() +
+                                        ", Required: " + method.getParameterCount());
                             }
-                            
-                            if (!post.isEmpty()) {
-                                rp1.setPostParams(post);
-                            }
-                            
-                            ar.addResponse(method.invoke(rp1, args.toArray(new Object[args.size()])));
-                            ar.success();
-                        } else {
-                            ar.addResponse("Path has incorrect number of parameters. Given: " + args.size() + 
-                                    ", Required: " + method.getParameterCount());
                         }
                     }
                 } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
