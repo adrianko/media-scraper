@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -473,6 +474,22 @@ public class HelperTest {
         Optional<Class> act = Helper.checkAPIRoute(routes, request);
 
         Assert.assertFalse(act.isPresent());
+    }
+    
+    @Test
+    public void checkAPISubRouteExists() {
+        class Sample {}
+        class Example {
+            public void method() {}
+        }
+        class API {}
+
+        List<Class> routes = Arrays.asList(Sample.class, Example.class, API.class);
+        List<String> request = Arrays.asList("example", "method");
+
+        Optional<Method> act = Helper.checkAPISubRoute(new Example(), request);
+
+        Assert.assertTrue(act.isPresent());
     }
 
 }
