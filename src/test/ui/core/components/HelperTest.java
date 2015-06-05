@@ -461,4 +461,18 @@ public class HelperTest {
         Assert.assertTrue(act.isPresent() && act.get().equals(Example.class));
     }
 
+    @Test
+    public void checkAPIRouteNotExists() {
+        class Sample {}
+        class Example {}
+        class API {}
+
+        List<Class> routes = Arrays.asList(Sample.class, Example.class, API.class);
+        List<String> request = Arrays.asList("hello", "method");
+
+        Optional<Class> act = Helper.checkAPIRoute(routes, request);
+
+        Assert.assertFalse(act.isPresent());
+    }
+
 }
