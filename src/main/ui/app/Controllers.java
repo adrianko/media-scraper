@@ -81,7 +81,7 @@ public class Controllers {
             }
             
             try {
-                CRUD rp1 = (CRUD) route.get().newInstance();
+                APIRoute rp1 = (APIRoute) route.get().newInstance();
                 rp1.clearParams();
 
                 if (request.size() <= 1) {
