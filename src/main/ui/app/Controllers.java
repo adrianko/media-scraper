@@ -116,7 +116,6 @@ public class Controllers {
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
             }
-            
         }
         
         static class CRUD {
