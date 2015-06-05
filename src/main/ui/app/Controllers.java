@@ -52,51 +52,53 @@ public class Controllers {
             APIResponse ar = new APIResponse(url, t);
             List<String> request = Arrays.asList(url.split("/")).stream().filter(s -> !s.equals(""))
                     .collect(Collectors.toList());
-            request.remove(0); //remove "api"
             String last = request.get(request.size() - 1);
             
             if (last.contains("?")) {
                 request.set(request.size() - 1, last.split("\\?")[0]);
             }
-            
-            
-            Map<String, String> post = Helper.retrievePOSTData(t.getRequestBody(), t.getRequestHeaders());
-            Map<String, String> get = Helper.retrieveGETData(url);
-            
-            Optional<Class> route = Helper.checkAPIRoute(routes, request);
-            ar.fail();
-            
-            if (route.isPresent()) {
-                try {
-                    CRUD rp1 = (CRUD) route.get().newInstance();
-                    
-                    if (request.size() > 1) {
-                        Optional<Method> subRoute = Helper.checkAPISubRoute(rp1, request);
 
-                        if (subRoute.isPresent()) {
-                            Method method = subRoute.get();
-                            List<Object> args = new LinkedList<>(request.subList(2, request.size()));
-                            rp1.clearParams();
+            request.remove(0); //remove "api"
+            
+            if (request.size() > 0) {
+                Map<String, String> post = Helper.retrievePOSTData(t.getRequestBody(), t.getRequestHeaders());
+                Map<String, String> get = Helper.retrieveGETData(url);
 
-                            if (args.size() == method.getParameterCount()) {
-                                if (!get.isEmpty()) {
-                                    rp1.setGetParams(get);
+                Optional<Class> route = Helper.checkAPIRoute(routes, request);
+                ar.fail();
+
+                if (route.isPresent()) {
+                    try {
+                        CRUD rp1 = (CRUD) route.get().newInstance();
+
+                        if (request.size() > 1) {
+                            Optional<Method> subRoute = Helper.checkAPISubRoute(rp1, request);
+
+                            if (subRoute.isPresent()) {
+                                Method method = subRoute.get();
+                                List<Object> args = new LinkedList<>(request.subList(2, request.size()));
+                                rp1.clearParams();
+
+                                if (args.size() == method.getParameterCount()) {
+                                    if (!get.isEmpty()) {
+                                        rp1.setGetParams(get);
+                                    }
+
+                                    if (!post.isEmpty()) {
+                                        rp1.setPostParams(post);
+                                    }
+
+                                    ar.addResponse(method.invoke(rp1, args.toArray(new Object[args.size()])));
+                                    ar.success();
+                                } else {
+                                    ar.addResponse("Path has incorrect number of parameters. Given: " + args.size() +
+                                            ", Required: " + method.getParameterCount());
                                 }
-
-                                if (!post.isEmpty()) {
-                                    rp1.setPostParams(post);
-                                }
-
-                                ar.addResponse(method.invoke(rp1, args.toArray(new Object[args.size()])));
-                                ar.success();
-                            } else {
-                                ar.addResponse("Path has incorrect number of parameters. Given: " + args.size() +
-                                        ", Required: " + method.getParameterCount());
                             }
                         }
+                    } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                        e.printStackTrace();
                     }
-                } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                    e.printStackTrace();
                 }
             }
             
