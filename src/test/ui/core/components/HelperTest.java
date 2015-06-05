@@ -6,9 +6,12 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class HelperTest {
     
@@ -442,6 +445,20 @@ public class HelperTest {
         Map<String, String> act = Helper.splitParamPair("abcdef", new HashMap<>());
 
         Assert.assertEquals(exp, act);
+    }
+    
+    @Test
+    public void checkAPIRouteExists() {
+        class Sample {}
+        class Example {}
+        class API {}
+        
+        List<Class> routes = Arrays.asList(Sample.class, Example.class, API.class);
+        List<String> request = Arrays.asList("example", "method");
+        
+        Optional<Class> act = Helper.checkAPIRoute(routes, request);
+        
+        Assert.assertTrue(act.isPresent() && act.get().equals(Example.class));
     }
 
 }
