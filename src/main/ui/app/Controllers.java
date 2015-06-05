@@ -87,6 +87,9 @@ public class Controllers {
                             
                             ar.addResponse(method.invoke(rp1, args.toArray(new Object[args.size()])));
                             ar.success();
+                        } else {
+                            ar.addResponse("Path has incorrect number of parameters. Given: " + args.size() + 
+                                    ", Required: " + method.getParameterCount());
                         }
                     }
                 } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
