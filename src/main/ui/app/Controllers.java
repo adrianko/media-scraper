@@ -118,12 +118,12 @@ public class Controllers {
             }
         }
         
-        static class CRUD {
+        static class APIRoute {
             
             protected Map<String, String> get;
             protected Map<String, String> post;
             
-            public CRUD() {}
+            public APIRoute() {}
             
             public void clearParams() {
                 get = new HashMap<>();
@@ -140,7 +140,7 @@ public class Controllers {
             
         }
         
-        static class Settings extends CRUD {
+        static class Settings extends APIRoute {
             
             public int testMethod() {
                 return 3;
@@ -160,7 +160,7 @@ public class Controllers {
             
         }
         
-        static class TV extends CRUD {
+        static class TV extends APIRoute {
             
             public boolean add(String title, int season, int episode, String quality, int runtime) {
                 return true;
