@@ -85,7 +85,7 @@ public class Controllers {
                 rp1.clearParams();
 
                 if (request.size() <= 1) {
-                    return;
+                    request.add("main");
                 }
                 
                 Optional<Method> subRoute = Helper.checkAPISubRoute(rp1, request);
@@ -156,6 +156,10 @@ public class Controllers {
             
             public boolean add(String db, String property, String value) {
                 return true;    
+            }
+            
+            public String main() {
+                return "main";
             }
             
         }
