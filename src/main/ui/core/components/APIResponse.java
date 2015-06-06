@@ -16,6 +16,7 @@ public class APIResponse {
     public void create(String req, HttpExchange he) {
         request = req;
         httpExchange = he;
+        response = null;
     }
     
     public void success() {
