@@ -41,5 +41,10 @@ public abstract class Episode {
     public void setEpisode(int e) {
         episode = e;
     }
+
+    @Override
+    public String toString() {
+        return getSeason() + " | " + getEpisode();
+    }
     
 }

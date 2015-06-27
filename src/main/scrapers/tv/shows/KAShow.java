@@ -49,6 +49,8 @@ public class KAShow extends Show {
                     }
                 }
             }
+
+            episodes.forEach(System.out::println);
         }
     }
 

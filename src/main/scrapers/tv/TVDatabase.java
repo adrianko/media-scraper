@@ -53,7 +53,8 @@ public class TVDatabase extends Database {
         String prefix = c.getName().substring(ind + 1, ind + 3).toLowerCase();
 
         try {
-            ResultSet rs = get("shows").createStatement().executeQuery("SELECT * FROM shows");
+            ResultSet rs = get("shows").createStatement().executeQuery("SELECT * FROM shows WHERE id IN (1,3)");
+            //ResultSet rs = get("shows").createStatement().executeQuery("SELECT * FROM shows");
 
             while (rs.next()) {
                 shows.put(
