@@ -35,9 +35,8 @@ public class TVDatabase extends Database {
     }
 
     public static void nextSeason(Show s) {
-        try {
-            PreparedStatement update = get("shows").prepareStatement("UPDATE shows SET episode = 1, season = ? WHERE " +
-                "title = ?");
+        try (PreparedStatement update = get("shows").prepareStatement("UPDATE shows SET episode = 1, season = ? " +
+                "WHERE title = ?")) {
             update.setInt(1, s.getSeason() + 1);
             update.setString(2, s.getTitle());
             update.executeUpdate();
@@ -52,8 +51,7 @@ public class TVDatabase extends Database {
         int ind = c.getName().lastIndexOf(".");
         String prefix = c.getName().substring(ind + 1, ind + 3).toLowerCase();
 
-        try {
-            ResultSet rs = get("shows").createStatement().executeQuery("SELECT * FROM shows");
+        try (ResultSet rs = get("shows").createStatement().executeQuery("SELECT * FROM shows")) {
 
             while (rs.next()) {
                 shows.put(
