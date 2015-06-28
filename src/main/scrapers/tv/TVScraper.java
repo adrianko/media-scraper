@@ -67,7 +67,7 @@ public class TVScraper extends Scraper {
                 if (!debug) {
                     //Downloader.enqueue(option.getMagnet());
                     //tvd.setLabel(option.getMagnet());
-                    TVDatabase.bump(show, episode);
+                    //TVDatabase.bump(show, episode);
                 }
 
                 show.setFound();

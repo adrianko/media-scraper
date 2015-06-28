@@ -53,11 +53,6 @@ public class TVHelper extends Helper {
 
         if (!t.getName().contains(s.getQuality())) return false;
 
-        if (((s.getSeason() != e.getSeason() || s.getEpisode() > e.getEpisode())) && ((s.getSeason() >= e.getSeason() ||
-                e.getEpisode() < 1))) {
-            return false;
-        }
-
         if (t.getByteSize() < expectedFileSize.get(s.getRuntime()).get(s.getQuality().toLowerCase() + "_min")) 
             return false;
 
