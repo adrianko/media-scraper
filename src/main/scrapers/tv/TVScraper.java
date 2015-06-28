@@ -47,7 +47,7 @@ public class TVScraper extends Scraper {
                     logger.info("No " + show.getQuality() + " found for: " + show);
                 }
 
-                if (episode.getEpisode() <= show.getEpisode()) {
+                if (episode.getEpisode() <= show.getEpisode() || show.getSeason() > episode.getSeason()) {
                     break;
                 }
             }
@@ -57,6 +57,11 @@ public class TVScraper extends Scraper {
     public Show parseOptions(Show show, Episode episode) {
         for (DownloadOption option : episode.getOptions()) {
             if (TVHelper.validateOption(option, episode, show)) {
+                if ((show.getSeason() == episode.getSeason() && show.getEpisode() > episode.getEpisode())
+                        || (show.getSeason() > episode.getSeason())) {
+                    break;
+                }
+
                 if (show.getSeason() < episode.getSeason() && episode.getEpisode() >= 1) {
                     TVDatabase.nextSeason(show);
                 }
@@ -65,9 +70,9 @@ public class TVScraper extends Scraper {
                 found.add(show.getTitle());
 
                 if (!debug) {
-                    //Downloader.enqueue(option.getMagnet());
-                    //tvd.setLabel(option.getMagnet());
-                    //TVDatabase.bump(show, episode);
+                    Downloader.enqueue(option.getMagnet());
+                    tvd.setLabel(option.getMagnet());
+                    TVDatabase.bump(show, episode);
                 }
 
                 show.setFound();
