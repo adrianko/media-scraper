@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 public class Helper {
     
@@ -36,9 +37,9 @@ public class Helper {
             md.reset();
             md.update(message.getBytes());
 
-            for (byte aB : md.digest()) {
-                stringBuffer.append(Integer.toString((aB & 0xff) + 0x100, 16).substring(1));
-            }
+            byte[] bytes = md.digest();
+            IntStream.range(0, bytes.length).forEach(i -> stringBuffer.append(Integer.toString((bytes[i] & 0xff) + 
+                    0x100, 16).substring(1)));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
